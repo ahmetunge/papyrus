@@ -1,8 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Papyrus.Business.Abstract;
+using Papyrus.Business.Concrete;
+using Papyrus.DataAccess.Abstract;
+using Papyrus.DataAccess.Concrete.EntityFramework;
 
 namespace Papyrus.Api
 {
@@ -18,6 +23,11 @@ namespace Papyrus.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PapyrusContext>(options =>
+              options.UseNpgsql(Configuration.GetConnectionString("PostgresSqlConnection")));
+
+            services.AddTransient<IBookRepository, EfCoreBookRepository>();
+            services.AddTransient<IBookService, BookManager>();
             services.AddControllers();
         }
 
