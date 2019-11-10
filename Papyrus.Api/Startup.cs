@@ -1,3 +1,4 @@
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Papyrus.Business.Abstract;
 using Papyrus.Business.Concrete;
+using Papyrus.Business.Resolvers.Autofac;
 using Papyrus.DataAccess.Abstract;
 using Papyrus.DataAccess.Concrete.EntityFramework;
 
@@ -26,9 +28,12 @@ namespace Papyrus.Api
             services.AddDbContext<PapyrusContext>(options =>
               options.UseNpgsql(Configuration.GetConnectionString("PostgresSqlConnection")));
 
-            services.AddTransient<IBookRepository, EfCoreBookRepository>();
-            services.AddTransient<IBookService, BookManager>();
             services.AddControllers();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new AutofacBusinessModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
