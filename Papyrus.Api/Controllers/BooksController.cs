@@ -16,7 +16,12 @@ namespace Papyrus.Api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_bookService.GetBooks());
+            var result = _bookService.GetBooks();
+
+            if (result.Success)
+                return Ok(result.Data);
+
+            return BadRequest(result.Message);
         }
     }
 }

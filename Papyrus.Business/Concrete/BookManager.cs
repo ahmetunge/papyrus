@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Utilities.Results;
 using Papyrus.Business.Abstract;
+using Papyrus.Business.Constants;
 using Papyrus.DataAccess.Abstract;
 using Papyrus.Entities;
 
@@ -15,9 +17,22 @@ namespace Papyrus.Business.Concrete
             _bookRepository = bookRepository;
 
         }
-        public List<Book> GetBooks()
+
+        public IResult Add(Book book)
         {
-            return _bookRepository.GetAll().ToList();
+            if (book == null)
+            {
+                return new ErrorResult();
+            }
+
+            _bookRepository.Add(book);
+
+            return new SuccessResult(Messages.SuccessAddedBook);
+        }
+
+        public IDataResult<List<Book>> GetBooks()
+        {
+            return new SuccessDataResult<List<Book>>(_bookRepository.GetAll().ToList());
         }
     }
 }
