@@ -19,7 +19,7 @@ namespace Papyrus.Api
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args)
-            .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+             .UseServiceProviderFactory(new AutofacServiceProviderFactory())
             .Build();
 
             using (var scope = host.Services.CreateScope())
