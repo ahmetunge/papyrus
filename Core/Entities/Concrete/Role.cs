@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Core.Entities;
 
-namespace Papyrus.Entities.Concrete
+namespace Core.Entities.Concrete
 {
     public class Role : EntityBase<Guid>, IEntity
     {

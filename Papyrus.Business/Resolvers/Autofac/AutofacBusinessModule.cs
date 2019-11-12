@@ -12,6 +12,9 @@ namespace Papyrus.Business.Resolvers.Autofac
         {
             builder.RegisterType<BookManager>().As<IBookService>();
             builder.RegisterType<EfCoreBookRepository>().As<IBookRepository>();
+
+            builder.RegisterType<EfCoreUserRepository>().As<IUserRepository>();
+            builder.RegisterType<UserManager>().As<IUserService>();
         }
     }
 }

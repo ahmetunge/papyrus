@@ -1,6 +1,6 @@
 using System;
 
-namespace Papyrus.Entities.Concrete
+namespace Core.Entities.Concrete
 {
     public class UserRole
     {

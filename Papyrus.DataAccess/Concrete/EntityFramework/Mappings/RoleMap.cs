@@ -1,5 +1,5 @@
+using Core.Entities.Concrete;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Papyrus.Entities.Concrete;
 
 namespace Papyrus.DataAccess.Concrete.EntityFramework.Mappings
 {
