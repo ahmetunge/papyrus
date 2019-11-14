@@ -1,10 +1,14 @@
 using Autofac;
+using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.JWT;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Papyrus.Business.Abstract;
 using Papyrus.Business.Concrete;
 using Papyrus.Business.Resolvers.Autofac;
@@ -25,8 +29,36 @@ namespace Papyrus.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(opt =>
+           {
+               opt.AddPolicy("CorsPolicy", policy =>
+               {
+                   policy
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .WithOrigins("http://localhost:4200")
+                       .AllowCredentials();
+               });
+           });
+            var tokenOptions = Configuration.GetSection("JwtTokenOptions").Get<JwtTokenOptions>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = tokenOptions.Issuer,
+                    ValidAudience = tokenOptions.Audience,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = SecurityKeyHelper.CreateSecurity(tokenOptions.SecurityKey)
+                };
+            });
             services.AddDbContext<PapyrusContext>(options =>
-              options.UseNpgsql(Configuration.GetConnectionString("PostgresSqlConnection")));
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("PostgresSqlConnection"));
+            });
+
 
             services.AddControllers();
         }
@@ -46,10 +78,10 @@ namespace Papyrus.Api
 
             //  app.UseHttpsRedirection();
 
+            app.UseCors("CorsPolicy");
             app.UseRouting();
-
             app.UseAuthorization();
-
+            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

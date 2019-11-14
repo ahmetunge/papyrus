@@ -15,6 +15,8 @@ namespace Papyrus.Business.Resolvers.Autofac
 
             builder.RegisterType<EfCoreUserRepository>().As<IUserRepository>();
             builder.RegisterType<UserManager>().As<IUserService>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
         }
     }
 }
