@@ -10,5 +10,9 @@ namespace Papyrus.Business.Constants
         public static string SuccessLogin = "Login successfully";
         public static string UserAlreadyExist = "User already exist";
         public static string UserRegistered = "User registered successfully";
+
+        public static string UserAddedSuccessfully = "User added successfully";
+
+        public static string InvalidMail = "Invalid mail adress";
     }
 }

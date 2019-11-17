@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities.Concrete;
+using Core.Utilities.Results;
 
 namespace Papyrus.Business.Abstract
 {
     public interface IUserService
     {
-        List<Role> GetUserRoles(Guid userId);
-        void AddUser(User user);
+        IDataResult<List<Role>> GetUserRoles(Guid userId);
+        IResult AddUser(User user);
 
-        User GetUserByMail(string mail);
+        IDataResult<User> GetUserByMail(string mail);
     }
 }

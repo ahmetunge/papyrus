@@ -21,14 +21,14 @@ namespace Papyrus.Business.Concrete
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
             var claims = _userService.GetUserRoles(user.Id);
-            var accessToken = _tokenHelper.CreateToken(user, claims);
+            var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             //TODO All data results constructurs should include data
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
         public IDataResult<User> Login(UserForLoginDto userForLogin)
         {
-            var userToCheck = _userService.GetUserByMail(userForLogin.Email);
+            var userToCheck = _userService.GetUserByMail(userForLogin.Email).Data;
 
             if (userToCheck == null)
             {

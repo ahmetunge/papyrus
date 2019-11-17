@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities.Concrete;
+using Core.Utilities.Results;
+using Core.Utilities.Validators;
 using Papyrus.Business.Abstract;
+using Papyrus.Business.Constants;
 using Papyrus.DataAccess.Abstract;
 
 namespace Papyrus.Business.Concrete
@@ -15,19 +18,35 @@ namespace Papyrus.Business.Concrete
             _userRepository = userRepository;
         }
 
-        public void AddUser(User user)
+        public IResult AddUser(User user)
         {
+            if (user == null)
+                return new ErrorResult();
+
             _userRepository.Add(user);
+
+            return new SuccessResult(Messages.UserAddedSuccessfully);
         }
 
-        public User GetUserByMail(string mail)
+        public IDataResult<User> GetUserByMail(string mail)
         {
-            return _userRepository.Find(u => u.Email == mail);
+            if (!Validator.ValidateMail(mail))
+                return new ErrorDataResult<User>(Messages.InvalidMail);
+
+            var user = _userRepository.Find(u => u.Email == mail);
+            if (user == null)
+                return new ErrorDataResult<User>(Messages.UserNotFound);
+
+            return new SuccessDataResult<User>(user);
+
         }
 
-        public List<Role> GetUserRoles(Guid userId)
+        public IDataResult<List<Role>> GetUserRoles(Guid userId)
         {
-            return _userRepository.GetUserRoles(userId);
+
+            var userRoles = _userRepository.GetUserRoles(userId);
+
+            return new SuccessDataResult<List<Role>>(userRoles);
         }
     }
 }

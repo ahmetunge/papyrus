@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Papyrus.Business\Papyrus.Business.csproj" />
+    <ProjectReference Include="..\Papyrus.Entities\Papyrus.Entities.csproj" />
   </ItemGroup>
 
 </Project>
