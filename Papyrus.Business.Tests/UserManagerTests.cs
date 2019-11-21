@@ -13,16 +13,18 @@ namespace Papyrus.Business.Tests
 
     public class UserManagerTests
     {
-        private readonly Mock<IUserRepository> _mock;
+        private readonly Mock<IUserRepository> _mockRepository;
+        private readonly Mock<IUnitOfWork> _mockUnitOfWork;
         public UserManagerTests()
         {
-            _mock = new Mock<IUserRepository>();
+            _mockRepository = new Mock<IUserRepository>();
+            _mockUnitOfWork = new Mock<IUnitOfWork>();
         }
         [Fact]
         public void AddUser_ShouldReturnFalse_WhenUserIsNull()
         {
-            UserManager userManager = new UserManager(_mock.Object);
 
+            UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object);
             User user = new User();
             var result = userManager.AddUser(null);
 
@@ -33,7 +35,7 @@ namespace Papyrus.Business.Tests
         [Fact]
         public void AddUser_ShouldReturnSuccessAndData_WhenUserAdded()
         {
-            UserManager userManager = new UserManager(_mock.Object);
+            UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
             var user = new User
             {
                 Firstname = "Ahmet",
@@ -52,10 +54,10 @@ namespace Papyrus.Business.Tests
         [Theory, InlineData(new object[] { "ahmetunge@gmail.com" })]
         public void GetUserByMail_ShouldReturnErrorResult_IfUserNotFound(string mail)
         {
-            _mock.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
+            _mockRepository.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
             .Returns<User>(null);
 
-            UserManager userManager = new UserManager(_mock.Object);
+            UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
             var result = userManager.GetUserByMail(mail);
 
             Assert.False(result.Success);
@@ -66,7 +68,7 @@ namespace Papyrus.Business.Tests
         [Theory, InlineData(new object[] { "ahmetunge@gmail.com" })]
         public void GetUserByMail_ShouldReturnSuccessResult_IfUserExist(string mail)
         {
-            _mock.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
+            _mockRepository.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
             .Returns(new User
             {
                 Id = new Guid(),
@@ -76,7 +78,7 @@ namespace Papyrus.Business.Tests
                 Status = 1,
             });
 
-            UserManager userManager = new UserManager(_mock.Object);
+            UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
             var result = userManager.GetUserByMail(mail);
 
             Assert.True(result.Success);
@@ -86,7 +88,7 @@ namespace Papyrus.Business.Tests
         [Theory, InlineData("ahmetunge@gmail.com")]
         public void GetUserByMail_ShouldReturnSuccessResult_IfMailValid(string mail)
         {
-            _mock.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
+            _mockRepository.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
            .Returns(new User
            {
                Id = new Guid(),
@@ -96,7 +98,7 @@ namespace Papyrus.Business.Tests
                Status = 1,
            });
 
-            UserManager userManager = new UserManager(_mock.Object);
+            UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
             var result = userManager.GetUserByMail(mail);
 
             Assert.True(result.Success);
@@ -108,7 +110,7 @@ namespace Papyrus.Business.Tests
         [InlineData("")]
         public void GetUserByMail_ShouldReturnErrorResult_IfMailInvalid(string mail)
         {
-            UserManager userManager = new UserManager(_mock.Object);
+            UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
             var result = userManager.GetUserByMail(mail);
 
             Assert.False(result.Success);
