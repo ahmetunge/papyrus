@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Papyrus.Business.Abstract;
 
@@ -13,6 +14,8 @@ namespace Papyrus.Api.Controllers
             _bookService = bookService;
 
         }
+
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
