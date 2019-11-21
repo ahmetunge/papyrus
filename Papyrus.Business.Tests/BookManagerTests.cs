@@ -12,9 +12,11 @@ namespace Papyrus.Business.Tests
         [Fact]
         public void AddBook_IfBookNull_ShoulReturnFalse()
         {
-            Mock<IBookRepository> mock = new Mock<IBookRepository>();
+            Mock<IBookRepository> mockBookRepository = new Mock<IBookRepository>();
+            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
 
-            BookManager bookManager = new BookManager(mock.Object);
+
+            BookManager bookManager = new BookManager(mockBookRepository.Object, mockUnitOfWork.Object);
 
             var result = bookManager.Add(null);
 

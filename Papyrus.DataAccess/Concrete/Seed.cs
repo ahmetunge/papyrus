@@ -17,12 +17,6 @@ namespace Papyrus.DataAccess.Concrete
                 new Book
                 {
                     Id = Guid.NewGuid(),
-                    Name = "The Art of Possibility",
-                    Summary = "Everything in life is an invention. If you choose to look at your life in a new way, then suddenly your problems fade away. One of the best ways to do this is to focus on the possibilities surrounding you in any situation rather than slipping into the default mode of measuring and comparing your life to others."
-                },
-                new Book
-                {
-                    Id = Guid.NewGuid(),
                     Name = "Born Standing Up",
                     Summary = "To become a better writer, you have to write more. Writing reveals the story because you have to write to figure out what you’re writing about. Don’t judge your initial work too harshly because every writer has terrible first drafts."
                 },

@@ -5,6 +5,9 @@ using Papyrus.Business.Abstract;
 using Papyrus.Business.Concrete;
 using Papyrus.DataAccess.Abstract;
 using Papyrus.DataAccess.Concrete.EntityFramework;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
+using Core.Utilities.Interceptors.Autofac;
 
 namespace Papyrus.Business.Resolvers.Autofac
 {
@@ -22,6 +25,14 @@ namespace Papyrus.Business.Resolvers.Autofac
             builder.RegisterType<JwtTokenHelper>().As<ITokenHelper>();
 
             builder.RegisterType<EfCoreUnitOfWork>().As<IUnitOfWork>();
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions
+                {
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
         }
     }
 }
