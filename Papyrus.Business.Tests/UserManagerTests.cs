@@ -26,7 +26,7 @@ namespace Papyrus.Business.Tests
             User user = new User();
             var result = userManager.AddUser(null);
 
-            Assert.Equal(result.Success, false);
+            Assert.False(result.Success);
 
         }
 
@@ -45,7 +45,7 @@ namespace Papyrus.Business.Tests
             };
 
             var result = userManager.AddUser(user);
-            Assert.Equal(result.Success, true);
+            Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.UserAddedSuccessfully);
         }
 
@@ -58,7 +58,7 @@ namespace Papyrus.Business.Tests
             UserManager userManager = new UserManager(_mock.Object);
             var result = userManager.GetUserByMail(mail);
 
-            Assert.Equal(result.Success, false);
+            Assert.False(result.Success);
             Assert.Equal(result.Message, Messages.UserNotFound);
 
         }
@@ -79,7 +79,7 @@ namespace Papyrus.Business.Tests
             UserManager userManager = new UserManager(_mock.Object);
             var result = userManager.GetUserByMail(mail);
 
-            Assert.Equal(result.Success, true);
+            Assert.True(result.Success);
 
         }
 
@@ -99,7 +99,7 @@ namespace Papyrus.Business.Tests
             UserManager userManager = new UserManager(_mock.Object);
             var result = userManager.GetUserByMail(mail);
 
-            Assert.Equal(result.Success, true);
+            Assert.True(result.Success);
         }
 
 
@@ -111,7 +111,7 @@ namespace Papyrus.Business.Tests
             UserManager userManager = new UserManager(_mock.Object);
             var result = userManager.GetUserByMail(mail);
 
-            Assert.Equal(result.Success, false);
+            Assert.False(result.Success);
             Assert.Equal(result.Message, Messages.InvalidMail);
         }
 

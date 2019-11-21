@@ -28,19 +28,19 @@ namespace Papyrus.Business.Concrete
 
         public IDataResult<User> Login(UserForLoginDto userForLogin)
         {
-            var userToCheck = _userService.GetUserByMail(userForLogin.Email).Data;
+            var userToCheck = _userService.GetUserByMail(userForLogin.Email);
 
-            if (userToCheck == null)
+            if (userToCheck.Data == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
 
-            return new SuccessDataResult<User>(userToCheck, Messages.SuccessLogin);
+            return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessLogin);
         }
 
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
@@ -67,7 +67,7 @@ namespace Papyrus.Business.Concrete
 
         public IResult UserExist(string email)
         {
-            if (_userService.GetUserByMail(email) != null)
+            if (_userService.GetUserByMail(email).Data != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExist);
             }

@@ -12,10 +12,12 @@ namespace Papyrus.Business.Concrete
     public class UserManager : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserManager(IUserRepository userRepository)
+        public UserManager(IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
             _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public IResult AddUser(User user)
@@ -24,7 +26,7 @@ namespace Papyrus.Business.Concrete
                 return new ErrorResult();
 
             _userRepository.Add(user);
-
+            _unitOfWork.Complete();
             return new SuccessResult(Messages.UserAddedSuccessfully);
         }
 

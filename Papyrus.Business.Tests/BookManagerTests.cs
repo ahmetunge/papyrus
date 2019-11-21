@@ -18,7 +18,7 @@ namespace Papyrus.Business.Tests
 
             var result = bookManager.Add(null);
 
-            Assert.Equal(false, result.Success);
+            Assert.False(result.Success);
         }
     }
 }

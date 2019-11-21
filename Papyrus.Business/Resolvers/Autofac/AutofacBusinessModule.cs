@@ -1,4 +1,6 @@
 using Autofac;
+using Core.Utilities.Security;
+using Core.Utilities.Security.JWT;
 using Papyrus.Business.Abstract;
 using Papyrus.Business.Concrete;
 using Papyrus.DataAccess.Abstract;
@@ -17,6 +19,9 @@ namespace Papyrus.Business.Resolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtTokenHelper>().As<ITokenHelper>();
+
+            builder.RegisterType<EfCoreUnitOfWork>().As<IUnitOfWork>();
         }
     }
 }

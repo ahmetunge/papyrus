@@ -15,7 +15,7 @@ namespace Papyrus.Api.Controllers
             _authService = authService;
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         public IActionResult Login([FromBody]UserForLoginDto userForLoginDto)
         {
             var userToLogin = _authService.Login(userForLoginDto);
@@ -37,7 +37,7 @@ namespace Papyrus.Api.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost("register")]
         public IActionResult Register([FromBody]UserForRegisterDto userForRegisterDto)
         {
             var userExist = _authService.UserExist(userForRegisterDto.Email);
