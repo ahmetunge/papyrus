@@ -1,4 +1,7 @@
 using Autofac;
+using Core.DependecyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -59,8 +62,12 @@ namespace Papyrus.Api
                 options.UseNpgsql(Configuration.GetConnectionString("PostgresSqlConnection"));
             });
 
-
             services.AddControllers();
+
+            services.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule(),
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

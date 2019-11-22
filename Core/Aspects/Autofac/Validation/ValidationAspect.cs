@@ -6,7 +6,7 @@ using Core.Utilities.Interceptors.Autofac;
 using Core.Utilities.Messages;
 using FluentValidation;
 
-namespace Core.Aspects.Validation.Validation
+namespace Core.Aspects.Autofac.Validation
 {
     public class ValidationAspect : MethodInterception
     {

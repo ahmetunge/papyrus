@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.Aspects.Validation.Validation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using Papyrus.Business.Abstract;
 using Papyrus.Business.Constants;
@@ -22,6 +23,7 @@ namespace Papyrus.Business.Concrete
         }
 
         [ValidationAspect(typeof(BookValidator), Priority = 1)]
+        [CacheRemoveAspect("IBookService.Get")]
         public IResult Add(Book book)
         {
             if (book == null)
@@ -36,6 +38,7 @@ namespace Papyrus.Business.Concrete
             return new SuccessResult(Messages.SuccessAddedBook);
         }
 
+        [CacheAspect(1)]
         public IDataResult<List<Book>> GetBooks()
         {
             return new SuccessDataResult<List<Book>>(_bookRepository.GetAll().ToList());

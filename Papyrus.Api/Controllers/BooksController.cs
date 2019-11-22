@@ -17,7 +17,6 @@ namespace Papyrus.Api.Controllers
 
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
