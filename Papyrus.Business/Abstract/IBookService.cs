@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Core.Utilities.Results;
 using Papyrus.Entities;
+using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Business.Abstract
 {
@@ -8,6 +9,6 @@ namespace Papyrus.Business.Abstract
     {
         IDataResult<List<Book>> GetBooks();
 
-        IResult Add(Book book);
+        IResult Add(BookForCreationDto book);
     }
 }

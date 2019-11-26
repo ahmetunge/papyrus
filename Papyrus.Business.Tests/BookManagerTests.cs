@@ -1,4 +1,6 @@
 
+using AutoMapper;
+using FluentValidation;
 using Moq;
 using Papyrus.Business.Concrete;
 using Papyrus.DataAccess.Abstract;
@@ -14,13 +16,26 @@ namespace Papyrus.Business.Tests
         {
             Mock<IBookRepository> mockBookRepository = new Mock<IBookRepository>();
             Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+            Mock<IMapper> mockMapper = new Mock<IMapper>();
 
 
-            BookManager bookManager = new BookManager(mockBookRepository.Object, mockUnitOfWork.Object);
+            BookManager bookManager = new BookManager(mockBookRepository.Object, mockUnitOfWork.Object, mockMapper.Object);
 
             var result = bookManager.Add(null);
 
             Assert.False(result.Success);
         }
+
+        // [Fact]
+        // public void AddBook_IfInValidBookObject_ShouldRReturnValidateException()
+        // {
+        //     Mock<IBookRepository> mockBookRepository = new Mock<IBookRepository>();
+        //     Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
+
+
+        //     BookManager bookManager = new BookManager(mockBookRepository.Object, mockUnitOfWork.Object);
+        //     var result = bookManager.Add(new Book());
+        //     Assert.Throws<ValidationException>(() => new ValidationException(""));
+        // }
     }
 }

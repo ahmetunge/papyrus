@@ -8,6 +8,8 @@ using Papyrus.DataAccess.Concrete.EntityFramework;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors.Autofac;
+using AutoMapper;
+using Papyrus.Business.Mapping.AutoMapper;
 
 namespace Papyrus.Business.Resolvers.Autofac
 {
@@ -33,6 +35,20 @@ namespace Papyrus.Business.Resolvers.Autofac
                 {
                     Selector = new AspectInterceptorSelector()
                 }).SingleInstance();
+
+
+            builder.Register(ctx => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfile());
+            }));
+
+            // var mappingConfig = new MapperConfiguration(mc =>
+            // {
+            //     mc.AddProfile(new AutoMapperProfile());
+            // });
+
+            builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
+
         }
     }
 }

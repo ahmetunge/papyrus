@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 using Papyrus.Business.Abstract;
 using Papyrus.Entities;
@@ -11,10 +11,11 @@ namespace Papyrus.Api.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
+
+
         public BooksController(IBookService bookService)
         {
             _bookService = bookService;
-
         }
 
         [HttpGet]
@@ -31,14 +32,7 @@ namespace Papyrus.Api.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]BookForCreationDto bookForCreationDto)
         {
-            //TODO user Automapper here
-            Book book = new Book()
-            {
-                Name = bookForCreationDto.Name,
-                Summary = bookForCreationDto.Summary
-            };
-
-            var result = _bookService.Add(book);
+            var result = _bookService.Add(bookForCreationDto);
 
             if (result.Success)
             {

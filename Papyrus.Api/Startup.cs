@@ -12,10 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Papyrus.Business.Abstract;
-using Papyrus.Business.Concrete;
 using Papyrus.Business.Resolvers.Autofac;
-using Papyrus.DataAccess.Abstract;
 using Papyrus.DataAccess.Concrete.EntityFramework;
 
 namespace Papyrus.Api
@@ -68,6 +65,7 @@ namespace Papyrus.Api
             {
                 new CoreModule(),
             });
+
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
