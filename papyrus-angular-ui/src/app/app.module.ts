@@ -8,21 +8,27 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AuthService } from './_services/auth.service';
 import { from } from 'rxjs';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
-  providers: [
-    AuthService
-  ],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      NavbarComponent,
+      HomeComponent,
+      RegisterComponent
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutingModule,
+      FormsModule,
+      HttpClientModule
+   ],
+   providers: [
+      AuthService
+   ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }
