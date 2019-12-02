@@ -12,13 +12,16 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { BookListComponent } from './book/book-list/book-list.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 @NgModule({
    declarations: [
       AppComponent,
       NavbarComponent,
       HomeComponent,
-      RegisterComponent
+      RegisterComponent,
+      BookListComponent
    ],
    imports: [
       BrowserModule,
@@ -34,7 +37,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent

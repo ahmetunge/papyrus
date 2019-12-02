@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,8 @@ export class NavbarComponent implements OnInit {
   model: any = {};
   constructor(
     public authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -21,6 +23,10 @@ export class NavbarComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(next => {
       this.toastr.success('Login successfully');
+    }, error => {
+      this.toastr.error(error);
+    }, () => {
+      this.router.navigate(['/books']);
     });
   }
 
@@ -30,7 +36,8 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    console.log('Logged out');
+    this.toastr.success('logged out');
+    this.router.navigate(['/home']);
   }
 
 }
