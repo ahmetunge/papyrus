@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { BookListComponent } from './book/book-list/book-list.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { BookListResolver } from './_resolvers/book-list.resolver';
 
 
 const routes: Routes = [
@@ -12,7 +13,12 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      { path: 'books', component: BookListComponent, canActivate: [AuthGuard] },
+      {
+        path: 'books',
+        component: BookListComponent,
+        canActivate: [AuthGuard],
+        resolve: { books: BookListResolver }
+      },
     ]
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
