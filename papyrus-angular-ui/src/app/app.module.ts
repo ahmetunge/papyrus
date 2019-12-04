@@ -12,14 +12,13 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import { BookListComponent } from './book/book-list/book-list.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { BookService } from './book/book.service';
 import { JwtModule } from '@auth0/angular-jwt';
-import { BookListResolver } from './_resolvers/book-list.resolver';
+import { BookModule } from './book/book.module';
+import { SharedModule } from './_shared/shared.module';
+
 
 export function getToken() {
-   debugger;
    const token = localStorage.getItem('token');
    return token;
 }
@@ -29,8 +28,7 @@ export function getToken() {
       AppComponent,
       NavbarComponent,
       HomeComponent,
-      RegisterComponent,
-      BookListComponent
+      RegisterComponent
    ],
    imports: [
       BrowserModule,
@@ -49,14 +47,13 @@ export function getToken() {
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
-      })
+      }),
+      BookModule,
+      SharedModule
    ],
    providers: [
-      AuthService,
       ErrorInterceptorProvider,
-      AuthGuard,
-      BookService,
-      BookListResolver
+      AuthGuard
    ],
    bootstrap: [
       AppComponent

@@ -13,11 +13,11 @@ export class BookService {
   constructor(private http: HttpClient) { }
 
   getBooks(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.baseUrl + 'users');
+    return this.http.get<Book[]>(this.baseUrl + 'books');
   }
 
   getBook(id): Observable<Book> {
-    return this.http.get<Book>(this.baseUrl + 'users' + id);
+    return this.http.get<Book>(this.baseUrl + 'books' + id);
   }
 
 }
