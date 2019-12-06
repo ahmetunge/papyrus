@@ -4,10 +4,12 @@ import { BookListComponent } from './book-list/book-list.component';
 import { BookService } from './book.service';
 import { CommonModule } from '@angular/common';
 import { BookRoutingModule } from './book-routing.module';
+import { BookItemComponent } from './book-list/book-item/book-item.component';
 
 @NgModule({
     declarations: [
-        BookListComponent
+        BookListComponent,
+        BookItemComponent
     ],
     imports: [
         CommonModule,

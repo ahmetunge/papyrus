@@ -15,7 +15,6 @@ export class BookListComponent implements OnInit {
   constructor(private bookService: BookService, private toastr: ToastrService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    debugger;
     this.route.data.subscribe(data => {
       this.books = data.books;
     });

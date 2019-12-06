@@ -1,9 +1,7 @@
-<div class="container">
+<div class="container mt-5">
   <div class="row">
-    <div class="col-lg-2 col-md-3 col-sm-6">
-      <p *ngFor="let book of books">
-        {{book.name}}
-      </p>
+    <div *ngFor="let book of books" class="col-md-4">
+      <app-book-item [book]="book"></app-book-item>
     </div>
   </div>
 </div>
