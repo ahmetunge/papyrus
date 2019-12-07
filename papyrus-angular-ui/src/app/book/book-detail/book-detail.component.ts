@@ -3,21 +3,19 @@ import { Book } from 'src/app/_models/book';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.css']
+  selector: 'app-book-detail',
+  templateUrl: './book-detail.component.html',
+  styleUrls: ['./book-detail.component.css']
 })
-export class BookListComponent implements OnInit {
-  books: Book[];
+export class BookDetailComponent implements OnInit {
+
+  book: Book;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.books = data.books;
+      this.book = data.book;
     });
   }
-
-
-
 }

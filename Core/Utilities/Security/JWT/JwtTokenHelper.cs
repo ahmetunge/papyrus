@@ -16,13 +16,11 @@ namespace Core.Utilities.Security.JWT
     {
         public IConfiguration Configuration { get; }
         JwtTokenOptions _tokenOptions;
-        DateTime _accessTokenExpirations;
 
         public JwtTokenHelper(IConfiguration configuration)
         {
             Configuration = configuration;
             _tokenOptions = Configuration.GetSection("JwtTokenOptions").Get<JwtTokenOptions>();
-            _accessTokenExpirations = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
         }
         public AccessToken CreateToken(User user, List<Role> roles)
         {
@@ -38,7 +36,7 @@ namespace Core.Utilities.Security.JWT
             AccessToken accessToken = new AccessToken
             {
                 Token = token,
-                Expiration = _accessTokenExpirations
+                Expiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration)
             };
 
             return accessToken;
@@ -54,7 +52,7 @@ namespace Core.Utilities.Security.JWT
             var jwt = new JwtSecurityToken(
                 issuer: tokenOptions.Issuer,
                 audience: tokenOptions.Audience,
-                expires: _accessTokenExpirations,
+                expires: DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration),
                 notBefore: DateTime.Now,
                 claims: SetClaims(user, roles),
                 signingCredentials: signingCredentials

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
@@ -37,6 +38,12 @@ namespace Papyrus.Business.Concrete
             _unitOfWork.Complete();
 
             return new SuccessResult(Messages.SuccessAddedBook);
+        }
+
+        public IDataResult<Book> GetBookById(Guid id)
+        {
+            Book book = _bookRepository.Find(b => b.Id == id);
+            return new SuccessDataResult<Book>(book);
         }
 
         [CacheAspect(1)]

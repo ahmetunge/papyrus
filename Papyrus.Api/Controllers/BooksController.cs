@@ -1,4 +1,5 @@
 
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Papyrus.Business.Abstract;
 using Papyrus.Entities;
@@ -40,6 +41,19 @@ namespace Papyrus.Api.Controllers
             }
             return BadRequest(result.Message);
 
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetBook(Guid id)
+        {
+            var result = _bookService.GetBookById(id);
+
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(result.Message);
         }
     }
 }

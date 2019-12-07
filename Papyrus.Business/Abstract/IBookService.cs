@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Utilities.Results;
 using Papyrus.Entities;
@@ -10,5 +11,7 @@ namespace Papyrus.Business.Abstract
         IDataResult<List<Book>> GetBooks();
 
         IResult Add(BookForCreationDto book);
+
+        IDataResult<Book> GetBookById(Guid id);
     }
 }
