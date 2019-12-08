@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {TabsModule} from 'ngx-bootstrap';
 
 import { BookListComponent } from './book-list/book-list.component';
 import { BookService } from './book.service';
@@ -15,7 +16,8 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
     ],
     imports: [
         CommonModule,
-        BookRoutingModule
+        BookRoutingModule,
+        TabsModule.forRoot()
     ],
     providers: [
         BookService
