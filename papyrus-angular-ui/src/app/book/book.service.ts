@@ -20,4 +20,8 @@ export class BookService {
     return this.http.get<Book>(this.baseUrl + 'books/' + id);
   }
 
+  editBook(id, book) {
+    return this.http.put(this.baseUrl + 'books/' + id, book);
+  }
+
 }

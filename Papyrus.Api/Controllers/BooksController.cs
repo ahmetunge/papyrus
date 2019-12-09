@@ -55,5 +55,13 @@ namespace Papyrus.Api.Controllers
 
             return BadRequest(result.Message);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult EditBook([FromBody]BookForEditDto book, Guid id)
+        {
+
+            return NoContent();
+        }
+
     }
 }

@@ -23,10 +23,16 @@
         <li class="list-inline-item">
           <button
             class="btn btn-success"
-            [routerLink]="['/books/',book.id]" 
+            [routerLink]="['/books/', book.id]"
             routerLinkActive="router-link-active"
           >
             Detail
+          </button>
+          <button
+            class="btn btn-primary"
+            [routerLink]="['/books/', book.id, 'edit']"
+          >
+            Edit
           </button>
         </li>
       </ul>

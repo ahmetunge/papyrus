@@ -7,17 +7,21 @@ import { CommonModule } from '@angular/common';
 import { BookRoutingModule } from './book-routing.module';
 import { BookItemComponent } from './book-list/book-item/book-item.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
+import { BookEditComponent } from './book-edit/book-edit.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
         BookListComponent,
         BookItemComponent,
-        BookDetailComponent
+        BookDetailComponent,
+        BookEditComponent
     ],
     imports: [
         CommonModule,
         BookRoutingModule,
-        TabsModule.forRoot()
+        TabsModule.forRoot(),
+        FormsModule
     ],
     providers: [
         BookService

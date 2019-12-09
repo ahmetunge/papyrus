@@ -5,6 +5,8 @@ import { BookListComponent } from './book-list/book-list.component';
 import { BookListResolver } from '../_resolvers/book-list.resolver';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookDetailResolver } from '../_resolvers/book-detail.resolver';
+import { BookEditComponent } from './book-edit/book-edit.component';
+import { BookEditResolver } from '../_resolvers/book-edit.resolver';
 
 const bookRoutes: Routes = [
     {
@@ -23,6 +25,12 @@ const bookRoutes: Routes = [
                 component: BookDetailComponent,
                 canActivate: [AuthGuard],
                 resolve: { book: BookDetailResolver }
+            },
+            {
+                path: 'books/:id/edit',
+                component: BookEditComponent,
+                canActivate: [AuthGuard],
+                resolve: { book: BookEditResolver }
             }
         ]
     },
@@ -35,7 +43,8 @@ const bookRoutes: Routes = [
     exports: [RouterModule],
     providers: [
         BookListResolver,
-        BookDetailResolver
+        BookDetailResolver,
+        BookEditResolver
     ]
 })
 
