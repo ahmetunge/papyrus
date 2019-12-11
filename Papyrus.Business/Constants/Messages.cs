@@ -14,5 +14,9 @@ namespace Papyrus.Business.Constants
         public static string UserAddedSuccessfully = "User added successfully";
 
         public static string InvalidMail = "Invalid mail adress";
+
+        public static string BookNotFound = "Book not found";
+
+        public static string BookEditSuccessfully = "Book edit successfully";
     }
 }

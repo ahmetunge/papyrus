@@ -32,6 +32,11 @@ namespace Core.DataAccess.EntityFramework
             return _context.Set<TEntity>().Where(expression).SingleOrDefault();
         }
 
+        public TEntity FindAsNoTracking(Expression<Func<TEntity, bool>> expression)
+        {
+            return _context.Set<TEntity>().Where(expression).AsNoTracking().SingleOrDefault();
+        }
+
         public IEnumerable<TEntity> FindList(Expression<Func<TEntity, bool>> expression = null)
         {
             return _context.Set<TEntity>().Where(expression);

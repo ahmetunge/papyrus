@@ -40,6 +40,23 @@ namespace Papyrus.Business.Concrete
             return new SuccessResult(Messages.SuccessAddedBook);
         }
 
+        // [ValidationAspect(typeof(BookValidator), 1)]
+        public IResult Edit(BookForEditDto bookForEditDto, Guid id)
+        {
+            var bookFromDb = _bookRepository.Find(b => b.Id == id);
+
+            if (bookFromDb == null)
+            {
+                return new ErrorResult(Messages.BookNotFound);
+            }
+
+            _mapper.Map<BookForEditDto,Book>(bookForEditDto,bookFromDb);
+        
+            _unitOfWork.Complete();
+
+            return new SuccessResult(Messages.BookEditSuccessfully);
+        }
+
         public IDataResult<Book> GetBookById(Guid id)
         {
             Book book = _bookRepository.Find(b => b.Id == id);

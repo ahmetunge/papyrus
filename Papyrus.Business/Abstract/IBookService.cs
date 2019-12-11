@@ -13,5 +13,7 @@ namespace Papyrus.Business.Abstract
         IResult Add(BookForCreationDto book);
 
         IDataResult<Book> GetBookById(Guid id);
+
+        IResult Edit(BookForEditDto book, Guid id);
     }
 }

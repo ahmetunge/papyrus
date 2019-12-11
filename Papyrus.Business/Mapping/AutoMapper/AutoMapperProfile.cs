@@ -9,6 +9,8 @@ namespace Papyrus.Business.Mapping.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<BookForCreationDto, Book>();
+
+            CreateMap<BookForEditDto, Book>();
         }
     }
 }

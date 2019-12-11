@@ -12,6 +12,8 @@ namespace Core.DataAccess
 
         void Update(T entity);
         T Find(Expression<Func<T, bool>> expression);
+
+        T FindAsNoTracking(Expression<Func<T, bool>> expression);
         IEnumerable<T> FindList(Expression<Func<T, bool>> expression);
         IEnumerable<T> GetAll();
     }
