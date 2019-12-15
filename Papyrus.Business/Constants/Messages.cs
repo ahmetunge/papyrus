@@ -18,5 +18,7 @@ namespace Papyrus.Business.Constants
         public static string BookNotFound = "Book not found";
 
         public static string BookEditSuccessfully = "Book edit successfully";
+
+        public static string BookRequired = "Book is required";
     }
 }

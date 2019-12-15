@@ -35,6 +35,7 @@ namespace Core.Utilities.Interceptors.Autofac
             {
                 isSuccess = false;
                 OnException(invocation);
+                throw;
             }
             finally
             {

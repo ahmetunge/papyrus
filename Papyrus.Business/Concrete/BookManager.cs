@@ -27,7 +27,7 @@ namespace Papyrus.Business.Concrete
             _mapper = mapper;
         }
 
-        [ValidationAspect(typeof(BookValidator), Priority = 1)]
+        [ValidationAspect(typeof(BookForCreationDtoValidator), Priority = 1)]
         [CacheRemoveAspect("IBookService.Get")]
         public IResult Add(BookForCreationDto bookForCreation)
         {
@@ -50,8 +50,8 @@ namespace Papyrus.Business.Concrete
                 return new ErrorResult(Messages.BookNotFound);
             }
 
-            _mapper.Map<BookForEditDto,Book>(bookForEditDto,bookFromDb);
-        
+            _mapper.Map<BookForEditDto, Book>(bookForEditDto, bookFromDb);
+
             _unitOfWork.Complete();
 
             return new SuccessResult(Messages.BookEditSuccessfully);
