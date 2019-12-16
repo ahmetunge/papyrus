@@ -1,4 +1,6 @@
+using System;
 using Core.Entities.Concrete;
+using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Business.Constants
 {
@@ -9,6 +11,9 @@ namespace Papyrus.Business.Constants
         public static string UserNotFound = "User not found";
         public static string SuccessLogin = "Login successfully";
         public static string UserAlreadyExist = "User already exist";
+
+        public static string EmailRequired = "Email is required";
+
         public static string UserRegistered = "User registered successfully";
 
         public static string UserAddedSuccessfully = "User added successfully";
@@ -20,5 +25,7 @@ namespace Papyrus.Business.Constants
         public static string BookEditSuccessfully = "Book edit successfully";
 
         public static string BookRequired = "Book is required";
+
+        public static string PasswordRequired ="Password is required";
     }
 }
