@@ -6,6 +6,7 @@ using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using Papyrus.Business.Abstract;
+using Papyrus.Business.BusinessAspects.Autofac;
 using Papyrus.Business.Constants;
 using Papyrus.Business.Validations.FluentValidation;
 using Papyrus.DataAccess.Abstract;
@@ -63,6 +64,7 @@ namespace Papyrus.Business.Concrete
             return new SuccessDataResult<Book>(book);
         }
 
+        [SecuredOperation("Book.List")]
         [CacheAspect(1)]
         public IDataResult<List<Book>> GetBooks()
         {
