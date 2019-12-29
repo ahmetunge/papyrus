@@ -1,5 +1,5 @@
 using Core.DataAccess;
-using Papyrus.Entities;
+using Papyrus.Entities.Concrete;
 
 namespace Papyrus.DataAccess.Abstract
 {

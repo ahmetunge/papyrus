@@ -1,7 +1,7 @@
 using System;
 using Core.Entities;
 
-namespace Papyrus.Entities
+namespace Papyrus.Entities.Concrete
 {
     public class Book : EntityBase<Guid>, IEntity
     {

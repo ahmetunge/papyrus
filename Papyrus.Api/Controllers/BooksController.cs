@@ -2,7 +2,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Papyrus.Business.Abstract;
-using Papyrus.Entities;
 using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Api.Controllers

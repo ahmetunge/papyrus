@@ -1,7 +1,6 @@
 using Core.DataAccess.EntityFramework;
-using Microsoft.EntityFrameworkCore;
 using Papyrus.DataAccess.Abstract;
-using Papyrus.Entities;
+using Papyrus.Entities.Concrete;
 
 namespace Papyrus.DataAccess.Concrete.EntityFramework
 {

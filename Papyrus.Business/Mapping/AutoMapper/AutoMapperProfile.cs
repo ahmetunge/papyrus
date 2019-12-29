@@ -1,5 +1,5 @@
 using AutoMapper;
-using Papyrus.Entities;
+using Papyrus.Entities.Concrete;
 using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Business.Mapping.AutoMapper

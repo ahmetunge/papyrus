@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Utilities.Results;
-using Papyrus.Entities;
+using Papyrus.Entities.Concrete;
 using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Business.Abstract

@@ -10,7 +10,7 @@ using Papyrus.Business.BusinessAspects.Autofac;
 using Papyrus.Business.Constants;
 using Papyrus.Business.Validations.FluentValidation;
 using Papyrus.DataAccess.Abstract;
-using Papyrus.Entities;
+using Papyrus.Entities.Concrete;
 using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Business.Concrete

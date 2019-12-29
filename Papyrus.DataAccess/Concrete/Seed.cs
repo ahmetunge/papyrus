@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Papyrus.DataAccess.Concrete.EntityFramework;
-using Papyrus.Entities;
+using Papyrus.Entities.Concrete;
 
 namespace Papyrus.DataAccess.Concrete
 {

@@ -1,8 +1,8 @@
 
 using Core.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
-using Papyrus.DataAccess.Concrete.EntityFramework.Mappings;
-using Papyrus.Entities;
+using Papyrus.DataAccess.Concrete.EntityFramework.DbConfiguration;
+using Papyrus.Entities.Concrete;
 
 namespace Papyrus.DataAccess.Concrete.EntityFramework
 {
@@ -14,14 +14,15 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            new BookMap(builder.Entity<Book>());
-            new UserMap(builder.Entity<User>());
-            new RoleMap(builder.Entity<Role>());
-            new UserRoleMap(builder.Entity<UserRole>());
-
+            builder.ApplyConfiguration(new BookConfiguration());
+            builder.ApplyConfiguration(new LogConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new UserRoleConfiguration());
         }
     }
 }

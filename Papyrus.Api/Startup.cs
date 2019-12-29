@@ -68,6 +68,7 @@ namespace Papyrus.Api
 
         }
 
+        //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Comment when you create migration !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule(new AutofacBusinessModule());
