@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using Papyrus.Business.Abstract;
 using Papyrus.Business.BusinessAspects.Autofac;
@@ -58,13 +60,14 @@ namespace Papyrus.Business.Concrete
             return new SuccessResult(Messages.BookEditSuccessfully);
         }
 
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<Book> GetBookById(Guid id)
         {
             Book book = _bookRepository.Find(b => b.Id == id);
             return new SuccessDataResult<Book>(book);
         }
 
-        [SecuredOperation("Book.List")]
+        // [SecuredOperation("Book.List")]
         [CacheAspect(1)]
         public IDataResult<List<Book>> GetBooks()
         {
