@@ -15,6 +15,8 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,6 +25,8 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new UserRoleConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new GenreConfiguration());
         }
     }
 }

@@ -9,5 +9,9 @@ namespace Papyrus.Entities.Concrete
 
         public string Summary { get; set; }
 
+        public Genre Genre { get; set; }
+
+        public Guid GenreId { get; set; }
+
     }
 }

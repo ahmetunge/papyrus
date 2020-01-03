@@ -1,3 +1,5 @@
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security;
@@ -26,6 +28,7 @@ namespace Papyrus.Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<User> Login(UserForLoginDto userForLogin)
         {
             var userToCheck = _userService.GetUserByMail(userForLogin.Email);
@@ -43,6 +46,7 @@ namespace Papyrus.Business.Concrete
             return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessLogin);
         }
 
+        [LogAspect(typeof(FileLogger))]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
