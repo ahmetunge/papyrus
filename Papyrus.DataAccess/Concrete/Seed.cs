@@ -11,27 +11,27 @@ namespace Papyrus.DataAccess.Concrete
         public static void SeedData(PapyrusContext context)
         {
 
-            Category literature = new Category
+            Catalog literature = new Catalog
             {
                 Name = "Edebiyat",
                 Description = "Edebiyat kategorisindeki kitaplar"
             };
 
-            Category economy = new Category
+            Catalog economy = new Catalog
             {
                 Name = "Ekonomi",
                 Description = "Ekonomi ile alakalı kitaplar"
             };
 
-            Category psychology = new Category
+            Catalog psychology = new Catalog
             {
                 Name = "Psikoloji",
                 Description = "Ekonomi ile alakalı kitaplar"
             };
 
-            if (!context.Categories.Any())
+            if (!context.Catalogs.Any())
             {
-                List<Category> categories = new List<Category>{
+                List<Catalog> categories = new List<Catalog>{
                                 literature,
                                 economy,
                                 psychology
@@ -43,35 +43,35 @@ namespace Papyrus.DataAccess.Concrete
 
             Genre novel = new Genre
             {
-                CategoryId = literature.Id,
+                CatalogId = literature.Id,
                 Name = "Roman",
                 Description = "Roman türünde kitaplar"
             };
 
             Genre sciencefiction = new Genre
             {
-                CategoryId = literature.Id,
+                CatalogId = literature.Id,
                 Name = "Bilim-Kurgu",
                 Description = "Bilim-Kurgu türünde kitaplar"
             };
 
             Genre managment = new Genre
             {
-                CategoryId = economy.Id,
+                CatalogId = economy.Id,
                 Name = "Yönetim",
                 Description = "Yönetim türünde kitaplar"
             };
 
             Genre generalPsychology = new Genre
             {
-                CategoryId = psychology.Id,
+                CatalogId = psychology.Id,
                 Name = "Genel Psikoloji",
                 Description = "Genel Psikoloji türünde kitaplar"
             };
 
             Genre childPsychology = new Genre
             {
-                CategoryId = psychology.Id,
+                CatalogId = psychology.Id,
                 Name = "Çocuk Psikoloji",
                 Description = "Çocuk Psikoloji türünde kitaplar"
             };

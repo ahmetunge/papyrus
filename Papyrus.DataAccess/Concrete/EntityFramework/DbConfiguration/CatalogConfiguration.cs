@@ -4,9 +4,9 @@ using Papyrus.Entities.Concrete;
 
 namespace Papyrus.DataAccess.Concrete.EntityFramework.DbConfiguration
 {
-    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+    public class CatalogConfiguration : IEntityTypeConfiguration<Catalog>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<Catalog> builder)
         {
             builder.HasKey(c => c.Id);
 

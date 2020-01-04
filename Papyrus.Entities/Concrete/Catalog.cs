@@ -4,7 +4,7 @@ using Core.Entities;
 
 namespace Papyrus.Entities.Concrete
 {
-    public class Category:EntityBase<Guid>,IEntity
+    public class Catalog:EntityBase<Guid>,IEntity
     {
         public string  Name{ get; set; }
 

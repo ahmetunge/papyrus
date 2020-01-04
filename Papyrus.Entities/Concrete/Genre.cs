@@ -10,8 +10,8 @@ namespace Papyrus.Entities.Concrete
 
         public string Description { get; set; }
 
-        public Category Category { get; set; }
-        public Guid CategoryId { get; set; }
+        public Catalog Catalog { get; set; }
+        public Guid CatalogId { get; set; }
 
         public List<Book> Books{ get; set; }
     }
