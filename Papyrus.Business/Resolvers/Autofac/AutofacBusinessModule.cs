@@ -42,12 +42,10 @@ namespace Papyrus.Business.Resolvers.Autofac
                 cfg.AddProfile(new AutoMapperProfile());
             }));
 
-            // var mappingConfig = new MapperConfiguration(mc =>
-            // {
-            //     mc.AddProfile(new AutoMapperProfile());
-            // });
-
             builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
+
+            builder.RegisterType<EfCoreCatalogRepository>().As<ICatalogRepository>();
+            builder.RegisterType<CatalogManager>().As<ICatalogService>();
 
         }
     }

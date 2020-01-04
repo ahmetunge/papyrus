@@ -11,6 +11,10 @@ namespace Papyrus.Business.Mapping.AutoMapper
             CreateMap<BookForCreationDto, Book>();
 
             CreateMap<BookForEditDto, Book>();
+
+            CreateMap<Genre, KeyValueDto>();
+
+            CreateMap<Catalog, CatalogToEditBookDto>();
         }
     }
 }

@@ -11,6 +11,27 @@
       />
     </div>
     <div class="form-group">
+      <label for="catalogs">Catalog</label>
+      <select
+        class="form-control"
+        id="catalogs"
+        (change)="onCatalogChange()"
+        name="catalog"
+        [(ngModel)]="selectedCatalog"
+      >
+        <option *ngFor="let catalog of catalogs" [value]="catalog.id">{{
+          catalog.name
+        }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="genres">Genres</label>
+      <select class="form-control" id="genres">
+        <option *ngFor="let genre of genres">{{ genre.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
       <label for="summary">Summary</label>
       <textarea
         class="form-control"
@@ -21,10 +42,16 @@
       ></textarea>
     </div>
     <div class="row">
-      <button class="btn btn-success" type="submit" [disabled]="bookForm.invalid">Save</button>
+      <button
+        class="btn btn-success"
+        type="submit"
+        [disabled]="bookForm.invalid"
+      >
+        Save
+      </button>
     </div>
   </form>
 </div>
 
-<hr>
-<p>{{bookForm.invalid}}</p>
+<hr />
+<p>{{ bookForm.invalid }}</p>
