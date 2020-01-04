@@ -15,23 +15,16 @@ import { KeyValueModel } from 'src/app/_models/keyValueModel';
 export class BookEditComponent implements OnInit {
   book: Book;
   categoryId: string;
-  catalogs: Catalog[];
-  selectedCatalog: string;
-  genres: KeyValueModel[];
-
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
-    private toastr: ToastrService,
-    private catalogService: CatalogCommonService
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
-
     this.route.data.subscribe(data => {
       this.book = data.book;
     });
-    this.getCatalogs();
   }
 
   editBook() {
@@ -42,18 +35,8 @@ export class BookEditComponent implements OnInit {
     });
   }
 
-  getCatalogs() {
-    this.catalogService.getCatalogs().subscribe(res => {
-      this.catalogs = res;
-      console.log(res);
-    }, err => {
-      this.toastr.error(err);
-    });
-  }
-
-  onCatalogChange(event: string) {
-    const genres = this.catalogs.find(c => c.id === this.selectedCatalog).genres;
-    this.genres = genres;
+  selectGenre(event: any) {
+    console.log(event);
   }
 
 }

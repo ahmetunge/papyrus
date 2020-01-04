@@ -9,13 +9,15 @@ import { BookItemComponent } from './book-list/book-item/book-item.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookEditComponent } from './book-edit/book-edit.component';
 import { FormsModule } from '@angular/forms';
+import { CatalogGenreListComponent } from '../catalog-genre-list/catalog-genre-list.component';
 
 @NgModule({
     declarations: [
         BookListComponent,
         BookItemComponent,
         BookDetailComponent,
-        BookEditComponent
+        BookEditComponent,
+        CatalogGenreListComponent
     ],
     imports: [
         CommonModule,
