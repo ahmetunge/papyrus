@@ -13,11 +13,11 @@ namespace Papyrus.Business.Tests
 {
     public class AuthManagerTests
     {
-        Mock<IUserService> _mockService;
+        Mock<IUserService> _mockUserService;
         Mock<ITokenHelper> _mockTokenHelper;
         public AuthManagerTests()
         {
-            _mockService = new Mock<IUserService>();
+            _mockUserService = new Mock<IUserService>();
             _mockTokenHelper = new Mock<ITokenHelper>();
         }
 
@@ -25,10 +25,10 @@ namespace Papyrus.Business.Tests
         public void Login_IfUserNotFound_ShouldReturnError()
         {
 
-            _mockService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
+            _mockUserService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
             .Returns<User>(null);
 
-            AuthManager authManager = new AuthManager(_mockService.Object, _mockTokenHelper.Object);
+            AuthManager authManager = new AuthManager(_mockUserService.Object, _mockTokenHelper.Object);
 
             var result = authManager.Login(new UserForLoginDto
             {
@@ -45,14 +45,14 @@ namespace Papyrus.Business.Tests
         public void Login_IfPasswordWrong_ShouldReturnError()
         {
 
-            _mockService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
+            _mockUserService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
             .Returns(new User
             {
                 PasswordHash = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 PasswordSalt = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 }
             });
 
-            AuthManager authManager = new AuthManager(_mockService.Object, _mockTokenHelper.Object);
+            AuthManager authManager = new AuthManager(_mockUserService.Object, _mockTokenHelper.Object);
 
             var result = authManager.Login(new UserForLoginDto
             {
@@ -69,10 +69,10 @@ namespace Papyrus.Business.Tests
         [Fact]
         public void UserExist_IfUserAlreadyExist_ShouldReturnError()
         {
-            _mockService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
+            _mockUserService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
             .Returns(new User());
 
-            AuthManager authManager = new AuthManager(_mockService.Object, _mockTokenHelper.Object);
+            AuthManager authManager = new AuthManager(_mockUserService.Object, _mockTokenHelper.Object);
 
             var result = authManager.UserExist("ahmetunge@gmail.com");
 
@@ -85,10 +85,10 @@ namespace Papyrus.Business.Tests
         public void UserExist_IfUserNotExist_ShouldReturnSuccessResult()
         {
 
-            _mockService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
+            _mockUserService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
            .Returns<User>(null);
 
-            AuthManager authManager = new AuthManager(_mockService.Object, _mockTokenHelper.Object);
+            AuthManager authManager = new AuthManager(_mockUserService.Object, _mockTokenHelper.Object);
 
             var result = authManager.UserExist("ahmetunge@gmail.com");
 

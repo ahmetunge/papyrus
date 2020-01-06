@@ -28,6 +28,8 @@ namespace Papyrus.Business.Constants
         public static string BookRequired = "Book is required";
 
         public static string PasswordRequired = "Password is required";
-        internal static string AuthorizationDenied = "Authorization denied";
+        public static string AuthorizationDenied = "Authorization denied";
+
+        public static string GenreNotFound = "Genre not found";
     }
 }

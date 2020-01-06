@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Utilities.Results;
 using Papyrus.Business.Abstract;
+using Papyrus.Business.Constants;
 using Papyrus.DataAccess.Abstract;
 using Papyrus.Entities.Dtos;
 
@@ -21,6 +23,9 @@ namespace Papyrus.Business.Concrete
         public async Task<IDataResult<List<CatalogToEditBookDto>>> GetCatalogsIncludeGenresAsync()
         {
             var catalogsFromDb = await _catalogRepository.GetCatalogsIncludeGenreAsync();
+
+            if (catalogsFromDb.Any(c => c.Genres.Count() <= 0))
+                return new ErrorDataResult<List<CatalogToEditBookDto>>(null, Messages.GenreNotFound);
 
             List<CatalogToEditBookDto> catalogs = _mapper
                              .Map<List<CatalogToEditBookDto>>(catalogsFromDb);
