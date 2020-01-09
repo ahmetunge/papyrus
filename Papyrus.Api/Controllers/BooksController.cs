@@ -1,5 +1,6 @@
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Papyrus.Business.Abstract;
 using Papyrus.Entities.Dtos;
@@ -19,9 +20,9 @@ namespace Papyrus.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var result = _bookService.GetBooks();
+            var result =await _bookService.GetListAsync();
 
             if (result.Success)
                 return Ok(result.Data);
@@ -30,9 +31,9 @@ namespace Papyrus.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody]BookForCreationDto bookForCreationDto)
+        public async Task<IActionResult> Create([FromBody]BookForCreationDto bookForCreationDto)
         {
-            var result = _bookService.Add(bookForCreationDto);
+            var result =await _bookService.AddAsync(bookForCreationDto);
 
             if (result.Success)
             {
@@ -43,9 +44,9 @@ namespace Papyrus.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetBook(Guid id)
+        public async Task<IActionResult> GetBook(Guid id)
         {
-            var result = _bookService.GetBookById(id);
+            var result =await _bookService.GetByIdAsync(id);
 
             if (result.Success)
             {
@@ -56,9 +57,9 @@ namespace Papyrus.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult EditBook([FromBody]BookForEditDto book, Guid id)
+        public async Task<IActionResult> EditBook([FromBody]BookForEditDto book, Guid id)
         {
-            var result = _bookService.Edit(book, id);
+            var result =await _bookService.EditAsync(book, id);
 
             if (result.Success)
                 return Ok(result);

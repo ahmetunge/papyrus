@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security;
@@ -7,10 +8,10 @@ namespace Papyrus.Business.Abstract
 {
     public interface IAuthService
     {
-        IDataResult<User> Register(UserForRegisterDto userForRegisterDto);
-        IDataResult<User> Login(UserForLoginDto userForLogin);
-        IResult UserExist(string email);
-        IDataResult<AccessToken> CreateAccessToken(User user);
+       Task<IDataResult<User>> RegisterAsync(UserForRegisterDto userForRegisterDto);
+        Task<IDataResult<User>> LoginAsync(UserForLoginDto userForLogin);
+        Task<IResult> UserExistAsync(string email);
+        Task<IDataResult<AccessToken>> CreateAccessTokenAsync(User user);
 
     }
 }

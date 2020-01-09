@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
@@ -32,21 +33,21 @@ namespace Papyrus.Business.Concrete
 
         [ValidationAspect(typeof(BookForCreationDtoValidator), Priority = 1)]
         [CacheRemoveAspect("IBookService.Get")]
-        public IResult Add(BookForCreationDto bookForCreation)
+        public async Task<IResult> AddAsync(BookForCreationDto bookForCreation)
         {
             var book = _mapper.Map<Book>(bookForCreation);
 
             _bookRepository.Add(book);
 
-            _unitOfWork.Complete();
+            await _unitOfWork.CompleteAsync();
 
             return new SuccessResult(Messages.SuccessAddedBook);
         }
 
         // [ValidationAspect(typeof(BookValidator), 1)]
-        public IResult Edit(BookForEditDto bookForEditDto, Guid id)
+        public async Task<IResult> EditAsync(BookForEditDto bookForEditDto, Guid id)
         {
-            var bookFromDb = _bookRepository.Find(b => b.Id == id);
+            var bookFromDb = await _bookRepository.FindAsync(b => b.Id == id);
 
             if (bookFromDb == null)
             {
@@ -55,23 +56,24 @@ namespace Papyrus.Business.Concrete
 
             _mapper.Map<BookForEditDto, Book>(bookForEditDto, bookFromDb);
 
-            _unitOfWork.Complete();
+            await _unitOfWork.CompleteAsync();
 
             return new SuccessResult(Messages.BookEditSuccessfully);
         }
 
         [LogAspect(typeof(FileLogger))]
-        public IDataResult<Book> GetBookById(Guid id)
+        public async Task<IDataResult<Book>> GetByIdAsync(Guid id)
         {
-            Book book = _bookRepository.Find(b => b.Id == id);
+            Book book = await _bookRepository.FindAsync(b => b.Id == id);
             return new SuccessDataResult<Book>(book);
         }
 
         // [SecuredOperation("Book.List")]
         [CacheAspect(1)]
-        public IDataResult<List<Book>> GetBooks()
+        public async Task<IDataResult<List<Book>>> GetListAsync()
         {
-            return new SuccessDataResult<List<Book>>(_bookRepository.GetAll().ToList());
+            var books = await _bookRepository.GetAllAsync();
+            return new SuccessDataResult<List<Book>>(books.ToList());
         }
     }
 }

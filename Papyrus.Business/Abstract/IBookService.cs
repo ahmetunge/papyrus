@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Utilities.Results;
 using Papyrus.Entities.Concrete;
 using Papyrus.Entities.Dtos;
@@ -8,12 +9,12 @@ namespace Papyrus.Business.Abstract
 {
     public interface IBookService
     {
-        IDataResult<List<Book>> GetBooks();
+        Task<IDataResult<List<Book>>> GetListAsync();
 
-        IResult Add(BookForCreationDto book);
+        Task<IResult> AddAsync(BookForCreationDto book);
 
-        IDataResult<Book> GetBookById(Guid id);
+        Task<IDataResult<Book>> GetByIdAsync(Guid id);
 
-        IResult Edit(BookForEditDto book, Guid id);
+        Task<IResult> EditAsync(BookForEditDto book, Guid id);
     }
 }

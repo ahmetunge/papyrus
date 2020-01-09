@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Moq;
@@ -21,19 +22,19 @@ namespace Papyrus.Business.Tests
             _mockUnitOfWork = new Mock<IUnitOfWork>();
         }
         [Fact]
-        public void AddUser_ShouldReturnFalse_WhenUserIsNull()
+        public async Task AddUser_ShouldReturnFalse_WhenUserIsNull()
         {
 
             UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object);
             User user = new User();
-            var result = userManager.AddUser(null);
+            var result =await userManager.AddAsync(null);
 
             Assert.False(result.Success);
 
         }
 
         [Fact]
-        public void AddUser_ShouldReturnSuccessAndData_WhenUserAdded()
+        public async Task AddUser_ShouldReturnSuccessAndData_WhenUserAdded()
         {
             UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
             var user = new User
@@ -46,19 +47,20 @@ namespace Papyrus.Business.Tests
                 PasswordHash = null
             };
 
-            var result = userManager.AddUser(user);
+            var result =await userManager.AddAsync(user);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.UserAddedSuccessfully);
         }
 
         [Theory, InlineData(new object[] { "ahmetunge@gmail.com" })]
-        public void GetUserByMail_ShouldReturnErrorResult_IfUserNotFound(string mail)
+        public async Task GetUserByMail_ShouldReturnErrorResult_IfUserNotFound(string mail)
         {
-            _mockRepository.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
-            .Returns<User>(null);
+            User user = null;
+            _mockRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<User, bool>>>()))
+            .ReturnsAsync(user);
 
-            UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
-            var result = userManager.GetUserByMail(mail);
+            UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object);
+            var result = await userManager.GetByMailAsync(mail);
 
             Assert.False(result.Success);
             Assert.Equal(result.Message, Messages.UserNotFound);
@@ -66,10 +68,10 @@ namespace Papyrus.Business.Tests
         }
 
         [Theory, InlineData(new object[] { "ahmetunge@gmail.com" })]
-        public void GetUserByMail_ShouldReturnSuccessResult_IfUserExist(string mail)
+        public async Task GetUserByMail_ShouldReturnSuccessResult_IfUserExist(string mail)
         {
-            _mockRepository.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
-            .Returns(new User
+            _mockRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<User, bool>>>()))
+            .ReturnsAsync(new User
             {
                 Id = new Guid(),
                 Firstname = "Ahmet",
@@ -79,17 +81,17 @@ namespace Papyrus.Business.Tests
             });
 
             UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
-            var result = userManager.GetUserByMail(mail);
+            var result =await userManager.GetByMailAsync(mail);
 
             Assert.True(result.Success);
 
         }
 
         [Theory, InlineData("ahmetunge@gmail.com")]
-        public void GetUserByMail_ShouldReturnSuccessResult_IfMailValid(string mail)
+        public async Task GetUserByMail_ShouldReturnSuccessResult_IfMailValid(string mail)
         {
-            _mockRepository.Setup(x => x.Find(It.IsAny<Expression<Func<User, bool>>>()))
-           .Returns(new User
+            _mockRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<User, bool>>>()))
+           .ReturnsAsync(new User
            {
                Id = new Guid(),
                Firstname = "Ahmet",
@@ -99,7 +101,7 @@ namespace Papyrus.Business.Tests
            });
 
             UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
-            var result = userManager.GetUserByMail(mail);
+            var result =await userManager.GetByMailAsync(mail);
 
             Assert.True(result.Success);
         }
@@ -108,10 +110,10 @@ namespace Papyrus.Business.Tests
         [Theory]
         [InlineData("ahmetunge")]
         [InlineData("")]
-        public void GetUserByMail_ShouldReturnErrorResult_IfMailInvalid(string mail)
+        public async Task GetUserByMail_ShouldReturnErrorResult_IfMailInvalid(string mail)
         {
             UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
-            var result = userManager.GetUserByMail(mail);
+            var result =await userManager.GetByMailAsync(mail);
 
             Assert.False(result.Success);
             Assert.Equal(result.Message, Messages.InvalidMail);

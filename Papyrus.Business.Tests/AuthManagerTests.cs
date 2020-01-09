@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security;
@@ -22,15 +23,18 @@ namespace Papyrus.Business.Tests
         }
 
         [Fact]
-        public void Login_IfUserNotFound_ShouldReturnError()
+        public async Task Login_IfUserNotFound_ShouldReturnError()
         {
 
-            _mockUserService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
-            .Returns<User>(null);
+            User user = null;
+            IDataResult<User> dataResult = new SuccessDataResult<User>(user);
+
+            _mockUserService.Setup(s => s.GetByMailAsync("ahmetunge@gmail.com"))
+            .ReturnsAsync(dataResult);
 
             AuthManager authManager = new AuthManager(_mockUserService.Object, _mockTokenHelper.Object);
 
-            var result = authManager.Login(new UserForLoginDto
+            var result = await authManager.LoginAsync(new UserForLoginDto
             {
                 Email = "ahmetunge@gmail.com",
                 Password = "password"
@@ -42,19 +46,22 @@ namespace Papyrus.Business.Tests
         }
 
         [Fact]
-        public void Login_IfPasswordWrong_ShouldReturnError()
+        public async Task Login_IfPasswordWrong_ShouldReturnError()
         {
-
-            _mockUserService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
-            .Returns(new User
+            User user = new User
             {
                 PasswordHash = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
                 PasswordSalt = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 }
-            });
+            };
+
+            IDataResult<User> dataResult = new SuccessDataResult<User>(user);
+
+            _mockUserService.Setup(s => s.GetByMailAsync("ahmetunge@gmail.com"))
+            .ReturnsAsync(dataResult);
 
             AuthManager authManager = new AuthManager(_mockUserService.Object, _mockTokenHelper.Object);
 
-            var result = authManager.Login(new UserForLoginDto
+            var result = await authManager.LoginAsync(new UserForLoginDto
             {
                 Email = "ahmetunge@gmail.com",
                 Password = "password"
@@ -67,14 +74,17 @@ namespace Papyrus.Business.Tests
         }
 
         [Fact]
-        public void UserExist_IfUserAlreadyExist_ShouldReturnError()
+        public async Task UserExist_IfUserAlreadyExist_ShouldReturnError()
         {
-            _mockUserService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
-            .Returns(new User());
+            User user = new User();
+            IDataResult<User> dataResult = new SuccessDataResult<User>(user);
+
+            _mockUserService.Setup(s => s.GetByMailAsync("ahmetunge@gmail.com"))
+            .ReturnsAsync(dataResult);
 
             AuthManager authManager = new AuthManager(_mockUserService.Object, _mockTokenHelper.Object);
 
-            var result = authManager.UserExist("ahmetunge@gmail.com");
+            var result = await authManager.UserExistAsync("ahmetunge@gmail.com");
 
             Assert.False(result.Success);
             Assert.Equal(Messages.UserAlreadyExist, result.Message);
@@ -82,15 +92,18 @@ namespace Papyrus.Business.Tests
         }
 
         [Fact]
-        public void UserExist_IfUserNotExist_ShouldReturnSuccessResult()
+        public async Task UserExist_IfUserNotExist_ShouldReturnSuccessResult()
         {
 
-            _mockUserService.Setup(s => s.GetUserByMail("ahmetunge@gmail.com").Data)
-           .Returns<User>(null);
+            User user = null;
+            IDataResult<User> dataResult = new SuccessDataResult<User>(user);
+            
+            _mockUserService.Setup(s => s.GetByMailAsync("ahmetunge@gmail.com"))
+           .ReturnsAsync(dataResult);
 
             AuthManager authManager = new AuthManager(_mockUserService.Object, _mockTokenHelper.Object);
 
-            var result = authManager.UserExist("ahmetunge@gmail.com");
+            var result = await authManager.UserExistAsync("ahmetunge@gmail.com");
 
             Assert.True(result.Success);
         }

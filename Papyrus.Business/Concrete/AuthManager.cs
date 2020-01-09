@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Core.Aspects.Autofac.Logging;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Entities.Concrete;
@@ -20,18 +21,18 @@ namespace Papyrus.Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
-        public IDataResult<AccessToken> CreateAccessToken(User user)
+        public async Task<IDataResult<AccessToken>> CreateAccessTokenAsync(User user)
         {
-            var claims = _userService.GetUserRoles(user.Id);
+            var claims =await _userService.GetRolesAsync(user.Id);
             var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             //TODO All data results constructurs should include data
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
         [LogAspect(typeof(FileLogger))]
-        public IDataResult<User> Login(UserForLoginDto userForLogin)
+        public async Task<IDataResult<User>> LoginAsync(UserForLoginDto userForLogin)
         {
-            var userToCheck = _userService.GetUserByMail(userForLogin.Email);
+            var userToCheck =await _userService.GetByMailAsync(userForLogin.Email);
 
             if (userToCheck.Data == null)
             {
@@ -47,7 +48,7 @@ namespace Papyrus.Business.Concrete
         }
 
         [LogAspect(typeof(FileLogger))]
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
+        public async Task<IDataResult<User>> RegisterAsync(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
@@ -63,15 +64,16 @@ namespace Papyrus.Business.Concrete
                 Status = 1
             };
 
-            _userService.AddUser(user);
+           await _userService.AddAsync(user);
 
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
 
         }
 
-        public IResult UserExist(string email)
+        public async Task<IResult> UserExistAsync(string email)
         {
-            if (_userService.GetUserByMail(email).Data != null)
+            var user = await _userService.GetByMailAsync(email);
+            if (user.Data != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExist);
             }

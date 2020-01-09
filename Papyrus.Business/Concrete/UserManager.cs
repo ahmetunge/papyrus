@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Validators;
@@ -20,22 +21,22 @@ namespace Papyrus.Business.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public IResult AddUser(User user)
+        public async Task<IResult> AddAsync(User user)
         {
             if (user == null)
                 return new ErrorResult();
 
             _userRepository.Add(user);
-            _unitOfWork.Complete();
+            await _unitOfWork.CompleteAsync();
             return new SuccessResult(Messages.UserAddedSuccessfully);
         }
 
-        public IDataResult<User> GetUserByMail(string mail)
+        public async Task<IDataResult<User>> GetByMailAsync(string mail)
         {
             if (!Validator.ValidateMail(mail))
                 return new ErrorDataResult<User>(Messages.InvalidMail);
 
-            var user = _userRepository.Find(u => u.Email == mail);
+            var user =await _userRepository.FindAsync(u => u.Email == mail);
             if (user == null)
                 return new ErrorDataResult<User>(Messages.UserNotFound);
 
@@ -43,10 +44,10 @@ namespace Papyrus.Business.Concrete
 
         }
 
-        public IDataResult<List<Role>> GetUserRoles(Guid userId)
+        public async Task<IDataResult<List<Role>>> GetRolesAsync(Guid userId)
         {
 
-            var userRoles = _userRepository.GetUserRoles(userId);
+            var userRoles =await _userRepository.GetRolesAsync(userId);
 
             return new SuccessDataResult<List<Role>>(userRoles);
         }

@@ -14,11 +14,11 @@ using AutoMapper;
 
 namespace Papyrus.Business.Tests
 {
-    public class CatalogTests
+    public class CatalogManagerTests
     {
         Mock<ICatalogRepository> _mockCatalogRepository;
         Mock<IMapper> _mockMapper;
-        public CatalogTests()
+        public CatalogManagerTests()
         {
             _mockCatalogRepository = new Mock<ICatalogRepository>();
             _mockMapper = new Mock<IMapper>();

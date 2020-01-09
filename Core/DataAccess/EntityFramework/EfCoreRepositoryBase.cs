@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,24 +28,28 @@ namespace Core.DataAccess.EntityFramework
             _context.Set<TEntity>().Remove(entity);
         }
 
-        public TEntity Find(Expression<Func<TEntity, bool>> expression)
+        public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return _context.Set<TEntity>().Where(expression).SingleOrDefault();
+            return await _context.Set<TEntity>().Where(expression).SingleAsync();
         }
 
-        public TEntity FindAsNoTracking(Expression<Func<TEntity, bool>> expression)
+        public async Task<TEntity> FindAsNoTrackingAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return _context.Set<TEntity>().Where(expression).AsNoTracking().SingleOrDefault();
+            return await _context.Set<TEntity>()
+            .Where(expression)
+            .AsNoTracking()
+            .SingleOrDefaultAsync();
         }
 
-        public IEnumerable<TEntity> FindList(Expression<Func<TEntity, bool>> expression = null)
+        public async Task<IEnumerable<TEntity>> FindListAsync(Expression<Func<TEntity, bool>> expression = null)
         {
-            return _context.Set<TEntity>().Where(expression);
+            return await _context.Set<TEntity>().Where(expression)
+            .ToListAsync();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return _context.Set<TEntity>().ToList();
+            return await _context.Set<TEntity>().ToListAsync();
         }
 
         public void Update(TEntity entity)

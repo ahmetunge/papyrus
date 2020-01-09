@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.DataAccess.EntityFramework;
 using Core.Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,12 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
             _context = context;
         }
 
-        public List<Role> GetUserRoles(Guid userId)
+        public async Task<List<Role>> GetRolesAsync(Guid userId)
         {
-            List<Role> roles = _context.UserRoles
+            List<Role> roles =await _context.UserRoles
             .Include(ur => ur.Role)
             .Where(ur => ur.UserId == userId)
-            .Select(ur => ur.Role).ToList();
+            .Select(ur => ur.Role).ToListAsync();
 
             return roles;
         }

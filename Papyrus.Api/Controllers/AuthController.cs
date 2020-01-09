@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Papyrus.Business.Abstract;
 using Papyrus.Entities.Dtos;
@@ -16,16 +17,16 @@ namespace Papyrus.Api.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody]UserForLoginDto userForLoginDto)
+        public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
         {
-            var userToLogin = _authService.Login(userForLoginDto);
+            var userToLogin =await _authService.LoginAsync(userForLoginDto);
 
             if (!userToLogin.Success)
             {
                 return BadRequest(userToLogin.Message);
             }
 
-            var result = _authService.CreateAccessToken(userToLogin.Data);
+            var result =await _authService.CreateAccessTokenAsync(userToLogin.Data);
 
             if (result.Success)
             {
@@ -38,19 +39,19 @@ namespace Papyrus.Api.Controllers
 
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody]UserForRegisterDto userForRegisterDto)
+        public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
         {
-            var userExist = _authService.UserExist(userForRegisterDto.Email);
+            var userExist =await _authService.UserExistAsync(userForRegisterDto.Email);
 
             if (!userExist.Success)
             {
                 return BadRequest(userExist.Message);
             }
 
-            var registerResult = _authService.Register(userForRegisterDto);
+            var registerResult =await _authService.RegisterAsync(userForRegisterDto);
 
             //TODO After register redirect to login
-            var result = _authService.CreateAccessToken(registerResult.Data);
+            var result =await _authService.CreateAccessTokenAsync(registerResult.Data);
             if (result.Success)
             {
                 return Ok(result.Data);

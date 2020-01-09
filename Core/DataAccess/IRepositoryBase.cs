@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Core.Entities;
 
 namespace Core.DataAccess
@@ -9,12 +10,10 @@ namespace Core.DataAccess
     {
         void Add(T entity);
         void Delete(T entity);
-
         void Update(T entity);
-        T Find(Expression<Func<T, bool>> expression);
-
-        T FindAsNoTracking(Expression<Func<T, bool>> expression);
-        IEnumerable<T> FindList(Expression<Func<T, bool>> expression);
-        IEnumerable<T> GetAll();
+        Task<T> FindAsync(Expression<Func<T, bool>> expression);
+        Task<T> FindAsNoTrackingAsync(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> FindListAsync(Expression<Func<T, bool>> expression);
+        Task<IEnumerable<T>> GetAllAsync();
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Papyrus.DataAccess.Abstract;
 
 namespace Papyrus.DataAccess.Concrete.EntityFramework
@@ -11,9 +12,9 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
             _context = context;
         }
 
-        public void Complete()
+        public async Task CompleteAsync()
         {
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
         }
     }
 }

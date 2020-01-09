@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 
@@ -7,9 +8,9 @@ namespace Papyrus.Business.Abstract
 {
     public interface IUserService
     {
-        IDataResult<List<Role>> GetUserRoles(Guid userId);
-        IResult AddUser(User user);
+        Task<IDataResult<List<Role>>> GetRolesAsync(Guid userId);
+        Task<IResult> AddAsync(User user);
 
-        IDataResult<User> GetUserByMail(string mail);
+        Task<IDataResult<User>> GetByMailAsync(string mail);
     }
 }
