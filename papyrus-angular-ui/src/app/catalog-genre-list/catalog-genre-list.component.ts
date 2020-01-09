@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { Catalog } from '../_models/catalog';
 import { CatalogCommonService } from '../_services/catalog-common.service';
 import { KeyValueModel } from '../_models/keyValueModel';
@@ -10,10 +10,10 @@ import { KeyValueModel } from '../_models/keyValueModel';
 })
 export class CatalogGenreListComponent implements OnInit {
 
-  selectedGenreId: string;
+  @Input() selectedGenreId: string;
   catalogs: Catalog[];
   genres: KeyValueModel[];
-  selectedCatalogId: string;
+  @Input() selectedCatalogId: string;
 
   @Output() getGenreSelect = new EventEmitter<string>();
   constructor(
@@ -22,11 +22,13 @@ export class CatalogGenreListComponent implements OnInit {
 
   ngOnInit() {
     this.getCatalogList();
+
   }
 
   getCatalogList() {
     this.catalogCommonService.getCatalogs().subscribe(res => {
       this.catalogs = res;
+      this.onCatalogChange();
     }, err => {
       console.log('Error when retrive catalogs');
     });
@@ -34,7 +36,6 @@ export class CatalogGenreListComponent implements OnInit {
 
   onCatalogChange() {
     this.genres = this.catalogs.find(c => c.id === this.selectedCatalogId).genres;
-    this.selectedGenreId = '';
   }
 
   onGenreSelect() {

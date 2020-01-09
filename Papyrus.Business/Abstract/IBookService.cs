@@ -13,7 +13,7 @@ namespace Papyrus.Business.Abstract
 
         Task<IResult> AddAsync(BookForCreationDto book);
 
-        Task<IDataResult<Book>> GetByIdAsync(Guid id);
+        Task<IDataResult<BookForDetailDto>> GetByIdIncludeGenreAsync(Guid id);
 
         Task<IResult> EditAsync(BookForEditDto book, Guid id);
     }

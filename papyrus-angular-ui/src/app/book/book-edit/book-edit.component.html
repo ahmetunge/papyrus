@@ -12,6 +12,8 @@
     </div>
     <app-catalog-genre-list
       (getGenreSelect)="selectGenre($event)"
+      [selectedGenreId]="book.genreId"
+      [selectedCatalogId]="book.catalogId"
     ></app-catalog-genre-list>
 
     <div class="form-group">

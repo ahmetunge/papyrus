@@ -46,7 +46,7 @@ namespace Papyrus.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBook(Guid id)
         {
-            var result =await _bookService.GetByIdAsync(id);
+            var result =await _bookService.GetByIdIncludeGenreAsync(id);
 
             if (result.Success)
             {

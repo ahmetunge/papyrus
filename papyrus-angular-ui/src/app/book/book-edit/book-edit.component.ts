@@ -36,7 +36,7 @@ export class BookEditComponent implements OnInit {
   }
 
   selectGenre(event: any) {
-    console.log(event);
+    this.book.genreId = event;
   }
 
 }

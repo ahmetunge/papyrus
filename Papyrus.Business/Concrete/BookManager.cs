@@ -62,10 +62,14 @@ namespace Papyrus.Business.Concrete
         }
 
         [LogAspect(typeof(FileLogger))]
-        public async Task<IDataResult<Book>> GetByIdAsync(Guid id)
+        public async Task<IDataResult<BookForDetailDto>> GetByIdIncludeGenreAsync(Guid id)
         {
-            Book book = await _bookRepository.FindAsync(b => b.Id == id);
-            return new SuccessDataResult<Book>(book);
+            Book book = await _bookRepository
+            .GetByIdIncludeGenreAsync(id);
+
+            var bookForDetail = _mapper.Map<BookForDetailDto>(book);
+
+            return new SuccessDataResult<BookForDetailDto>(bookForDetail);
         }
 
         // [SecuredOperation("Book.List")]

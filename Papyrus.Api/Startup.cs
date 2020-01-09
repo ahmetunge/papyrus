@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Papyrus.Business.Resolvers.Autofac;
 using Papyrus.DataAccess.Concrete.EntityFramework;
 
@@ -40,7 +41,9 @@ namespace Papyrus.Api
                        .AllowCredentials();
                });
            });
+
             var tokenOptions = Configuration.GetSection("JwtTokenOptions").Get<JwtTokenOptions>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {
                 opt.TokenValidationParameters = new TokenValidationParameters
@@ -54,12 +57,15 @@ namespace Papyrus.Api
                     IssuerSigningKey = SecurityKeyHelper.CreateSecurity(tokenOptions.SecurityKey)
                 };
             });
+
             services.AddDbContext<PapyrusContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("PostgresSqlConnection"));
             });
 
-            services.AddControllers();
+
+            services.AddControllers()
+            .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddDependencyResolvers(new ICoreModule[]
             {
