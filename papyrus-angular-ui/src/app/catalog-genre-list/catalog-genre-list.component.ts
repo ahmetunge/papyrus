@@ -35,7 +35,9 @@ export class CatalogGenreListComponent implements OnInit {
   }
 
   onCatalogChange() {
-    this.genres = this.catalogs.find(c => c.id === this.selectedCatalogId).genres;
+    if (this.selectedCatalogId !== '') {
+      this.genres = this.catalogs.find(c => c.id === this.selectedCatalogId).genres;
+    }
   }
 
   onGenreSelect() {

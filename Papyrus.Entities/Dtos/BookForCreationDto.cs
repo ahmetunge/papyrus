@@ -1,3 +1,5 @@
+using System;
+
 namespace Papyrus.Entities.Dtos
 {
     public class BookForCreationDto
@@ -5,5 +7,6 @@ namespace Papyrus.Entities.Dtos
         public string Name { get; set; }
 
         public string Summary { get; set; }
+        public Guid GenreId { get; set; }
     }
 }

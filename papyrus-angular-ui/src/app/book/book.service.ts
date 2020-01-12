@@ -8,6 +8,7 @@ import { Book } from '../_models/book';
   providedIn: 'root'
 })
 export class BookService {
+
   baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
@@ -22,6 +23,10 @@ export class BookService {
 
   editBook(id, book) {
     return this.http.put(this.baseUrl + 'books/' + id, book);
+  }
+
+  addBook(book: Book) {
+    return this.http.post(this.baseUrl + 'books/', book);
   }
 
 }
