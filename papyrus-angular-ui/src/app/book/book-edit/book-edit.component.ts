@@ -58,9 +58,7 @@ export class BookEditComponent implements OnInit {
     }
   }
   addBook() {
-    debugger;
     this.bookService.addBook(this.book).subscribe((res: any) => {
-      debugger;
       this.toastr.success(res.message);
     }, err => {
       this.toastr.error(err.message);
@@ -68,7 +66,7 @@ export class BookEditComponent implements OnInit {
   }
 
   editBook() {
-    this.bookService.editBook(this.book.id, this.book).subscribe((res: any) => {
+    this.bookService.editBook(this.id, this.book).subscribe((res: any) => {
       this.toastr.success(res.message);
     }, err => {
       this.toastr.error(err.message);

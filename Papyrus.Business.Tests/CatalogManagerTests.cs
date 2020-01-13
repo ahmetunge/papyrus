@@ -52,7 +52,7 @@ namespace Papyrus.Business.Tests
 
 
         [Fact]
-        public async Task GetCatalogsIncludeGenresAsync_MethodIsSatisfu_ShouldReturnSucces()
+        public async Task GetCatalogsIncludeGenresAsync_MethodIsSatisfy_ShouldReturnSucces()
         {
 
             List<Catalog> catalogs = new List<Catalog>()
