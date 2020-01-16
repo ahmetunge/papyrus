@@ -8,7 +8,11 @@
         name="name"
         [(ngModel)]="book.name"
         required
+        #name="ngModel"
       />
+      <span class="help-block text-danger" *ngIf="name.invalid && name.touched"
+        >Please enter a name</span
+      >
     </div>
     <app-catalog-genre-list
       (getGenreSelect)="selectGenre($event)"

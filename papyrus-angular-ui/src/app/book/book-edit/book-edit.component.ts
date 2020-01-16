@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Book } from 'src/app/_models/book';
 import { BookService } from '../book.service';
 import { ToastrService } from 'ngx-toastr';
-import { CatalogCommonService } from 'src/app/_services/catalog-common.service';
-import { Catalog } from 'src/app/_models/catalog';
-import { KeyValueModel } from 'src/app/_models/keyValueModel';
-import { error } from 'util';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-book-edit',
@@ -14,6 +11,7 @@ import { error } from 'util';
   styleUrls: ['./book-edit.component.css']
 })
 export class BookEditComponent implements OnInit {
+  @ViewChild('bookForm', { static: false }) bookForm: NgForm;
   book: Book;
   categoryId: string;
   editMode = false;
@@ -51,11 +49,16 @@ export class BookEditComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.editMode) {
-      this.editBook();
+    if (this.bookForm.valid) {
+      if (this.editMode) {
+        this.editBook();
+      } else {
+        this.addBook();
+      }
     } else {
-      this.addBook();
+      this.toastr.error('Invalid form');
     }
+
   }
   addBook() {
     this.bookService.addBook(this.book).subscribe((res: any) => {
