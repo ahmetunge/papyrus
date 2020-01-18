@@ -1,6 +1,7 @@
 using Autofac;
 using Core.DependecyResolvers;
 using Core.Extensions;
+using Core.Utilities.Cloud.Cloudinary;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
@@ -66,6 +67,8 @@ namespace Papyrus.Api
 
             services.AddControllers()
             .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
 
             services.AddDependencyResolvers(new ICoreModule[]
             {

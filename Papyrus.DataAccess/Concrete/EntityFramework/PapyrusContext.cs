@@ -18,6 +18,8 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Catalog> Catalogs { get; set; }
 
+        public DbSet<Photo> Photos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new BookConfiguration());
@@ -27,6 +29,7 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
             builder.ApplyConfiguration(new UserRoleConfiguration());
             builder.ApplyConfiguration(new CatalogConfiguration());
             builder.ApplyConfiguration(new GenreConfiguration());
+            builder.ApplyConfiguration(new PhotoConfiguration());
         }
     }
 }

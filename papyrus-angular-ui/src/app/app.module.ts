@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BookModule } from './book/book.module';
 import { SharedModule } from './_shared/shared.module';
+
 
 
 export function getToken() {
@@ -36,6 +38,7 @@ export function getToken() {
       FormsModule,
       HttpClientModule,
       BrowserAnimationsModule,
+      FileUploadModule,
       ToastrModule.forRoot({
          timeOut: 2500,
          positionClass: 'toast-top-right',
