@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { Catalog } from '../_models/catalog';
 import { CatalogCommonService } from '../_services/catalog-common.service';
 import { KeyValueModel } from '../_models/keyValueModel';
+import { NgForm, NgModel } from '@angular/forms';
+import { GenreModel } from '../_models/genre-model';
 
 @Component({
   selector: 'app-catalog-genre-list',
@@ -14,15 +16,16 @@ export class CatalogGenreListComponent implements OnInit {
   catalogs: Catalog[];
   genres: KeyValueModel[];
   @Input() selectedCatalogId: string;
+  @ViewChild('genre', { static: false }) genre: NgModel;
+  genreModel: GenreModel;
+  @Output() getGenreSelect = new EventEmitter<GenreModel>();
 
-  @Output() getGenreSelect = new EventEmitter<string>();
   constructor(
     private catalogCommonService: CatalogCommonService
   ) { }
 
   ngOnInit() {
     this.getCatalogList();
-
   }
 
   getCatalogList() {
@@ -42,7 +45,11 @@ export class CatalogGenreListComponent implements OnInit {
   }
 
   onGenreSelect() {
-    this.getGenreSelect.emit(this.selectedGenreId);
+    this.genreModel = {
+      selectedGenreId: this.selectedGenreId,
+      isValid: this.genre.valid
+    };
+    this.getGenreSelect.emit(this.genreModel);
   }
 
 }

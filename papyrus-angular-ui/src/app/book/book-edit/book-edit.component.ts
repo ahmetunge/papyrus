@@ -4,6 +4,7 @@ import { Book } from 'src/app/_models/book';
 import { BookService } from '../book.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
+import { GenreModel } from 'src/app/_models/genre-model';
 
 @Component({
   selector: 'app-book-edit',
@@ -16,6 +17,7 @@ export class BookEditComponent implements OnInit {
   categoryId: string;
   editMode = false;
   id: string;
+  isGenreValid = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -76,8 +78,13 @@ export class BookEditComponent implements OnInit {
     });
   }
 
-  selectGenre(event: any) {
-    this.book.genreId = event;
+  selectGenre(genreModel: GenreModel) {
+    this.isGenreValid = genreModel.isValid;
+    this.book.genreId = genreModel.selectedGenreId;
+  }
+
+  isFormValid() {
+    return this.isGenreValid && this.bookForm.valid;
   }
 
 }

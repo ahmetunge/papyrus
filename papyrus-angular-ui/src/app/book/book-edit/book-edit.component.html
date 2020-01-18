@@ -34,7 +34,7 @@
       <button
         class="btn btn-success"
         type="submit"
-        [disabled]="bookForm.invalid"
+        [disabled]="!isFormValid()"
       >
         Save
       </button>
@@ -43,4 +43,5 @@
 </div>
 
 <hr />
-<p>{{ bookForm.invalid }}</p>
+<p>Book valid {{ bookForm.valid }}</p>
+<p>GenreValid valid {{ isGenreValid }}</p>

@@ -21,9 +21,13 @@
     (change)="onGenreSelect()"
     [(ngModel)]="selectedGenreId"
     name="genre"
+    #genre="ngModel"
+    required
   >
     <option *ngFor="let genre of genres" [value]="genre.id">{{
       genre.name
     }}</option>
   </select>
+   <span class="help-block text-danger" *ngIf="genre.invalid && genre.touched"
+        >Please select genre</span>
 </div>
