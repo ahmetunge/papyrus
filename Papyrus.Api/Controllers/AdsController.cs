@@ -17,7 +17,14 @@ namespace Papyrus.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAds()
         {
-            return Ok();
+            var result = await _adService.GetListAsync();
+
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest();
         }
     }
 }

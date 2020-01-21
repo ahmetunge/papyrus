@@ -17,9 +17,9 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
         public DbSet<Log> Logs { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Catalog> Catalogs { get; set; }
-
         public DbSet<Photo> Photos { get; set; }
 
+        public DbSet<Ad> Ads { get; set; }
         public DbSet<Member> Members { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -34,6 +34,7 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
             builder.ApplyConfiguration(new PhotoConfiguration());
             builder.ApplyConfiguration(new AdConfiguration());
             builder.ApplyConfiguration(new MemberConfiguration());
+            builder.ApplyConfiguration(new AdConfiguration());
         }
     }
 }

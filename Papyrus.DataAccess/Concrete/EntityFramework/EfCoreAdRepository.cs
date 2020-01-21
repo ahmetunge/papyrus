@@ -7,7 +7,7 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
 {
     public class EfCoreAdRepository : EfCoreRepositoryBase<Ad>, IAdRepository
     {
-        public EfCoreAdRepository(DbContext context) : base(context)
+        public EfCoreAdRepository(PapyrusContext context) : base(context)
         {
         }
     }

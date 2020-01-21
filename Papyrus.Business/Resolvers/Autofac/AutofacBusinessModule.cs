@@ -47,6 +47,11 @@ namespace Papyrus.Business.Resolvers.Autofac
             builder.RegisterType<EfCoreCatalogRepository>().As<ICatalogRepository>();
             builder.RegisterType<CatalogManager>().As<ICatalogService>();
 
+            builder.RegisterType<EfCoreAdRepository>().As<IAdRepository>();
+            builder.RegisterType<AdManager>().As<IAdService>();
+
+
+
         }
     }
 }
