@@ -9,5 +9,8 @@ namespace Papyrus.Entities.Concrete
         public DateTime DateAdded { get; set; }
         public bool IsMain { get; set; }
         public string PublicId { get; set; }
+        public Guid AdId { get; set; }
+        public Ad Ad { get; set; }
+
     }
 }

@@ -13,5 +13,9 @@ namespace Papyrus.Entities.Concrete
 
         public Guid GenreId { get; set; }
 
+        public Guid AdId { get; set; }
+
+        public Ad Ad { get; set; }
+
     }
 }

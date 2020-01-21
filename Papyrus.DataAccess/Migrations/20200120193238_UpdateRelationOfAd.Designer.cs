@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Papyrus.DataAccess.Concrete.EntityFramework;
@@ -9,9 +10,10 @@ using Papyrus.DataAccess.Concrete.EntityFramework;
 namespace Papyrus.DataAccess.Migrations
 {
     [DbContext(typeof(PapyrusContext))]
-    partial class PapyrusContextModelSnapshot : ModelSnapshot
+    [Migration("20200120193238_UpdateRelationOfAd")]
+    partial class UpdateRelationOfAd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,17 +101,12 @@ namespace Papyrus.DataAccess.Migrations
                         .HasColumnType("character varying(750)")
                         .HasMaxLength(750);
 
-                    b.Property<Guid>("MemberId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("character varying(250)")
                         .HasMaxLength(250);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MemberId");
 
                     b.ToTable("Ad");
                 });
@@ -213,22 +210,6 @@ namespace Papyrus.DataAccess.Migrations
                     b.ToTable("Logs");
                 });
 
-            modelBuilder.Entity("Papyrus.Entities.Concrete.Member", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Members");
-                });
-
             modelBuilder.Entity("Papyrus.Entities.Concrete.Photo", b =>
                 {
                     b.Property<Guid>("Id")
@@ -273,15 +254,6 @@ namespace Papyrus.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Papyrus.Entities.Concrete.Ad", b =>
-                {
-                    b.HasOne("Papyrus.Entities.Concrete.Member", "Member")
-                        .WithMany("Ads")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Papyrus.Entities.Concrete.Book", b =>
                 {
                     b.HasOne("Papyrus.Entities.Concrete.Ad", "Ad")
@@ -302,15 +274,6 @@ namespace Papyrus.DataAccess.Migrations
                     b.HasOne("Papyrus.Entities.Concrete.Catalog", "Catalog")
                         .WithMany("Genres")
                         .HasForeignKey("CatalogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Papyrus.Entities.Concrete.Member", b =>
-                {
-                    b.HasOne("Core.Entities.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -20,6 +20,8 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
 
         public DbSet<Photo> Photos { get; set; }
 
+        public DbSet<Member> Members { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new BookConfiguration());
@@ -30,6 +32,8 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
             builder.ApplyConfiguration(new CatalogConfiguration());
             builder.ApplyConfiguration(new GenreConfiguration());
             builder.ApplyConfiguration(new PhotoConfiguration());
+            builder.ApplyConfiguration(new AdConfiguration());
+            builder.ApplyConfiguration(new MemberConfiguration());
         }
     }
 }

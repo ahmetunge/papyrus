@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Papyrus.DataAccess.Concrete.EntityFramework;
@@ -9,9 +10,10 @@ using Papyrus.DataAccess.Concrete.EntityFramework;
 namespace Papyrus.DataAccess.Migrations
 {
     [DbContext(typeof(PapyrusContext))]
-    partial class PapyrusContextModelSnapshot : ModelSnapshot
+    [Migration("20200121185719_AddMemberTable")]
+    partial class AddMemberTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,7 +228,7 @@ namespace Papyrus.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Members");
+                    b.ToTable("Member");
                 });
 
             modelBuilder.Entity("Papyrus.Entities.Concrete.Photo", b =>
