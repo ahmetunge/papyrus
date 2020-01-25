@@ -17,9 +17,6 @@ namespace Papyrus.Business.Resolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BookManager>().As<IBookService>();
-            builder.RegisterType<EfCoreBookRepository>().As<IBookRepository>();
-
             builder.RegisterType<EfCoreUserRepository>().As<IUserRepository>();
             builder.RegisterType<UserManager>().As<IUserService>();
 
@@ -43,9 +40,6 @@ namespace Papyrus.Business.Resolvers.Autofac
             }));
 
             builder.Register(ctx => ctx.Resolve<MapperConfiguration>().CreateMapper()).As<IMapper>().InstancePerLifetimeScope();
-
-            builder.RegisterType<EfCoreCatalogRepository>().As<ICatalogRepository>();
-            builder.RegisterType<CatalogManager>().As<ICatalogService>();
 
             builder.RegisterType<EfCoreAdRepository>().As<IAdRepository>();
             builder.RegisterType<AdManager>().As<IAdService>();

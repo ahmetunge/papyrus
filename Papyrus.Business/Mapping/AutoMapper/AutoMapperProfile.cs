@@ -8,19 +8,7 @@ namespace Papyrus.Business.Mapping.AutoMapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<BookForCreationDto, Book>();
-
-            CreateMap<BookForEditDto, Book>();
-
-            CreateMap<Genre, KeyValueDto>();
-
-            CreateMap<Catalog, CatalogToEditBookDto>();
-
-            CreateMap<Book, BookForDetailDto>()
-            .ForMember(
-                dest => dest.CatalogId,
-                opt => opt.MapFrom(src => src.Genre.CatalogId)
-            );
+          
         }
     }
 }

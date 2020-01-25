@@ -10,8 +10,8 @@ using Papyrus.DataAccess.Concrete.EntityFramework;
 namespace Papyrus.DataAccess.Migrations
 {
     [DbContext(typeof(PapyrusContext))]
-    [Migration("20200120193238_UpdateRelationOfAd")]
-    partial class UpdateRelationOfAd
+    [Migration("20200125162425_InitialNewDatabase")]
+    partial class InitialNewDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,51 +98,30 @@ namespace Papyrus.DataAccess.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
-                        .HasColumnType("character varying(750)")
-                        .HasMaxLength(750);
+                        .HasColumnType("character varying(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<Guid>("MemberId")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((byte)1);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("character varying(250)")
-                        .HasMaxLength(250);
+                        .HasColumnType("character varying(150)")
+                        .HasMaxLength(150);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ad");
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("Ads");
                 });
 
-            modelBuilder.Entity("Papyrus.Entities.Concrete.Book", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AdId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("GenreId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("character varying(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Summary")
-                        .HasColumnType("character varying(1000)")
-                        .HasMaxLength(1000);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdId")
-                        .IsUnique();
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("Papyrus.Entities.Concrete.Catalog", b =>
+            modelBuilder.Entity("Papyrus.Entities.Concrete.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -154,37 +133,12 @@ namespace Papyrus.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("character varying(150)")
-                        .HasMaxLength(150);
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Catalogs");
-                });
-
-            modelBuilder.Entity("Papyrus.Entities.Concrete.Genre", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CatalogId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("character varying(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("character varying(150)")
-                        .HasMaxLength(150);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CatalogId");
-
-                    b.ToTable("Genres");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Papyrus.Entities.Concrete.Log", b =>
@@ -208,6 +162,22 @@ namespace Papyrus.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Logs");
+                });
+
+            modelBuilder.Entity("Papyrus.Entities.Concrete.Member", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Members");
                 });
 
             modelBuilder.Entity("Papyrus.Entities.Concrete.Photo", b =>
@@ -239,6 +209,98 @@ namespace Papyrus.DataAccess.Migrations
                     b.ToTable("Photos");
                 });
 
+            modelBuilder.Entity("Papyrus.Entities.Concrete.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AdId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdId")
+                        .IsUnique();
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Papyrus.Entities.Concrete.ProductProperty", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PropertyTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PropertyValueId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("ProductId", "PropertyTypeId", "PropertyValueId");
+
+                    b.HasIndex("PropertyTypeId");
+
+                    b.HasIndex("PropertyValueId");
+
+                    b.ToTable("ProductProperties");
+                });
+
+            modelBuilder.Entity("Papyrus.Entities.Concrete.PropertyType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("character varying(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("PropertyTypes");
+                });
+
+            modelBuilder.Entity("Papyrus.Entities.Concrete.PropertyValue", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("character varying(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<Guid>("PropertyTypeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyTypeId");
+
+                    b.ToTable("PropertyValues");
+                });
+
             modelBuilder.Entity("Core.Entities.Concrete.UserRole", b =>
                 {
                     b.HasOne("Core.Entities.Concrete.Role", "Role")
@@ -254,26 +316,20 @@ namespace Papyrus.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Papyrus.Entities.Concrete.Book", b =>
+            modelBuilder.Entity("Papyrus.Entities.Concrete.Ad", b =>
                 {
-                    b.HasOne("Papyrus.Entities.Concrete.Ad", "Ad")
-                        .WithOne("Book")
-                        .HasForeignKey("Papyrus.Entities.Concrete.Book", "AdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Papyrus.Entities.Concrete.Genre", "Genre")
-                        .WithMany("Books")
-                        .HasForeignKey("GenreId")
+                    b.HasOne("Papyrus.Entities.Concrete.Member", "Member")
+                        .WithMany("Ads")
+                        .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Papyrus.Entities.Concrete.Genre", b =>
+            modelBuilder.Entity("Papyrus.Entities.Concrete.Member", b =>
                 {
-                    b.HasOne("Papyrus.Entities.Concrete.Catalog", "Catalog")
-                        .WithMany("Genres")
-                        .HasForeignKey("CatalogId")
+                    b.HasOne("Core.Entities.Concrete.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -283,6 +339,60 @@ namespace Papyrus.DataAccess.Migrations
                     b.HasOne("Papyrus.Entities.Concrete.Ad", "Ad")
                         .WithMany("Photos")
                         .HasForeignKey("AdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Papyrus.Entities.Concrete.Product", b =>
+                {
+                    b.HasOne("Papyrus.Entities.Concrete.Ad", "Ad")
+                        .WithOne("Product")
+                        .HasForeignKey("Papyrus.Entities.Concrete.Product", "AdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Papyrus.Entities.Concrete.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Papyrus.Entities.Concrete.ProductProperty", b =>
+                {
+                    b.HasOne("Papyrus.Entities.Concrete.Product", "Product")
+                        .WithMany("ProductProperties")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Papyrus.Entities.Concrete.PropertyType", "PropertyType")
+                        .WithMany("ProductProperties")
+                        .HasForeignKey("PropertyTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Papyrus.Entities.Concrete.PropertyValue", "PropertyValue")
+                        .WithMany("ProductProperties")
+                        .HasForeignKey("PropertyValueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Papyrus.Entities.Concrete.PropertyType", b =>
+                {
+                    b.HasOne("Papyrus.Entities.Concrete.Category", "Category")
+                        .WithMany("PropertyTypes")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Papyrus.Entities.Concrete.PropertyValue", b =>
+                {
+                    b.HasOne("Papyrus.Entities.Concrete.PropertyType", "PropertyType")
+                        .WithMany("PropertyValues")
+                        .HasForeignKey("PropertyTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

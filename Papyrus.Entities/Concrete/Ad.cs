@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
+using Papyrus.Entities.Concrete.Enums;
 
 namespace Papyrus.Entities.Concrete
 {
@@ -12,10 +13,11 @@ namespace Papyrus.Entities.Concrete
         }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Book Book { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        public AdStatus Status { get; set; }
         public Member Member { get; set; }
         public Guid MemberId { get; set; }
+        public Product Product { get; set; }
+        public ICollection<Photo> Photos { get; set; }
 
     }
 }

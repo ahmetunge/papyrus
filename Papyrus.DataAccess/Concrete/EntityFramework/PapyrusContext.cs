@@ -10,31 +10,33 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
     {
         public PapyrusContext(DbContextOptions<PapyrusContext> options) : base(options) { }
 
-        public DbSet<Book> Books { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Log> Logs { get; set; }
-        public DbSet<Genre> Genres { get; set; }
-        public DbSet<Catalog> Catalogs { get; set; }
         public DbSet<Photo> Photos { get; set; }
-
         public DbSet<Ad> Ads { get; set; }
         public DbSet<Member> Members { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductProperty> ProductProperties { get; set; }
+        public DbSet<PropertyType> PropertyTypes { get; set; }
+        public DbSet<PropertyValue> PropertyValues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new BookConfiguration());
             builder.ApplyConfiguration(new LogConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new UserRoleConfiguration());
-            builder.ApplyConfiguration(new CatalogConfiguration());
-            builder.ApplyConfiguration(new GenreConfiguration());
             builder.ApplyConfiguration(new PhotoConfiguration());
             builder.ApplyConfiguration(new AdConfiguration());
             builder.ApplyConfiguration(new MemberConfiguration());
-            builder.ApplyConfiguration(new AdConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new ProductConfiguration());
+            builder.ApplyConfiguration(new ProductPropertyConfiguration());
+            builder.ApplyConfiguration(new PropertyTypeConfiguration());
+            builder.ApplyConfiguration(new PropertyValueConfiguration());
         }
     }
 }

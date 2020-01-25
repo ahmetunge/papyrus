@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Papyrus.Entities.Concrete;
+using Papyrus.Entities.Concrete.Enums;
 
 namespace Papyrus.DataAccess.Concrete.EntityFramework.DbConfiguration
 {
@@ -11,16 +12,24 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework.DbConfiguration
             builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Title)
-            .IsRequired(true)
-            .HasMaxLength(250);
+            .HasMaxLength(150)
+            .IsRequired(true);
 
             builder.Property(a => a.Description)
-            .IsRequired(false)
-            .HasMaxLength(750);
+            .HasMaxLength(500)
+            .IsRequired(false);
 
-            builder.HasOne(a => a.Book)
-            .WithOne(b => b.Ad)
-            .HasForeignKey<Book>(b => b.AdId);
+            builder.Property(a => a.Status)
+            .IsRequired(true)
+            .HasDefaultValue(AdStatus.Active);
+
+            builder.HasOne(a => a.Member)
+            .WithMany(m => m.Ads)
+            .HasForeignKey(a => a.MemberId);
+
+            builder.HasOne(a => a.Product)
+            .WithOne(p => p.Ad)
+            .HasForeignKey<Product>(a => a.AdId);
 
             builder.HasMany(a => a.Photos)
             .WithOne(p => p.Ad)
