@@ -17,6 +17,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
 import { BookModule } from './book/book.module';
 import { SharedModule } from './_shared/shared.module';
+import { AdModule } from './ad/ad.module';
 
 
 
@@ -52,7 +53,8 @@ export function getToken() {
          }
       }),
       BookModule,
-      SharedModule
+      SharedModule,
+      AdModule
    ],
    providers: [
       ErrorInterceptorProvider,

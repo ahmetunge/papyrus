@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
     }, error => {
       this.toastr.error(error);
     }, () => {
-      this.router.navigate(['/books']);
+      this.router.navigate(['/ads']);
     });
   }
 

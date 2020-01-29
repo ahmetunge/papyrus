@@ -10,6 +10,48 @@ namespace Papyrus.DataAccess.Concrete
     {
         public static void SeedData(PapyrusContext context)
         {
+
+            if (!context.Ads.Any())
+            {
+
+                List<Ad> ads = new List<Ad>{
+                    new Ad{
+                    Id= Guid.NewGuid(),
+                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
+                    Title="Ad-1",
+                    Description="Cras lorem ligula, iaculis nec fermentum eu, vulputate eget sem. Nullam nunc dolor, facilisis eu vulputate nec, elementum dictum sem. Cras at augue turpis. Pellentesque malesuada accumsan arcu vitae convallis. Nunc sapien nunc, facilisis vel enim at, pharetra tincidunt orci. Aliquam et nisl mauris. Cras et elit erat. "
+                },
+                    new Ad{
+                    Id= Guid.NewGuid(),
+                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
+                    Title="Ad-2",
+                    Description="Vestibulum vestibulum mi orci, at dignissim ligula consequat et. Aliquam ut ipsum aliquet, luctus urna sed, ultrices justo. Curabitur vel orci et turpis rhoncus blandit a sit amet tellus. Curabitur eleifend vulputate accumsan. Nullam nec justo risus. Pellentesque quis molestie lacus. Nunc vitae convallis leo, eu aliquam sapien. Nunc consequat ligula leo, ac interdum enim rutrum at. Pellentesque nec sem scelerisque velit cursus blandit ac vitae ipsum."
+                },
+
+                new Ad{
+                    Id= Guid.NewGuid(),
+                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
+                    Title="Ad-3",
+                    Description="Aenean at neque ultrices, lacinia ligula in, laoreet purus. Nulla lacinia sagittis arcu a sollicitudin. Fusce rutrum sem libero. Vestibulum in diam in libero dapibus consequat. Pellentesque iaculis iaculis sem vitae eleifend. Mauris vel suscipit justo. In a dapibus ex, in tincidunt sem."
+                },
+                new Ad{
+                    Id= Guid.NewGuid(),
+                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
+                    Title="Ad-4",
+                    Description="Vestibulum vestibulum mi orci, at dignissim ligula consequat et. Aliquam ut ipsum aliquet, luctus urna sed, ultrices justo. Curabitur vel orci et turpis rhoncus blandit a sit amet tellus. Curabitur eleifend vulputate accumsan. Nullam nec justo risus."
+                },
+                new Ad{
+                    Id= Guid.NewGuid(),
+                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
+                    Title="Ad-5",
+                    Description="Cras lorem ligula, iaculis nec fermentum eu, vulputate eget sem. Nullam nunc dolor, facilisis eu vulputate nec, elementum dictum sem. Cras at augue turpis. Pellentesque malesuada accumsan arcu vitae convallis. Nunc sapien nunc, facilisis vel enim at, pharetra tincidunt orci."
+                }};
+
+                context.Ads.AddRange(ads);
+                context.SaveChanges();
+            }
+
+
             // {
             //     // Ad ad = new Ad
             //     // {

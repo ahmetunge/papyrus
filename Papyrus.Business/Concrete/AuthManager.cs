@@ -29,7 +29,7 @@ namespace Papyrus.Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
-        [LogAspect(typeof(FileLogger))]
+       // [LogAspect(typeof(FileLogger))]
         public async Task<IDataResult<User>> LoginAsync(UserForLoginDto userForLogin)
         {
             var userToCheck =await _userService.GetByMailAsync(userForLogin.Email);
@@ -47,7 +47,7 @@ namespace Papyrus.Business.Concrete
             return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessLogin);
         }
 
-        [LogAspect(typeof(FileLogger))]
+        //[LogAspect(typeof(FileLogger))]
         public async Task<IDataResult<User>> RegisterAsync(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;

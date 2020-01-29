@@ -30,7 +30,7 @@ namespace Core.DataAccess.EntityFramework
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return await _context.Set<TEntity>().Where(expression).SingleAsync();
+            return await _context.Set<TEntity>().Where(expression).SingleOrDefaultAsync();
         }
 
         public async Task<TEntity> FindAsNoTrackingAsync(Expression<Func<TEntity, bool>> expression)
