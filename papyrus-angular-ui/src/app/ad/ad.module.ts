@@ -4,11 +4,14 @@ import { AdRoutingModule } from './ad-routing.module';
 import { AdItemComponent } from './ad-list/ad-item/ad-item.component';
 import { CommonModule } from '@angular/common';
 import { AdService } from './ad.service';
+import { AdEditComponent } from './ad-edit/ad-edit.component';
+import { CategoryService } from '../category/category.service';
 
 @NgModule({
   declarations: [
     AdListComponent,
-    AdItemComponent
+    AdItemComponent,
+    AdEditComponent
   ],
   imports: [
     AdRoutingModule,
@@ -16,7 +19,8 @@ import { AdService } from './ad.service';
   ],
   exports: [],
   providers: [
-    AdService
+    AdService,
+    CategoryService
   ]
 })
 

@@ -10,6 +10,24 @@ namespace Papyrus.DataAccess.Concrete
     {
         public static void SeedData(PapyrusContext context)
         {
+            if (!context.Categories.Any())
+            {
+                Category bookCategory = new Category
+                {
+                    Name = "Book",
+                    Description = "Nunc in venenatis augue. Maecenas nec mauris rhoncus, sagittis orci in, posuere nisi. Cras ut mauris neque. Morbi rhoncus ipsum purus, quis gravida justo euismod eget. Ut viverra congue ante a consequat. Quisque ac nibh neque. Cras id orci placerat, vehicula turpis eget, malesuada orci. Suspendisse pretium mauris vel elit mollis bibendum. Mauris rutrum tellus eget imperdiet dignissim. Donec quis lacus venenatis, egestas lorem id, feugiat nisi. Nulla fringilla mi egestas arcu pretium bibendum.",
+
+                };
+
+                Category stationeryEquipmentCategory = new Category
+                {
+                    Name = "Stationery Equipment",
+                    Description = "Suspendisse tincidunt nunc id dictum convallis. Sed eget nunc sem. Morbi rutrum interdum bibendum. Donec quis risus est. Integer euismod nibh neque, ut tempus nisl viverra ac. Phasellus sollicitudin et ex quis convallis. Suspendisse vel dolor vitae ligula dapibus sollicitudin ut eget nunc. Integer hendrerit accumsan massa nec porta. Mauris tempus eget nisl in malesuada."
+                };
+                context.Add(bookCategory);
+                context.Add(stationeryEquipmentCategory);
+                context.SaveChanges();
+            }
 
             if (!context.Ads.Any())
             {

@@ -8,7 +8,7 @@ namespace Papyrus.Business.Mapping.AutoMapper
     {
         public AutoMapperProfile()
         {
-          
+          CreateMap<Category,CategoryForAd>();
         }
     }
 }

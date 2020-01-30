@@ -31,5 +31,7 @@ namespace Papyrus.Business.Constants
         public static string AuthorizationDenied = "Authorization denied";
 
         public static string GenreNotFound = "Genre not found";
+
+        public static string CategoryNotFound = "Category not found";
     }
 }
