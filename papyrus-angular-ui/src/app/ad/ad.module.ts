@@ -6,12 +6,14 @@ import { CommonModule } from '@angular/common';
 import { AdService } from './ad.service';
 import { AdEditComponent } from './ad-edit/ad-edit.component';
 import { CategoryService } from '../category/category.service';
+import { AdEditBookComponent } from './ad-edit/ad-edit-book/ad-edit-book.component';
 
 @NgModule({
   declarations: [
     AdListComponent,
     AdItemComponent,
-    AdEditComponent
+    AdEditComponent,
+    AdEditBookComponent
   ],
   imports: [
     AdRoutingModule,

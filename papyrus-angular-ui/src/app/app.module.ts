@@ -15,7 +15,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AuthGuard } from './_guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
-import { BookModule } from './book/book.module';
 import { SharedModule } from './_shared/shared.module';
 import { AdModule } from './ad/ad.module';
 
@@ -52,7 +51,6 @@ export function getToken() {
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
       }),
-      BookModule,
       SharedModule,
       AdModule
    ],
