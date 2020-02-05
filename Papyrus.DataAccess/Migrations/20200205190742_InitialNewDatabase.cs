@@ -12,7 +12,7 @@ namespace Papyrus.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Name = table.Column<string>(maxLength: 150, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true)
                 },
                 constraints: table =>
@@ -32,6 +32,18 @@ namespace Papyrus.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PropertyTypes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,21 +76,27 @@ namespace Papyrus.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PropertyTypes",
+                name: "Properties",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Description = table.Column<string>(maxLength: 500, nullable: true),
-                    CategoryId = table.Column<Guid>(nullable: false)
+                    Name = table.Column<string>(maxLength: 150, nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: false),
+                    PropertyTypeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PropertyTypes", x => x.Id);
+                    table.PrimaryKey("PK_Properties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PropertyTypes_Categories_CategoryId",
+                        name: "FK_Properties_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Properties_PropertyTypes_PropertyTypeId",
+                        column: x => x.PropertyTypeId,
+                        principalTable: "PropertyTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -121,26 +139,6 @@ namespace Papyrus.DataAccess.Migrations
                         name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PropertyValues",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    Description = table.Column<string>(maxLength: 500, nullable: true),
-                    PropertyTypeId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PropertyValues", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PropertyValues_PropertyTypes_PropertyTypeId",
-                        column: x => x.PropertyTypeId,
-                        principalTable: "PropertyTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -193,6 +191,7 @@ namespace Papyrus.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 150, nullable: false),
                     CategoryId = table.Column<Guid>(nullable: false),
                     AdId = table.Column<Guid>(nullable: false)
                 },
@@ -214,34 +213,28 @@ namespace Papyrus.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductProperties",
+                name: "ProductPropertyValues",
                 columns: table => new
                 {
                     ProductId = table.Column<Guid>(nullable: false),
-                    PropertyTypeId = table.Column<Guid>(nullable: false),
-                    PropertyValueId = table.Column<Guid>(nullable: false)
+                    PropertyId = table.Column<Guid>(nullable: false),
+                    Value = table.Column<string>(maxLength: 250, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductProperties", x => new { x.ProductId, x.PropertyTypeId, x.PropertyValueId });
+                    table.PrimaryKey("PK_ProductPropertyValues", x => new { x.PropertyId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_ProductProperties_Products_ProductId",
+                        name: "FK_ProductPropertyValues_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductProperties_PropertyTypes_PropertyTypeId",
-                        column: x => x.PropertyTypeId,
-                        principalTable: "PropertyTypes",
+                        name: "FK_ProductPropertyValues_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductProperties_PropertyValues_PropertyValueId",
-                        column: x => x.PropertyValueId,
-                        principalTable: "PropertyValues",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -260,14 +253,9 @@ namespace Papyrus.DataAccess.Migrations
                 column: "AdId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProperties_PropertyTypeId",
-                table: "ProductProperties",
-                column: "PropertyTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductProperties_PropertyValueId",
-                table: "ProductProperties",
-                column: "PropertyValueId");
+                name: "IX_ProductPropertyValues_ProductId",
+                table: "ProductPropertyValues",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_AdId",
@@ -281,13 +269,13 @@ namespace Papyrus.DataAccess.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PropertyTypes_CategoryId",
-                table: "PropertyTypes",
+                name: "IX_Properties_CategoryId",
+                table: "Properties",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PropertyValues_PropertyTypeId",
-                table: "PropertyValues",
+                name: "IX_Properties_PropertyTypeId",
+                table: "Properties",
                 column: "PropertyTypeId");
 
             migrationBuilder.CreateIndex(
@@ -305,7 +293,7 @@ namespace Papyrus.DataAccess.Migrations
                 name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "ProductProperties");
+                name: "ProductPropertyValues");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
@@ -314,7 +302,7 @@ namespace Papyrus.DataAccess.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "PropertyValues");
+                name: "Properties");
 
             migrationBuilder.DropTable(
                 name: "Roles");
@@ -323,13 +311,13 @@ namespace Papyrus.DataAccess.Migrations
                 name: "Ads");
 
             migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
                 name: "PropertyTypes");
 
             migrationBuilder.DropTable(
                 name: "Members");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Users");

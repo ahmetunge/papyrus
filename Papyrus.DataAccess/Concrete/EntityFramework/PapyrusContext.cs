@@ -19,9 +19,11 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
         public DbSet<Member> Members { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductProperty> ProductProperties { get; set; }
         public DbSet<PropertyType> PropertyTypes { get; set; }
-        public DbSet<PropertyValue> PropertyValues { get; set; }
+        public DbSet<Property> Properties { get; set; }
+        public DbSet<ProductPropertyValue> ProductPropertyValues { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -34,9 +36,10 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
             builder.ApplyConfiguration(new MemberConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new ProductConfiguration());
-            builder.ApplyConfiguration(new ProductPropertyConfiguration());
             builder.ApplyConfiguration(new PropertyTypeConfiguration());
-            builder.ApplyConfiguration(new PropertyValueConfiguration());
+            builder.ApplyConfiguration(new PropertyConfiguration());
+            builder.ApplyConfiguration(new ProductPropertyValueConfiguration());
+
         }
     }
 }

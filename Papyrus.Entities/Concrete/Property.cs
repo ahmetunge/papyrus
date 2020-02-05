@@ -4,17 +4,18 @@ using Core.Entities;
 
 namespace Papyrus.Entities.Concrete
 {
-    public class Product : EntityBase<Guid>, IEntity
+    public class Property : EntityBase<Guid>, IEntity
     {
-        public Product()
+        public Property()
         {
-            ProductPropertyValues = new HashSet<ProductPropertyValue>();
+             ProductPropertyValues = new HashSet<ProductPropertyValue>();
         }
         public string Name { get; set; }
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
-        public Guid AdId { get; set; }
-        public Ad Ad { get; set; }
+        public PropertyType PropertyType { get; set; }
+        public Guid PropertyTypeId { get; set; }
+
         public ICollection<ProductPropertyValue> ProductPropertyValues { get; set; }
     }
 }

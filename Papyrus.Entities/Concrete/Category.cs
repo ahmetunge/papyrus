@@ -8,14 +8,14 @@ namespace Papyrus.Entities.Concrete
     {
         public Category()
         {
-            PropertyTypes = new HashSet<PropertyType>();
+            Properties = new HashSet<Property>();
             Products = new HashSet<Product>();
         }
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public ICollection<PropertyType> PropertyTypes { get; set; }
+        public ICollection<Property> Properties { get; set; }
         
         public ICollection<Product> Products { get; set; }
     }
