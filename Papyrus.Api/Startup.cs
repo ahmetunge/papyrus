@@ -59,15 +59,15 @@ namespace Papyrus.Api
                 };
             });
 
-            // services.AddDbContext<PapyrusContext>(options =>
-            // {
-            //     options.UseNpgsql(Configuration.GetConnectionString("PostgresSqlConnection"));
-            // });
-
             services.AddDbContext<PapyrusContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("MssqlConnection"));
+                options.UseNpgsql(Configuration.GetConnectionString("PostgresSqlConnection"));
             });
+
+            // services.AddDbContext<PapyrusContext>(options =>
+            // {
+            //     options.UseSqlServer(Configuration.GetConnectionString("MssqlConnection"));
+            // });
 
             services.AddControllers()
             .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
