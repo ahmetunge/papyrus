@@ -10,204 +10,108 @@ namespace Papyrus.DataAccess.Concrete
     {
         public static void SeedData(PapyrusContext context)
         {
+            Ad badBlood = new Ad();
+            Ad blueOceanShift = new Ad();
+            Ad outliers = new Ad();
+            Ad purpleCow = new Ad();
+            Ad sapiens = new Ad();
+
+            if (!context.Ads.Any())
+            {
+                badBlood.MemberId = new Guid("cd74470c-4ce7-4817-bce6-ff9c31d36cf4");
+                badBlood.Title = "Bad Blood Book";
+                badBlood.Description = "Cras lorem ligula, iaculis nec fermentum eu, vulputate eget sem. Nullam nunc dolor, facilisis eu vulputate nec, elementum dictum sem. Cras at augue turpis. Pellentesque malesuada accumsan arcu vitae convallis. Nunc sapien nunc, facilisis vel enim at, pharetra tincidunt orci. Aliquam et nisl mauris. Cras et elit erat. ";
+
+                context.Ads.Add(badBlood);
+
+                blueOceanShift.MemberId = new Guid("cd74470c-4ce7-4817-bce6-ff9c31d36cf4");
+                blueOceanShift.Title = "New Blue Ocean Shift Book";
+                blueOceanShift.Description = "Vestibulum vestibulum mi orci, at dignissim ligula consequat et. Aliquam ut ipsum aliquet, luctus urna sed, ultrices justo. Curabitur vel orci et turpis rhoncus blandit a sit amet tellus. Curabitur eleifend vulputate accumsan. Nullam nec justo risus. Pellentesque quis molestie lacus. Nunc vitae convallis leo, eu aliquam sapien. Nunc consequat ligula leo, ac interdum enim rutrum at. Pellentesque nec sem scelerisque velit cursus blandit ac vitae ipsum.";
+
+                context.Ads.Add(blueOceanShift);
+
+                outliers.MemberId = new Guid("cd74470c-4ce7-4817-bce6-ff9c31d36cf4");
+                outliers.Title = "Free Outliers";
+                outliers.Description = "Aenean at neque ultrices, lacinia ligula in, laoreet purus. Nulla lacinia sagittis arcu a sollicitudin. Fusce rutrum sem libero. Vestibulum in diam in libero dapibus consequat. Pellentesque iaculis iaculis sem vitae eleifend. Mauris vel suscipit justo. In a dapibus ex, in tincidunt sem.";
+
+                context.Ads.Add(outliers);
+
+                purpleCow.MemberId = new Guid("cd74470c-4ce7-4817-bce6-ff9c31d36cf4");
+                purpleCow.Title = "Purple Cow";
+                purpleCow.Description = "Vestibulum vestibulum mi orci, at dignissim ligula consequat et. Aliquam ut ipsum aliquet, luctus urna sed, ultrices justo. Curabitur vel orci et turpis rhoncus blandit a sit amet tellus. Curabitur eleifend vulputate accumsan. Nullam nec justo risus.";
+
+                context.Ads.Add(purpleCow);
+
+                sapiens.MemberId = new Guid("cd74470c-4ce7-4817-bce6-ff9c31d36cf4");
+                sapiens.Title = "Sapiens";
+                sapiens.Description = "Cras lorem ligula, iaculis nec fermentum eu, vulputate eget sem. Nullam nunc dolor, facilisis eu vulputate nec, elementum dictum sem. Cras at augue turpis. Pellentesque malesuada accumsan arcu vitae convallis. Nunc sapien nunc, facilisis vel enim at, pharetra tincidunt orci.";
+
+                context.Ads.Add(sapiens);
+
+                context.SaveChanges();
+            }
+
+
+              Category bookCategory = new Category();
+
+            Category stationeryEquipmentCategory = new Category();
+
             if (!context.Categories.Any())
             {
-                Category bookCategory = new Category
-                {
-                    Name = "Book",
-                    Description = "Nunc in venenatis augue. Maecenas nec mauris rhoncus, sagittis orci in, posuere nisi. Cras ut mauris neque. Morbi rhoncus ipsum purus, quis gravida justo euismod eget. Ut viverra congue ante a consequat. Quisque ac nibh neque. Cras id orci placerat, vehicula turpis eget, malesuada orci. Suspendisse pretium mauris vel elit mollis bibendum. Mauris rutrum tellus eget imperdiet dignissim. Donec quis lacus venenatis, egestas lorem id, feugiat nisi. Nulla fringilla mi egestas arcu pretium bibendum.",
+                bookCategory.Name = "Book";
+                bookCategory.Description = "Nunc in venenatis augue. Maecenas nec mauris rhoncus, sagittis orci in, posuere nisi. Cras ut mauris neque. Morbi rhoncus ipsum purus, quis gravida justo euismod eget. Ut viverra congue ante a consequat. Quisque ac nibh neque. Cras id orci placerat, vehicula turpis eget, malesuada orci. Suspendisse pretium mauris vel elit mollis bibendum. Mauris rutrum tellus eget imperdiet dignissim. Donec quis lacus venenatis, egestas lorem id, feugiat nisi. Nulla fringilla mi egestas arcu pretium bibendum.";
 
-                };
 
-                Category stationeryEquipmentCategory = new Category
-                {
-                    Name = "Stationery Equipment",
-                    Description = "Suspendisse tincidunt nunc id dictum convallis. Sed eget nunc sem. Morbi rutrum interdum bibendum. Donec quis risus est. Integer euismod nibh neque, ut tempus nisl viverra ac. Phasellus sollicitudin et ex quis convallis. Suspendisse vel dolor vitae ligula dapibus sollicitudin ut eget nunc. Integer hendrerit accumsan massa nec porta. Mauris tempus eget nisl in malesuada."
-                };
+                stationeryEquipmentCategory.Name = "Stationery Equipment";
+                stationeryEquipmentCategory.Description = "Suspendisse tincidunt nunc id dictum convallis. Sed eget nunc sem. Morbi rutrum interdum bibendum. Donec quis risus est. Integer euismod nibh neque, ut tempus nisl viverra ac. Phasellus sollicitudin et ex quis convallis. Suspendisse vel dolor vitae ligula dapibus sollicitudin ut eget nunc. Integer hendrerit accumsan massa nec porta. Mauris tempus eget nisl in malesuada.";
+
                 context.Add(bookCategory);
                 context.Add(stationeryEquipmentCategory);
                 context.SaveChanges();
             }
 
-            if (!context.Ads.Any())
+
+            Product badBloodBook = new Product();
+
+            Product purpleCowBook = new Product();
+
+            Product blueOceanShiftBook = new Product();
+
+            Product outliersBook = new Product();
+
+            Product sapiensBook = new Product();
+
+            if (!context.Products.Any())
             {
+                purpleCowBook.AdId=purpleCow.Id;
+                purpleCowBook.CategoryId=bookCategory.Id;
+                purpleCowBook.Name="Purple Cow Book";
+                context.Products.Add(purpleCowBook);
 
-                List<Ad> ads = new List<Ad>{
-                    new Ad{
-                    Id= Guid.NewGuid(),
-                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
-                    Title="Ad-1",
-                    Description="Cras lorem ligula, iaculis nec fermentum eu, vulputate eget sem. Nullam nunc dolor, facilisis eu vulputate nec, elementum dictum sem. Cras at augue turpis. Pellentesque malesuada accumsan arcu vitae convallis. Nunc sapien nunc, facilisis vel enim at, pharetra tincidunt orci. Aliquam et nisl mauris. Cras et elit erat. "
-                },
-                    new Ad{
-                    Id= Guid.NewGuid(),
-                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
-                    Title="Ad-2",
-                    Description="Vestibulum vestibulum mi orci, at dignissim ligula consequat et. Aliquam ut ipsum aliquet, luctus urna sed, ultrices justo. Curabitur vel orci et turpis rhoncus blandit a sit amet tellus. Curabitur eleifend vulputate accumsan. Nullam nec justo risus. Pellentesque quis molestie lacus. Nunc vitae convallis leo, eu aliquam sapien. Nunc consequat ligula leo, ac interdum enim rutrum at. Pellentesque nec sem scelerisque velit cursus blandit ac vitae ipsum."
-                },
+                badBloodBook.AdId=badBlood.Id;
+                badBloodBook.CategoryId=bookCategory.Id;
+                badBloodBook.Name="Bad Blood Book";
+                context.Products.Add(badBloodBook);
 
-                new Ad{
-                    Id= Guid.NewGuid(),
-                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
-                    Title="Ad-3",
-                    Description="Aenean at neque ultrices, lacinia ligula in, laoreet purus. Nulla lacinia sagittis arcu a sollicitudin. Fusce rutrum sem libero. Vestibulum in diam in libero dapibus consequat. Pellentesque iaculis iaculis sem vitae eleifend. Mauris vel suscipit justo. In a dapibus ex, in tincidunt sem."
-                },
-                new Ad{
-                    Id= Guid.NewGuid(),
-                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
-                    Title="Ad-4",
-                    Description="Vestibulum vestibulum mi orci, at dignissim ligula consequat et. Aliquam ut ipsum aliquet, luctus urna sed, ultrices justo. Curabitur vel orci et turpis rhoncus blandit a sit amet tellus. Curabitur eleifend vulputate accumsan. Nullam nec justo risus."
-                },
-                new Ad{
-                    Id= Guid.NewGuid(),
-                    MemberId=new Guid("fea6ae35-5201-413e-8df9-2c4604214289"),
-                    Title="Ad-5",
-                    Description="Cras lorem ligula, iaculis nec fermentum eu, vulputate eget sem. Nullam nunc dolor, facilisis eu vulputate nec, elementum dictum sem. Cras at augue turpis. Pellentesque malesuada accumsan arcu vitae convallis. Nunc sapien nunc, facilisis vel enim at, pharetra tincidunt orci."
-                }};
+                blueOceanShiftBook.AdId=blueOceanShift.Id;
+                blueOceanShiftBook.CategoryId=bookCategory.Id;
+                blueOceanShiftBook.Name="Blue Ocean Shift Book";
+                context.Products.Add(blueOceanShiftBook);
 
-                context.Ads.AddRange(ads);
+                outliersBook.AdId=outliers.Id;
+                outliersBook.CategoryId=bookCategory.Id;
+                outliersBook.Name="Outliers Book";
+                context.Products.Add(outliersBook);
+
+                sapiensBook.AdId=sapiens.Id;
+                sapiensBook.CategoryId=bookCategory.Id;
+                sapiensBook.Name="Sapiens Book";
+                context.Products.Add(sapiensBook);
+                
+
                 context.SaveChanges();
+            
             }
-
-
-            // {
-            //     // Ad ad = new Ad
-            //     // {
-            //     //     MemberId = new Guid("ffc5ae62-f49a-4136-9675-207e6d63ce7f"),
-            //     //     Title = "My First Ad",
-            //     //     Description = "First ad"
-
-            //     // };
-
-            //     if (!context.Ads.Any())
-            //     {
-            //         context.Ads.Add(ad);
-            //         context.SaveChanges();
-            //     }
-
-            //     Catalog literature = new Catalog
-            //     {
-            //         Name = "Edebiyat",
-            //         Description = "Edebiyat kategorisindeki kitaplar"
-            //     };
-
-            //     Catalog economy = new Catalog
-            //     {
-            //         Name = "Ekonomi",
-            //         Description = "Ekonomi ile alakalı kitaplar"
-            //     };
-
-            //     Catalog psychology = new Catalog
-            //     {
-            //         Name = "Psikoloji",
-            //         Description = "Ekonomi ile alakalı kitaplar"
-            //     };
-
-            //     if (!context.Catalogs.Any())
-            //     {
-            //         List<Catalog> categories = new List<Catalog>{
-            //                         literature,
-            //                         economy,
-            //                         psychology
-            //                     };
-
-            //         context.AddRange(categories);
-            //         context.SaveChanges();
-            //     }
-
-            //     Genre novel = new Genre
-            //     {
-            //         CatalogId = literature.Id,
-            //         Name = "Roman",
-            //         Description = "Roman türünde kitaplar"
-            //     };
-
-            //     Genre sciencefiction = new Genre
-            //     {
-            //         CatalogId = literature.Id,
-            //         Name = "Bilim-Kurgu",
-            //         Description = "Bilim-Kurgu türünde kitaplar"
-            //     };
-
-            //     Genre managment = new Genre
-            //     {
-            //         CatalogId = economy.Id,
-            //         Name = "Yönetim",
-            //         Description = "Yönetim türünde kitaplar"
-            //     };
-
-            //     Genre generalPsychology = new Genre
-            //     {
-            //         CatalogId = psychology.Id,
-            //         Name = "Genel Psikoloji",
-            //         Description = "Genel Psikoloji türünde kitaplar"
-            //     };
-
-            //     Genre childPsychology = new Genre
-            //     {
-            //         CatalogId = psychology.Id,
-            //         Name = "Çocuk Psikoloji",
-            //         Description = "Çocuk Psikoloji türünde kitaplar"
-            //     };
-
-            //     if (!context.Genres.Any())
-            //     {
-            //         List<Genre> genres = new List<Genre>
-            //         {
-            //             novel,
-            //             sciencefiction,
-            //             managment,
-            //             generalPsychology,
-            //             childPsychology
-            //         };
-
-            //         context.AddRange(genres);
-            //         context.SaveChanges();
-            //     }
-
-            //     if (!context.Books.Any())
-            //     {
-            //         List<Book> books = new List<Book>{
-            //         new Book
-            //         {
-            //             GenreId= novel.Id,
-            //             AdId=ad.Id,
-            //             Name = "Born Standing Up",
-            //             Summary = "To become a better writer, you have to write more. Writing reveals the story because you have to write to figure out what you’re writing about. Don’t judge your initial work too harshly because every writer has terrible first drafts."
-            //         },
-            //         new Book
-            //         {
-            //             GenreId=novel.Id,
-            //             AdId=ad.Id,
-            //             Name = "The Compound Effect",
-            //             Summary = "The compound effect is the strategy of reaping huge rewards from small, seemingly insignificant actions. You cannot improve something until you measure it. Always take 100 percent responsibility for everything that happens to you."
-            //         },
-            //         new Book
-            //         {
-            //             GenreId=managment.Id,
-            //             AdId=ad.Id,
-            //             Name = "The Art of Possibility",
-            //             Summary = "Everything in life is an invention. If you choose to look at your life in a new way, then suddenly your problems fade away. One of the best ways to do this is to focus on the possibilities surrounding you in any situation rather than slipping into the default mode of measuring and comparing your life to others."
-            //         },
-            //         new Book
-            //         {
-            //             GenreId=generalPsychology.Id,
-            //             AdId=ad.Id,
-            //             Name = "Free Will",
-            //             Summary = "We do not have the freedom and free will that we think we do. Yes, you can make conscious choices, but everything that makes up those conscious choices (your thoughts, your wants, your desires) is determined by prior causes outside your control. Just because you can do what you want does not mean you have free will because you are not choosing what you want in the first place."
-            //         },
-            //         new Book
-            //         {
-            //             GenreId=sciencefiction.Id,
-            //             AdId=ad.Id,
-            //             Name = "Guns, Germs, and Steel",
-            //             Summary = "Some environments provide more starting materials and more favorable conditions for utilizing inventions and building societies than other environments. This is particularly notable in the rise of European peoples, which occurred because of environmental differences and not because of biological differences in the people themselves. There are four primary reasons Europeans rose to power and conquered the natives of North and South America, and not the other way around: 1) the continental differences in the plants and animals available for domestication, which led to more food and larger populations in Europe and Asia, 2) the rate of diffusion of agriculture, technology and innovation due to the geographic orientation of Europe and Asia (east-west) compared to the Americas (north-south), 3) the ease of intercontinental diffusion between Europe, Asia, and Africa, and 4) the differences in continental size, which led to differences in total population size and technology diffusion."
-            //         }
-            //         };
-            //         context.Books.AddRange(books);
-            //         context.SaveChanges();
-            //     }
-            // }
 
         }
     }

@@ -82,10 +82,10 @@ namespace Papyrus.Api
         }
 
         //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Comment when you create migration !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // public void ConfigureContainer(ContainerBuilder builder)
-        // {
-        //     builder.RegisterModule(new AutofacBusinessModule());
-        // }
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new AutofacBusinessModule());
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
