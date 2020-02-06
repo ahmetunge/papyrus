@@ -11,8 +11,6 @@ namespace Papyrus.Entities.Concrete
             ProductPropertyValues = new HashSet<ProductPropertyValue>();
         }
         public string Name { get; set; }
-        public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
         public Guid AdId { get; set; }
         public Ad Ad { get; set; }
         public ICollection<ProductPropertyValue> ProductPropertyValues { get; set; }

@@ -1,0 +1,31 @@
+<form>
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input class="form-control" id="name" name="name" />
+    <span class="help-block text-danger">Please enter a name</span>
+  </div>
+
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select
+      class="form-control"
+      name=""
+      id=""
+      #categorySelector
+    >
+      <option *ngFor="let category of categories" [value]="category.id">{{
+        category.name
+      }}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea
+      class="form-control"
+      name="description"
+      rows="5"
+      required
+    ></textarea>
+  </div>
+
+</form>

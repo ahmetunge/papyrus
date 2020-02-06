@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   model: any = {};
+
   constructor(
     public authService: AuthService,
     private toastr: ToastrService,
@@ -18,6 +19,8 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.model.password = '1907';
+    this.model.email = 'ahmetunge@outlook.com';
   }
 
   login() {

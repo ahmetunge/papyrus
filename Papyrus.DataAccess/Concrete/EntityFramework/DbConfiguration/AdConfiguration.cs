@@ -34,6 +34,10 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework.DbConfiguration
             builder.HasMany(a => a.Photos)
             .WithOne(p => p.Ad)
             .HasForeignKey(p => p.AdId);
+
+            builder.HasOne(a => a.Category)
+            .WithMany(c => c.Ads)
+            .HasForeignKey(a => a.CategoryId);
         }
     }
 }

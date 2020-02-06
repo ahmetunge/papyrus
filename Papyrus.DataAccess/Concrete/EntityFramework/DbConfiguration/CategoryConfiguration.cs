@@ -23,9 +23,9 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework.DbConfiguration
             .WithOne(p => p.Category)
             .HasForeignKey(p => p.CategoryId);
 
-            builder.HasMany(c => c.Products)
-            .WithOne(p => p.Category)
-            .HasForeignKey(p => p.CategoryId);
+            builder.HasMany(c => c.Ads)
+            .WithOne(a => a.Category)
+            .HasForeignKey(a => a.CategoryId);
 
         }
     }

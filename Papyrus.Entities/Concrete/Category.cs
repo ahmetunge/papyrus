@@ -9,7 +9,7 @@ namespace Papyrus.Entities.Concrete
         public Category()
         {
             Properties = new HashSet<Property>();
-            Products = new HashSet<Product>();
+            Ads = new HashSet<Ad>();
         }
         public string Name { get; set; }
 
@@ -17,6 +17,6 @@ namespace Papyrus.Entities.Concrete
 
         public ICollection<Property> Properties { get; set; }
         
-        public ICollection<Product> Products { get; set; }
+        public ICollection<Ad> Ads { get; set; }
     }
 }
