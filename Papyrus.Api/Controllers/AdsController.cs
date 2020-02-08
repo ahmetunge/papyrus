@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
+using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
 using Papyrus.Business.Abstract;
+using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Api.Controllers
 {
@@ -25,6 +27,19 @@ namespace Papyrus.Api.Controllers
             }
 
             return BadRequest();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAd([FromBody]AdForCreationDto adForCreation)
+        {
+
+            IResult result = await _adService.CreateAd(adForCreation);
+
+            if (result.Success)
+                return Ok(result.Message);
+
+            return BadRequest(result.Message);
+
         }
     }
 }

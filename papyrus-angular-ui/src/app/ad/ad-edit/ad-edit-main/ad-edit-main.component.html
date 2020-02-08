@@ -1,22 +1,40 @@
-<form>
+<form #mainForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="name">Name</label>
-    <input class="form-control" id="name" name="name" />
-    <span class="help-block text-danger">Please enter a name</span>
+    <input
+      class="form-control"
+      id="name"
+      name="name"
+      required
+      #nameModel="ngModel"
+      [(ngModel)]="ad.title"
+    />
+    <span
+      *ngIf="nameModel.touched && nameModel.invalid"
+      class="help-block text-danger"
+      >Please enter a name</span
+    >
   </div>
 
   <div class="form-group">
     <label for="category">Category</label>
     <select
       class="form-control"
-      name=""
-      id=""
-      #categorySelector
+      name="category"
+      id="category"
+      [(ngModel)]="ad.categoryId"
+      required
+      #categoryModel="ngModel"
     >
       <option *ngFor="let category of categories" [value]="category.id">{{
         category.name
       }}</option>
     </select>
+    <span
+      *ngIf="categoryModel.touched && categoryModel.invalid"
+      class="help-block text-danger"
+      >Please select a category</span
+    >
   </div>
   <div class="form-group">
     <label for="description">Description</label>
@@ -27,5 +45,13 @@
       required
     ></textarea>
   </div>
-
+  <div class="row">
+    <button class="btn btn-success" [disabled]="mainForm.invalid">
+      Forward
+    </button>
+  </div>
 </form>
+
+<p>
+  {{ mainForm.valid }}
+</p>

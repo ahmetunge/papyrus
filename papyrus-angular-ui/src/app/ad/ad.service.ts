@@ -17,4 +17,8 @@ export class AdService {
     return this.http.get<Ad[]>(this.baseUrl + 'ads');
   }
 
+  addAd(ad: Ad) {
+    return this.http.post(this.baseUrl + 'ads', ad);
+  }
+
 }

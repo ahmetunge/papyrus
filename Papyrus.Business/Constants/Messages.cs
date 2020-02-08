@@ -33,5 +33,9 @@ namespace Papyrus.Business.Constants
         public static string GenreNotFound = "Genre not found";
 
         public static string CategoryNotFound = "Category not found";
+
+        public static string AdRequired = "Ad is required";
+
+        public static string AdCreated = "Ad is created";
     }
 }

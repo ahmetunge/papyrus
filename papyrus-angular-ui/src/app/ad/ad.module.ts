@@ -8,6 +8,7 @@ import { AdEditComponent } from './ad-edit/ad-edit.component';
 import { CategoryService } from '../category/category.service';
 import { AdEditBookComponent } from './ad-edit/ad-edit-book/ad-edit-book.component';
 import { AdEditMainComponent } from './ad-edit/ad-edit-main/ad-edit-main.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AdEditMainComponent } from './ad-edit/ad-edit-main/ad-edit-main.compone
   ],
   imports: [
     AdRoutingModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [],
   providers: [
