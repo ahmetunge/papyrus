@@ -25,15 +25,6 @@ namespace Papyrus.Business.Resolvers.Autofac
 
             builder.RegisterType<EfCoreUnitOfWork>().As<IUnitOfWork>();
 
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
-                .EnableInterfaceInterceptors(new ProxyGenerationOptions
-                {
-                    Selector = new AspectInterceptorSelector()
-                }).SingleInstance();
-
-
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapperProfile());
@@ -46,6 +37,14 @@ namespace Papyrus.Business.Resolvers.Autofac
 
             builder.RegisterType<EfCoreCategoryRepository>().As<ICategoryRepository>();
             builder.RegisterType<CategoryManager>().As<ICategoryService>();
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
+                .EnableInterfaceInterceptors(new ProxyGenerationOptions
+                {
+                    Selector = new AspectInterceptorSelector()
+                }).SingleInstance();
 
         }
     }

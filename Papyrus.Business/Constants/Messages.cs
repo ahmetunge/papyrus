@@ -11,6 +11,13 @@ namespace Papyrus.Business.Constants
 
         public static string UserNotFound = "User not found";
         public static string SuccessLogin = "Login successfully";
+
+        public static string CategoryRequired = "Category is required";
+
+        public static string MemberRequired = "Member is required";
+
+        public static string TitleRequired = "Title is required";
+
         public static string UserAlreadyExist = "User already exist";
 
         public static string EmailRequired = "Email is required";

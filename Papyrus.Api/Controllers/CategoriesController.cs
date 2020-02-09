@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Papyrus.Business.Abstract;
 
@@ -14,6 +15,7 @@ namespace Papyrus.Api.Controllers
             _categoryService = categoryService;
         }
 
+        [Authorize]
         [HttpGet("ad")]
         public async Task<IActionResult> GetListForAd()
         {
