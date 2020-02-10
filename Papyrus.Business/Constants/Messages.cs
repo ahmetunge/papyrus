@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Core.Entities.Concrete;
 using Papyrus.Entities.Dtos;
@@ -44,5 +45,7 @@ namespace Papyrus.Business.Constants
         public static string AdRequired = "Ad is required";
 
         public static string AdCreated = "Ad is created";
+
+        public static string PropertiesNotFound = "Properties not found";
     }
 }

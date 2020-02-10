@@ -36,7 +36,12 @@ namespace Papyrus.Business.Resolvers.Autofac
             builder.RegisterType<AdManager>().As<IAdService>();
 
             builder.RegisterType<EfCoreCategoryRepository>().As<ICategoryRepository>();
+            
             builder.RegisterType<CategoryManager>().As<ICategoryService>();
+
+            builder.RegisterType<EfCorePropertyRepository>().As<IPropertyRepository>();
+
+            builder.RegisterType<PropertyManager>().As<IPropertyService>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

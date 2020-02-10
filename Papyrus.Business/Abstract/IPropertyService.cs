@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Utilities.Results;
-using Papyrus.Entities.Concrete;
 using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Business.Abstract
 {
-    public interface ICategoryService
+    public interface IPropertyService
     {
-        Task<IDataResult<List<CategoryForAd>>> GetListAsync();
+         
+        Task<IDataResult<List<KeyValueDto>>> GetPropertiesByCategoryId(Guid categoryId);
     }
 }

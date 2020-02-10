@@ -28,6 +28,67 @@ namespace Papyrus.DataAccess.Concrete
                 context.SaveChanges();
             }
 
+            PropertyType stringProperty = new PropertyType();
+            PropertyType intProperty = new PropertyType();
+            PropertyType dateProperty = new PropertyType();
+
+            if (!context.PropertyTypes.Any())
+            {
+                stringProperty.Name = "String";
+                context.Add(stringProperty);
+                intProperty.Name = "Integer";
+                context.Add(intProperty);
+                dateProperty.Name = "DateTime";
+                context.Add(dateProperty);
+
+                context.SaveChanges();
+            }
+
+
+            if (!context.Properties.Any())
+            {
+
+                Property authorProperty = new Property
+                {
+                    Name = "Author",
+                    CategoryId = bookCategory.Id,
+                    PropertyTypeId = stringProperty.Id,
+
+                };
+
+                context.Add(authorProperty);
+
+                Property translatorProperty = new Property
+                {
+                    Name = "Translator",
+                    CategoryId = bookCategory.Id,
+                    PropertyTypeId = stringProperty.Id,
+
+                };
+                context.Add(translatorProperty);
+
+                Property isbnProperty = new Property
+                {
+                    Name = "ISBN",
+                    CategoryId = bookCategory.Id,
+                    PropertyTypeId = stringProperty.Id,
+
+                };
+                context.Add(isbnProperty);
+
+                Property totalPageProperty = new Property
+                {
+                    Name = "Total Page",
+                    CategoryId = bookCategory.Id,
+                    PropertyTypeId = stringProperty.Id,
+
+                };
+                context.Add(totalPageProperty);
+
+                context.SaveChanges();
+
+            }
+
             Ad badBlood = new Ad();
             Ad blueOceanShift = new Ad();
             Ad outliers = new Ad();

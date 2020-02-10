@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,12 +11,14 @@ namespace Papyrus.Api.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
-        public CategoriesController(ICategoryService categoryService)
+        private readonly IPropertyService _propertyService;
+        public CategoriesController(ICategoryService categoryService, IPropertyService propertyService)
         {
+            _propertyService = propertyService;
             _categoryService = categoryService;
         }
 
-        [Authorize]
+
         [HttpGet("ad")]
         public async Task<IActionResult> GetListForAd()
         {
@@ -25,6 +28,18 @@ namespace Papyrus.Api.Controllers
                 return Ok(result.Data);
 
             return BadRequest(result.Message);
+        }
+
+        [HttpGet("{id}/properties")]
+        public async Task<IActionResult> GetPropertiesByCategoryId(Guid id)
+        {
+            var result = await _propertyService.GetPropertiesByCategoryId(id);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(result.Data);
+
         }
     }
 }
