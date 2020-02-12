@@ -8,5 +8,6 @@ namespace Papyrus.DataAccess.Abstract
 {
     public interface ICategoryRepository:IRepositoryBase<Category>
     {
+        Task<IEnumerable<Category>> GetCategoriesIncludePropertiesAsync();
     }
 }

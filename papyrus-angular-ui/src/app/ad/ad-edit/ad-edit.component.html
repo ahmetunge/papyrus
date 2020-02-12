@@ -1,12 +1,78 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
   <div class="row">
     <div class="col-md-6">
-      <app-ad-edit-main></app-ad-edit-main>
+      <app-ad-edit-main (selectCategory)="onCategoryChange($event)"></app-ad-edit-main>
     </div>
   </div>
   <div class="row">
     <app-ad-edit-book
-      *ngIf="category && category.name === 'Book'"
     ></app-ad-edit-book>
   </div>
+</div> -->
+<div class="container">
+  <form #mainForm="ngForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        class="form-control"
+        id="name"
+        name="name"
+        required
+        #nameModel="ngModel"
+        [(ngModel)]="ad.title"
+      />
+      <span
+        *ngIf="nameModel.touched && nameModel.invalid"
+        class="help-block text-danger"
+        >Please enter a name</span
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select
+        class="form-control"
+        name="category"
+        id="category"
+        [(ngModel)]="ad.categoryId"
+        required
+        (change)="onCatagoryChange()"
+        #categoryModel="ngModel"
+      >
+        <option *ngFor="let category of categories" [value]="category.id">{{
+          category.name
+        }}</option>
+      </select>
+      <span
+        *ngIf="categoryModel.touched && categoryModel.invalid"
+        class="help-block text-danger"
+        >Please select a category</span
+      >
+    </div>
+    <div *ngFor="let property of selectedProperties">
+      <app-product-property-value
+        [property]="property"
+      ></app-product-property-value>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        class="form-control"
+        name="description"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+
+    <div class="row">
+      <button class="btn btn-success" [disabled]="mainForm.invalid">
+        Forward
+      </button>
+    </div>
+  </form>
+
+  <p>
+    {{ mainForm.valid }}
+
+  </p>
 </div>

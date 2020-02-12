@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CategoryService } from 'src/app/category/category.service';
-import { KeyValueModel } from 'src/app/_models/keyValueModel';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/_models/category';
+import { Ad } from 'src/app/_models/ad';
+import { NgForm } from '@angular/forms';
+import { AdService } from '../ad.service';
+import { Property } from 'src/app/_models/property';
 
 
 @Component({
@@ -11,21 +14,54 @@ import { Category } from 'src/app/_models/category';
   styleUrls: ['./ad-edit.component.css']
 })
 export class AdEditComponent implements OnInit {
-  category: Category;
 
-  constructor() { }
+  @ViewChild('mainForm', { static: false }) mainForm: NgForm;
+  categories: Category[];
+
+  selectedProperties: Property[] = [];
+  ad: Ad = {
+    id: '',
+    categoryId: '',
+    title: '',
+    description: ''
+  };
+
+  constructor(
+    private categoryService: CategoryService,
+    private toaster: ToastrService,
+    private adService: AdService
+  ) { }
 
   ngOnInit() {
+    this.getCategories();
   }
 
-  selectCategory(selectedCategory: Category) {
-    this.category = selectedCategory;
-
-    this.getProductValues();
-
+  getCategories() {
+    this.categoryService.getCategoriesForAd().subscribe(res => {
+      this.categories = res;
+    },
+      error => this.toaster.error(error));
   }
 
-  getProductValues() {
-
+  onSubmit() {
+    if (this.mainForm.valid) {
+      this.adService.addAd(this.ad).subscribe(res => {
+        this.toaster.success('Your ad is created successfully');
+      }, error => {
+        this.toaster.error(error);
+      });
+    }
   }
+
+  onCatagoryChange() {
+    if (this.ad.categoryId) {
+      const selectedCategory = this.categories.find(c => c.id === this.ad.categoryId);
+
+      if (selectedCategory) {
+        this.selectedProperties = selectedCategory.properties;
+      }
+
+    }
+  }
+
 }

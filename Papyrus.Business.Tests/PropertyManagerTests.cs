@@ -30,9 +30,8 @@ namespace Papyrus.Business.Tests
 
             IEnumerable<Property> properties = new List<Property>();
 
-            GetTestProperties(properties);
-            // _mockPropertyRepo.Setup(mp => mp.FindListAsync(It.IsAny<Expression<Func<Property, bool>>>()))
-            // .ReturnsAsync(properties);
+            _mockPropertyRepo.Setup(mp => mp.FindListAsync(It.IsAny<Expression<Func<Property, bool>>>()))
+                                      .ReturnsAsync(properties);
 
             PropertyManager propertyManager = new PropertyManager(_mockPropertyRepo.Object, _mockMapper.Object);
 
@@ -54,8 +53,8 @@ namespace Papyrus.Business.Tests
                 new Property{Id= Guid.NewGuid(), Name="Test Property 2"}
             };
 
-            GetTestProperties(properties);
-
+            _mockPropertyRepo.Setup(mp => mp.FindListAsync(It.IsAny<Expression<Func<Property, bool>>>()))
+                                      .ReturnsAsync(properties);
 
             PropertyManager propertyManager = new PropertyManager(_mockPropertyRepo.Object, _mockMapper.Object);
 
@@ -68,12 +67,6 @@ namespace Papyrus.Business.Tests
 
         }
 
-        public void GetTestProperties(IEnumerable<Property> properties)
-        {
-            var testProperties = _mockPropertyRepo.Setup(mp => mp.FindListAsync(It.IsAny<Expression<Func<Property, bool>>>()))
-                          .ReturnsAsync(properties);
-
-        }
 
     }
 }

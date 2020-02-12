@@ -6,17 +6,15 @@ import { CommonModule } from '@angular/common';
 import { AdService } from './ad.service';
 import { AdEditComponent } from './ad-edit/ad-edit.component';
 import { CategoryService } from '../category/category.service';
-import { AdEditBookComponent } from './ad-edit/ad-edit-book/ad-edit-book.component';
-import { AdEditMainComponent } from './ad-edit/ad-edit-main/ad-edit-main.component';
 import { FormsModule } from '@angular/forms';
+import { ProductPropertyValueComponent } from './ad-edit/product-property-value/product-property-value.component';
 
 @NgModule({
   declarations: [
     AdListComponent,
     AdItemComponent,
     AdEditComponent,
-    AdEditBookComponent,
-    AdEditMainComponent
+    ProductPropertyValueComponent
   ],
   imports: [
     AdRoutingModule,

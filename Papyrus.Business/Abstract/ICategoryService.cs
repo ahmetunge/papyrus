@@ -9,6 +9,7 @@ namespace Papyrus.Business.Abstract
 {
     public interface ICategoryService
     {
-        Task<IDataResult<List<CategoryForAd>>> GetListAsync();
+        Task<IDataResult<List<CategoryForAdDto>>> GetListAsync();
+        Task<IDataResult<List<CategoryForAdDto>>> GetCategoriesIncludePropertiesAsync();
     }
 }

@@ -21,20 +21,36 @@ namespace Papyrus.Business.Concrete
             _mapper = mapper;
             _categoryRepository = categoryRepository;
         }
-        public async Task<IDataResult<List<CategoryForAd>>> GetListAsync()
+
+        public async Task<IDataResult<List<CategoryForAdDto>>> GetCategoriesIncludePropertiesAsync()
+        {
+            var categoriesFromDb = await _categoryRepository.GetCategoriesIncludePropertiesAsync();
+
+            List<Category> categories = categoriesFromDb.ToList();
+
+            if (categories.Count < 1)
+                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound);
+
+            var categoriesToReturn = _mapper.Map<List<CategoryForAdDto>>(categories);
+
+            return new SuccessDataResult<List<CategoryForAdDto>>(categoriesToReturn);
+
+        }
+
+        public async Task<IDataResult<List<CategoryForAdDto>>> GetListAsync()
         {
             var categoriesFromDb = await _categoryRepository.GetAllAsync();
 
             List<Category> categories = categoriesFromDb.ToList();
 
             if (categories.Count < 1)
-                return new ErrorDataResult<List<CategoryForAd>>(null, Messages.CategoryNotFound);
+                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound);
 
-               var categoriesToReturn= _mapper.Map<List<CategoryForAd>>(categories);
-          
-                return new SuccessDataResult<List<CategoryForAd>>(categoriesToReturn);
+            var categoriesToReturn = _mapper.Map<List<CategoryForAdDto>>(categories);
+
+            return new SuccessDataResult<List<CategoryForAdDto>>(categoriesToReturn);
         }
 
-      
+
     }
 }

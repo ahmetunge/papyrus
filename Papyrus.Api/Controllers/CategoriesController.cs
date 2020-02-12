@@ -22,7 +22,7 @@ namespace Papyrus.Api.Controllers
         [HttpGet("ad")]
         public async Task<IActionResult> GetListForAd()
         {
-            var result = await _categoryService.GetListAsync();
+            var result = await _categoryService.GetCategoriesIncludePropertiesAsync();
 
             if (result.Success)
                 return Ok(result.Data);
