@@ -3,13 +3,13 @@
 <div class="form-group">
   <label>{{ property.name }} | {{ property.propertyType }}</label>
   <div [ngSwitch]="property.propertyType">
-    <div *ngSwitchCase="propertyType.dataType.String">
+    <div *ngSwitchCase="propertyType.String">
       <input class="form-control" type="text" />
     </div>
-    <div *ngSwitchCase="propertyType.dataType.Numeric">
+    <div *ngSwitchCase="propertyType.Numeric">
       <input class="form-control" type="number" />
     </div>
-    <div *ngSwitchCase="propertyType.dataType.DateTime">
+    <div *ngSwitchCase="propertyType.DateTime">
       <input class="form-control" type="date" />
     </div>
     <div *ngSwitchDefault>output2</div>
