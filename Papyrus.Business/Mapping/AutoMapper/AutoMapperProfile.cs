@@ -8,7 +8,7 @@ namespace Papyrus.Business.Mapping.AutoMapper
     {
         public AutoMapperProfile()
         {
-            CreateMap<Property, KeyValueDto>();
+            CreateMap<Property, PropertyForAdDto>();
             CreateMap<Category, CategoryForAdDto>();
             CreateMap<AdForCreationDto, Ad>();
         }

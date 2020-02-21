@@ -1,3 +1,17 @@
-<p>
-  {{ property.name }}
-</p>
+<!-- <p>{{ property.name }} | {{ property.propertyType.name }}</p> -->
+
+<div class="form-group">
+  <label>{{ property.name }} | {{ property.propertyType }}</label>
+  <div [ngSwitch]="property.propertyType">
+    <div *ngSwitchCase="propertyType.dataType.String">
+      <input class="form-control" type="text" />
+    </div>
+    <div *ngSwitchCase="propertyType.dataType.Numeric">
+      <input class="form-control" type="number" />
+    </div>
+    <div *ngSwitchCase="propertyType.dataType.DateTime">
+      <input class="form-control" type="date" />
+    </div>
+    <div *ngSwitchDefault>output2</div>
+  </div>
+</div>

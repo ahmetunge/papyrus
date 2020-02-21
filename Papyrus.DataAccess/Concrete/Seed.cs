@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Papyrus.DataAccess.Concrete.EntityFramework;
 using Papyrus.Entities.Concrete;
+using Papyrus.Entities.Concrete.Enums;
 
 namespace Papyrus.DataAccess.Concrete
 {
@@ -28,23 +29,7 @@ namespace Papyrus.DataAccess.Concrete
                 context.SaveChanges();
             }
 
-            PropertyType stringProperty = new PropertyType();
-            PropertyType intProperty = new PropertyType();
-            PropertyType dateProperty = new PropertyType();
-
-            if (!context.PropertyTypes.Any())
-            {
-                stringProperty.Name = "String";
-                context.Add(stringProperty);
-                intProperty.Name = "Integer";
-                context.Add(intProperty);
-                dateProperty.Name = "DateTime";
-                context.Add(dateProperty);
-
-                context.SaveChanges();
-            }
-
-
+          
             if (!context.Properties.Any())
             {
 
@@ -52,7 +37,7 @@ namespace Papyrus.DataAccess.Concrete
                 {
                     Name = "Author",
                     CategoryId = bookCategory.Id,
-                    PropertyTypeId = stringProperty.Id,
+                    PropertyType = PropertyType.String,
 
                 };
 
@@ -62,7 +47,7 @@ namespace Papyrus.DataAccess.Concrete
                 {
                     Name = "Translator",
                     CategoryId = bookCategory.Id,
-                    PropertyTypeId = stringProperty.Id,
+                    PropertyType=PropertyType.Numeric,
 
                 };
                 context.Add(translatorProperty);
@@ -71,8 +56,7 @@ namespace Papyrus.DataAccess.Concrete
                 {
                     Name = "ISBN",
                     CategoryId = bookCategory.Id,
-                    PropertyTypeId = stringProperty.Id,
-
+                    PropertyType=PropertyType.DateTime,
                 };
                 context.Add(isbnProperty);
 
@@ -80,8 +64,7 @@ namespace Papyrus.DataAccess.Concrete
                 {
                     Name = "Total Page",
                     CategoryId = bookCategory.Id,
-                    PropertyTypeId = stringProperty.Id,
-
+                    PropertyType=PropertyType.Numeric,
                 };
                 context.Add(totalPageProperty);
 

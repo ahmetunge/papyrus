@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Property } from 'src/app/_models/property';
+import { PropertyType } from 'src/app/_models/PropertyType';
 
 @Component({
   selector: 'app-product-property-value',
@@ -8,7 +9,8 @@ import { Property } from 'src/app/_models/property';
 })
 export class ProductPropertyValueComponent implements OnInit {
 
-   @Input() property: Property;
+  @Input() property: Property;
+  propertyType: PropertyType = new PropertyType();
 
   constructor() { }
 

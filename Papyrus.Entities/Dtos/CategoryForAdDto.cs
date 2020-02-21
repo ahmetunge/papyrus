@@ -7,7 +7,6 @@ namespace Papyrus.Entities.Dtos
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-
-        public List<KeyValueDto> Properties { get; set; }
+        public List<PropertyForAdDto> Properties { get; set; }
     }
 }

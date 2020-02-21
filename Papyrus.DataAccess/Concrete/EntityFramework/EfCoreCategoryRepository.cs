@@ -20,7 +20,9 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
 
         public async Task<IEnumerable<Category>> GetCategoriesIncludePropertiesAsync()
         {
-            return await _context.Categories.Include(c => c.Properties).ToListAsync();
+            return await _context.Categories
+            .Include(c => c.Properties)
+            .ToListAsync();
         }
     }
 }
