@@ -68,23 +68,6 @@ namespace Papyrus.DataAccess.Concrete
                 };
                 context.Add(totalPageProperty);
 
-                Property colorProperty = new Property
-                {
-                    Name = "Color",
-                    CategoryId = stationeryEquipmentCategory.Id,
-                    PropertyType=PropertyType.String,
-                };
-                context.Add(colorProperty);
-
-                Property brand = new Property
-                {
-                    Name = "Brand",
-                    CategoryId = stationeryEquipmentCategory.Id,
-                    PropertyType=PropertyType.String,
-                };
-
-                context.Add(brand);
-
                 context.SaveChanges();
 
             }

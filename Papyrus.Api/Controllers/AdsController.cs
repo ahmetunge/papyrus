@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,7 @@ using Papyrus.Entities.Dtos;
 namespace Papyrus.Api.Controllers
 {
     [ApiController]
-    [Route("api/users/{userId}/[controller]")]
+    [Route("api/[controller]")]
     public class AdsController : ControllerBase
     {
         private readonly IAdService _adService;
@@ -31,7 +30,7 @@ namespace Papyrus.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAd(Guid userId, [FromBody]AdForCreationDto adForCreation)
+        public async Task<IActionResult> CreateAd([FromBody]AdForCreationDto adForCreation)
         {
 
             IResult result = await _adService.CreateAd(adForCreation);
