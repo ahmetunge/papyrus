@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
-import { Photo } from '../_models/photo';
+import { PhotoModel } from '../_models/photo.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./photo-editor.component.css']
 })
 export class PhotoEditorComponent implements OnInit {
-  @Input() photos: Photo[];
+  @Input() photos: PhotoModel[];
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;

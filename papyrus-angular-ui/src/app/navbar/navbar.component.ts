@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
     }, error => {
       this.toastr.error(error);
     }, () => {
-      this.router.navigate(['/ads']);
+      this.router.navigate(['/home']);
     });
   }
 

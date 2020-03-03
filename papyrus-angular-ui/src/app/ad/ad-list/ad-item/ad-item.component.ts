@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Ad } from 'src/app/_models/ad';
+import { AdModel } from 'src/app/_models/ad.model';
 
 @Component({
   selector: 'app-ad-item',
@@ -8,7 +8,7 @@ import { Ad } from 'src/app/_models/ad';
 })
 export class AdItemComponent implements OnInit {
 
-  @Input() ad: Ad;
+  @Input() ad: AdModel;
 
   constructor() { }
 

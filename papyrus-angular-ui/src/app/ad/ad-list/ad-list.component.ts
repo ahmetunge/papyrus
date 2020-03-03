@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Ad } from 'src/app/_models/ad';
+import { AdModel } from 'src/app/_models/ad.model';
 import { AdService } from '../ad.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AdListComponent implements OnInit {
 
-  ads: Ad[] = [];
+  ads: AdModel[] = [];
 
   constructor(private route: ActivatedRoute) { }
 
