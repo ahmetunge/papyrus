@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Property } from 'src/app/_models/property';
-import { PropertyType } from 'src/app/_models/PropertyType.enum';
+import { PropertyModel } from 'src/app/_models/property.model';
+import { PropertyType } from 'src/app/_enums/PropertyType.enum';
+
 
 @Component({
   selector: 'app-product-property-value',
@@ -9,7 +10,7 @@ import { PropertyType } from 'src/app/_models/PropertyType.enum';
 })
 export class ProductPropertyValueComponent implements OnInit {
 
-  @Input() property: Property;
+  @Input() property: PropertyModel;
   propertyType: typeof PropertyType = PropertyType;
 
   constructor() { }

@@ -3,11 +3,11 @@ import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Ad } from '../_models/ad';
+import { AdModel } from '../_models/ad.model';
 import { AdService } from '../ad/ad.service';
 
 @Injectable()
-export class AdListResolver implements Resolve<Ad> {
+export class AdListResolver implements Resolve<AdModel> {
 
   constructor(
     private adService: AdService,
@@ -15,7 +15,7 @@ export class AdListResolver implements Resolve<Ad> {
     private toastr: ToastrService
   ) { }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<Ad> {
+  resolve(route: ActivatedRouteSnapshot): Observable<AdModel> {
     return this.adService.getAds().pipe(
       catchError(error => {
         this.toastr.error('Problem retrieving data');

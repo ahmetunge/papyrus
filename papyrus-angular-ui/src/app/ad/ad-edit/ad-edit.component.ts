@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CategoryService } from 'src/app/category/category.service';
 import { ToastrService } from 'ngx-toastr';
-import { Category } from 'src/app/_models/category';
-import { Ad } from 'src/app/_models/ad';
+import { CategoryModel } from 'src/app/_models/category.model';
+import { AdModel } from 'src/app/_models/ad.model';
 import { NgForm } from '@angular/forms';
 import { AdService } from '../ad.service';
-import { Property } from 'src/app/_models/property';
+import { PropertyModel } from 'src/app/_models/property.model';
+import { AdStatus } from 'src/app/_enums/adStatus.enum';
 
 
 @Component({
@@ -16,15 +17,10 @@ import { Property } from 'src/app/_models/property';
 export class AdEditComponent implements OnInit {
 
   @ViewChild('mainForm', { static: false }) mainForm: NgForm;
-  categories: Category[];
+  categories: CategoryModel[];
 
-  selectedProperties: Property[] = [];
-  ad: Ad = {
-    id: '',
-    categoryId: '',
-    title: '',
-    description: ''
-  };
+  selectedProperties: PropertyModel[] = [];
+  ad: AdModel;
 
   constructor(
     private categoryService: CategoryService,
