@@ -1,14 +1,4 @@
-<!-- <div class="container mt-5">
-  <div class="row">
-    <div class="col-md-6">
-      <app-ad-edit-main (selectCategory)="onCategoryChange($event)"></app-ad-edit-main>
-    </div>
-  </div>
-  <div class="row">
-    <app-ad-edit-book
-    ></app-ad-edit-book>
-  </div>
-</div> -->
+
 <div class="container">
   <form #mainForm="ngForm">
     <div class="form-group">
@@ -66,7 +56,7 @@
 
     <div class="row">
       <button class="btn btn-success" [disabled]="mainForm.invalid">
-        Forward
+        Save
       </button>
     </div>
   </form>

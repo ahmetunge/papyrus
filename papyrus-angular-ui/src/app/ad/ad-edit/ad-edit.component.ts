@@ -22,6 +22,7 @@ export class AdEditComponent implements OnInit {
   selectedProperties: PropertyModel[] = [];
   ad: AdModel;
 
+
   constructor(
     private categoryService: CategoryService,
     private toaster: ToastrService,
@@ -30,6 +31,9 @@ export class AdEditComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
+    this.adService.propertyValues.subscribe(
+      propertyValues => this.ad.product.productPropertyValues = propertyValues);
+    console.log(this.ad.product.productPropertyValues);
   }
 
   getCategories() {
