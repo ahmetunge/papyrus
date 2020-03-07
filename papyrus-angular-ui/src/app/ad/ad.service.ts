@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AdModel } from '../_models/ad.model';
-import { ProductPropertyValueModelodel } from '../_models/productPropertyValue.model';
+import { ProductPropertyValueModel } from '../_models/productPropertyValue.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { ProductPropertyValueModelodel } from '../_models/productPropertyValue.m
 export class AdService {
 
   baseUrl = environment.apiUrl;
-  propertyValuesSubject = new BehaviorSubject<ProductPropertyValueModelodel[]>([]);
+  propertyValuesSubject = new BehaviorSubject<ProductPropertyValueModel[]>([]);
 
   propertyValues = this.propertyValuesSubject.asObservable();
 
@@ -26,7 +26,7 @@ export class AdService {
     return this.http.post(this.baseUrl + 'ads', ad);
   }
 
-  onPropertyValueChange(propertyValues: ProductPropertyValueModelodel[]) {
+  onPropertyValueChange(propertyValues: ProductPropertyValueModel[]) {
     this.propertyValuesSubject.next(propertyValues);
   }
 

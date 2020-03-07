@@ -1,19 +1,19 @@
 <!-- <p>{{ property.name }} | {{ property.propertyType.name }}</p> -->
 
-<div class="form-group">
-  <label>{{ property.name }} | {{ property.propertyType }}</label>
-  <div [ngSwitch]="property.propertyType">
-    <div *ngSwitchCase="propertyType.String">
-      <input class="form-control" type="text" />
+<div *ngFor="let ppv of productPropertyValues">
+  <div class="form-group">
+    <label>{{ ppv.property.name }} | {{ ppv.property.propertyType }}</label>
+    <div [ngSwitch]="ppv.property.propertyType">
+      <div *ngSwitchCase="propertyType.String">
+        <input class="form-control" type="text" [(ngModel)]="ppv.value" />
+      </div>
+      <div *ngSwitchCase="propertyType.Numeric">
+        <input class="form-control" type="number" [(ngModel)]="ppv.value" />
+      </div>
+      <div *ngSwitchCase="propertyType.DateTime">
+        <input class="form-control" type="date" [(ngModel)]="ppv.value" />
+      </div>
+      <div *ngSwitchDefault>output2</div>
     </div>
-    <div *ngSwitchCase="propertyType.Numeric">
-      <input class="form-control" type="number" />
-    </div>
-    <div *ngSwitchCase="propertyType.DateTime">
-      <input class="form-control" type="date" />
-    </div>
-    <div *ngSwitchDefault>output2</div>
   </div>
 </div>
-
-<button>Send Property Values</button>

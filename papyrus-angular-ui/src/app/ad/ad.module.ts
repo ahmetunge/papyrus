@@ -8,6 +8,7 @@ import { AdEditComponent } from './ad-edit/ad-edit.component';
 import { CategoryService } from '../category/category.service';
 import { FormsModule } from '@angular/forms';
 import { ProductPropertyValueComponent } from './ad-edit/product-property-value/product-property-value.component';
+import { AdEditResolver } from '../_resolvers/ad-edit-resolver';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProductPropertyValueComponent } from './ad-edit/product-property-value/
   exports: [],
   providers: [
     AdService,
-    CategoryService
+    CategoryService,
+    AdEditResolver
   ]
 })
 
