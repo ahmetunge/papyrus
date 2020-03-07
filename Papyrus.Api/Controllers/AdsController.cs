@@ -1,4 +1,5 @@
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,8 @@ namespace Papyrus.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAd(Guid memberId, [FromBody]AdForCreationDto adForCreation)
         {
+            // if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            //     return Unauthorized();
 
             IResult result = await _adService.CreateAd(adForCreation);
 

@@ -10,6 +10,7 @@ import { PropertyModel } from 'src/app/_models/property.model';
 import { ActivatedRoute } from '@angular/router';
 import { AdStatus } from 'src/app/_enums/adStatus.enum';
 import { ProductPropertyValueComponent } from './product-property-value/product-property-value.component';
+import { AuthService } from 'src/app/_services/auth.service';
 
 
 @Component({
@@ -47,7 +48,8 @@ export class AdEditComponent implements OnInit {
     private categoryService: CategoryService,
     private toaster: ToastrService,
     private adService: AdService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) { }
 
   // ngAfterViewInit() {
@@ -56,32 +58,26 @@ export class AdEditComponent implements OnInit {
   // }
 
   ngOnInit() {
-    // this.getCategories();
     this.route.data.subscribe(data => {
       this.categories = data.categories;
     });
-
-    this.adService.propertyValues.subscribe(
-      propertyValues => this.ad.product.productPropertyValues = propertyValues);
-    console.log(this.ad.product.productPropertyValues);
-  }
-
-  getCategories() {
-    this.categoryService.getCategoriesForAd().subscribe(res => {
-      this.categories = res;
-    },
-      error => this.toaster.error(error));
   }
 
   onSubmit() {
-    console.log(this.productPropertyValueComponent.productPropertyValues);
-    // if (this.mainForm.valid) {
-    //   this.adService.addAd(this.ad).subscribe(res => {
-    //     this.toaster.success('Your ad is created successfully');
-    //   }, error => {
-    //     this.toaster.error(error);
-    //   });
-    // }
+    debugger
+    this.ad.product.productPropertyValues = this.productPropertyValues;
+    this.ad.product.productPropertyValues.map(ppv => ppv.product = null);
+    console.log(this.ad);
+    if (this.mainForm.valid) {
+      this.adService.addAd(this.authService.nameId, this.ad).subscribe(res => {
+        this.toaster.success('Your ad is created successfully');
+      }, error => {
+        console.log(error);
+        this.toaster.error(error);
+      });
+    } else {
+      this.toaster.error('Please enter correct input');
+    }
   }
 
   onCatagoryChange() {

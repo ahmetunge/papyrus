@@ -8,11 +8,13 @@ using Core.Extensions;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Identification;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Papyrus.Business.Abstract;
 using Papyrus.Business.Constants;
 using Papyrus.Business.Validations.FluentValidation;
 using Papyrus.DataAccess.Abstract;
 using Papyrus.Entities.Concrete;
+using Papyrus.Entities.Concrete.Enums;
 using Papyrus.Entities.Dtos;
 
 namespace Papyrus.Business.Concrete
@@ -33,7 +35,7 @@ namespace Papyrus.Business.Concrete
             _adRepository = adRepository;
         }
 
-        [ValidationAspect(typeof(AdForCreationValidator), Priority = 1)]
+        //[ValidationAspect(typeof(AdForCreationValidator), Priority = 1)]
         public async Task<IResult> CreateAd(AdForCreationDto adForCreation)
         {
             Guid memberId = UserIdentification.UserId;
@@ -42,6 +44,7 @@ namespace Papyrus.Business.Concrete
                 return new ErrorResult(Messages.AdRequired);
             Ad ad = _mapper.Map<Ad>(adForCreation);
             ad.MemberId = memberId;
+            ad.Status = AdStatus.Active;
 
             _adRepository.Add(ad);
             await _unitOfWork.CompleteAsync();

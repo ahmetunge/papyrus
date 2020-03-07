@@ -10,6 +10,8 @@ namespace Papyrus.Business.Mapping.AutoMapper
         {
             CreateMap<Property, PropertyForAdDto>();
             CreateMap<Category, CategoryForAdDto>();
+            CreateMap<ProducPropertyValueForCreationAdDto, ProductPropertyValue>();
+            CreateMap<ProductForCreationAdDto, Product>();
             CreateMap<AdForCreationDto, Ad>();
         }
     }

@@ -12,7 +12,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         return next.handle(req).pipe(
             catchError(error => {
+              debugger;
                 if (error instanceof HttpErrorResponse) {
+                  debugger;
 
                     if (error.status === 400) {
                         this.toastr.error(error.error);
