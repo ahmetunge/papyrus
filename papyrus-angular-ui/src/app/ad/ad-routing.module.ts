@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdListComponent } from './ad-list/ad-list.component';
 import { AdListResolver } from '../_resolvers/ad-list.resolver';
 import { AdEditComponent } from './ad-edit/ad-edit.component';
+import { AdEditResolver } from '../_resolvers/ad-edit-resolver';
 
 const adRoutes: Routes = [
   {
@@ -16,7 +17,8 @@ const adRoutes: Routes = [
         },
         {
           path: 'ads/new',
-          component: AdEditComponent
+          component: AdEditComponent,
+          resolve: { categories: AdEditResolver }
         }
       ]
   }

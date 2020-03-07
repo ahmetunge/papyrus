@@ -1,12 +1,15 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/category/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryModel } from 'src/app/_models/category.model';
 import { AdModel } from 'src/app/_models/ad.model';
 import { NgForm } from '@angular/forms';
 import { AdService } from '../ad.service';
+import { ProductPropertyValueModel } from 'src/app/_models/productPropertyValue.model';
 import { PropertyModel } from 'src/app/_models/property.model';
+import { ActivatedRoute } from '@angular/router';
 import { AdStatus } from 'src/app/_enums/adStatus.enum';
+import { ProductPropertyValueComponent } from './product-property-value/product-property-value.component';
 
 
 @Component({
@@ -17,20 +20,47 @@ import { AdStatus } from 'src/app/_enums/adStatus.enum';
 export class AdEditComponent implements OnInit {
 
   @ViewChild('mainForm', { static: false }) mainForm: NgForm;
+  @ViewChild(ProductPropertyValueComponent, { static: false }) productPropertyValueComponent;
   categories: CategoryModel[];
+  productPropertyValues: ProductPropertyValueModel[];
 
-  selectedProperties: PropertyModel[] = [];
-  ad: AdModel;
+  ad: AdModel = {
+    adStatus: AdStatus.Active,
+    member: null,
+    memberId: '',
+    category: null,
+    categoryId: '',
+    id: '',
+    title: '',
+    description: '',
+    product: {
+      id: '',
+      adId: '',
+      productPropertyValues: [],
+      ad: null
+    },
+    photos: []
+  };
 
 
   constructor(
     private categoryService: CategoryService,
     private toaster: ToastrService,
-    private adService: AdService
+    private adService: AdService,
+    private route: ActivatedRoute
   ) { }
 
+  // ngAfterViewInit() {
+  //   // tslint:disable-next-line:no-unused-expression
+  //   this.productPropertyValueComponent.productPropertyValues;
+  // }
+
   ngOnInit() {
-    this.getCategories();
+    // this.getCategories();
+    this.route.data.subscribe(data => {
+      this.categories = data.categories;
+    });
+
     this.adService.propertyValues.subscribe(
       propertyValues => this.ad.product.productPropertyValues = propertyValues);
     console.log(this.ad.product.productPropertyValues);
@@ -44,13 +74,14 @@ export class AdEditComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.mainForm.valid) {
-      this.adService.addAd(this.ad).subscribe(res => {
-        this.toaster.success('Your ad is created successfully');
-      }, error => {
-        this.toaster.error(error);
-      });
-    }
+    console.log(this.productPropertyValueComponent.productPropertyValues);
+    // if (this.mainForm.valid) {
+    //   this.adService.addAd(this.ad).subscribe(res => {
+    //     this.toaster.success('Your ad is created successfully');
+    //   }, error => {
+    //     this.toaster.error(error);
+    //   });
+    // }
   }
 
   onCatagoryChange() {
@@ -58,10 +89,28 @@ export class AdEditComponent implements OnInit {
       const selectedCategory = this.categories.find(c => c.id === this.ad.categoryId);
 
       if (selectedCategory) {
-        this.selectedProperties = selectedCategory.properties;
+        this.setPropertyValue(selectedCategory.properties);
       }
 
     }
+  }
+
+  setPropertyValue(productPropertyValues: PropertyModel[]) {
+    this.productPropertyValues = [];
+    productPropertyValues.map((prop: PropertyModel) => {
+      const index = this.ad.product.productPropertyValues.findIndex(ppv => ppv.propertyId === prop.id);
+
+      if (index < 0) {
+        const productPropertyModel: ProductPropertyValueModel = {
+          property: prop,
+          propertyId: prop.id,
+          product: this.ad.product,
+          productId: this.ad.product.id,
+          value: ''
+        };
+        this.productPropertyValues.push(productPropertyModel);
+      }
+    });
   }
 
 }
