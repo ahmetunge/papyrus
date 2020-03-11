@@ -14,7 +14,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     if (token) {
-      this.authService.decodedToken = this.jwtHelper.decodeToken(token);
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      this.authService.decodedToken = decodedToken;
+      this.authService.nameId = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']
     }
   }
 

@@ -7,7 +7,10 @@ namespace Papyrus.Entities.Dtos
     {
         public AdForCreationDto()
         {
+            Status = AdStatus.Active;
         }
+
+        public AdStatus Status { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public ProductForCreationAdDto Product { get; set; }

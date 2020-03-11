@@ -8,7 +8,7 @@ export interface AdModel {
   id?: string;
   title: string;
   description: string;
-  adStatus: AdStatus;
+  status: AdStatus;
   member: MemberModel;
   memberId: string;
   categoryId: string;

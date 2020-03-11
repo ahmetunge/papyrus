@@ -19,8 +19,9 @@ export class AdService {
   }
 
   addAd(memberId: string, ad: AdModel) {
+    debugger;
     // api/members/{memberId}
-    return this.http.post(this.baseUrl + 'members/' + memberId + '/ads', JSON.stringify(ad));
+    return this.http.post(this.baseUrl + 'members/' + memberId + '/ads', ad);
   }
 
 }

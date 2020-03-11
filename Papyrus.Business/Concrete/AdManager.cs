@@ -44,7 +44,6 @@ namespace Papyrus.Business.Concrete
                 return new ErrorResult(Messages.AdRequired);
             Ad ad = _mapper.Map<Ad>(adForCreation);
             ad.MemberId = memberId;
-            ad.Status = AdStatus.Active;
 
             _adRepository.Add(ad);
             await _unitOfWork.CompleteAsync();

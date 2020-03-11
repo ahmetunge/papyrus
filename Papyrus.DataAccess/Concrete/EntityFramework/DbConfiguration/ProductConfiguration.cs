@@ -11,12 +11,8 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework.DbConfiguration
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Name)
-            .HasMaxLength(150)
+            .HasMaxLength(250)
             .IsRequired(true);
-
-            // builder.HasOne(p => p.Category)
-            // .WithMany(c => c.Products)
-            // .HasForeignKey(p => p.CategoryId);
 
             builder.HasOne(p => p.Ad)
             .WithOne(a => a.Product)

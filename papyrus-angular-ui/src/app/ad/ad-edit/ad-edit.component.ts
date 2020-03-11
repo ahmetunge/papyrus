@@ -26,7 +26,7 @@ export class AdEditComponent implements OnInit {
   productPropertyValues: ProductPropertyValueModel[];
 
   ad: AdModel = {
-    adStatus: AdStatus.Active,
+    status: AdStatus.Active,
     member: null,
     memberId: '',
     category: null,
@@ -64,7 +64,6 @@ export class AdEditComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger
     this.ad.product.productPropertyValues = this.productPropertyValues;
     this.ad.product.productPropertyValues.map(ppv => ppv.product = null);
     console.log(this.ad);
