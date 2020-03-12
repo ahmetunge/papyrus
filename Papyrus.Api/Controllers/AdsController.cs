@@ -34,13 +34,17 @@ namespace Papyrus.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateAd(Guid memberId, [FromBody]AdForCreationDto adForCreation)
         {
-            // if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-            //     return Unauthorized();
+            if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
 
             IResult result = await _adService.CreateAd(adForCreation);
 
-            if (result.Success)
-                return Ok(result.Message);
+            if (result.Success){
+                var obj = new {
+                    Message=result.Message
+                };
+                return Ok(obj);
+            }
 
             return BadRequest(result.Message);
 

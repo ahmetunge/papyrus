@@ -38,7 +38,8 @@ export class AdEditComponent implements OnInit {
       id: '',
       adId: '',
       productPropertyValues: [],
-      ad: null
+      ad: null,
+      name: ''
     },
     photos: []
   };

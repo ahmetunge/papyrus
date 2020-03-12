@@ -1,11 +1,11 @@
 <div class="container">
   <form #mainForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="name">Name</label>
+      <label for="title">Title</label>
       <input
         class="form-control"
-        id="name"
-        name="name"
+        id="title"
+        name="title"
         required
         #nameModel="ngModel"
         [(ngModel)]="ad.title"
@@ -36,6 +36,23 @@
         *ngIf="categoryModel.touched && categoryModel.invalid"
         class="help-block text-danger"
         >Please select a category</span
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        class="form-control"
+        id="name"
+        name="name"
+        required
+        #nameModel="ngModel"
+        [(ngModel)]="ad.product.name"
+      />
+      <span
+        *ngIf="nameModel.touched && nameModel.invalid"
+        class="help-block text-danger"
+        >Please enter a name</span
       >
     </div>
     <div>
