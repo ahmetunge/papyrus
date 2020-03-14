@@ -29,7 +29,7 @@ namespace Papyrus.Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
-       // [LogAspect(typeof(FileLogger))]
+       [LogAspect(typeof(DatabaseLogger))]
         public async Task<IDataResult<User>> LoginAsync(UserForLoginDto userForLogin)
         {
             var userToCheck =await _userService.GetByMailAsync(userForLogin.Email);

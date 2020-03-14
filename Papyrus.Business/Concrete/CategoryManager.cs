@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using Papyrus.Business.Abstract;
 using Papyrus.Business.Constants;
@@ -22,6 +24,7 @@ namespace Papyrus.Business.Concrete
             _categoryRepository = categoryRepository;
         }
 
+        [LogAspect(typeof(DatabaseLogger))]
         public async Task<IDataResult<List<CategoryForAdDto>>> GetCategoriesIncludePropertiesAsync()
         {
             var categoriesFromDb = await _categoryRepository.GetCategoriesIncludePropertiesAsync();
