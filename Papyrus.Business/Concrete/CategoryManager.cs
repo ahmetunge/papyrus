@@ -24,7 +24,7 @@ namespace Papyrus.Business.Concrete
             _categoryRepository = categoryRepository;
         }
 
-        [LogAspect(typeof(DatabaseLogger))]
+       // [LogAspect(typeof(DatabaseLogger))]
         public async Task<IDataResult<List<CategoryForAdDto>>> GetCategoriesIncludePropertiesAsync()
         {
             var categoriesFromDb = await _categoryRepository.GetCategoriesIncludePropertiesAsync();

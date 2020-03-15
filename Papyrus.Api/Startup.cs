@@ -79,6 +79,8 @@ namespace Papyrus.Api
                 new CoreModule(),
             });
 
+            
+
         }
 
         //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Comment when you create migration !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
