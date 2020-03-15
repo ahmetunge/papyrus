@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Aspects.Autofac.Validation;
@@ -41,14 +42,15 @@ namespace Papyrus.Business.Concrete
             Guid memberId = UserIdentification.UserId;
 
             if (adForCreation == null)
-                return new ErrorResult(Messages.AdRequired);
+                return new ErrorResult(Messages.AdRequired,HttpStatusCode.NotFound);
+
             Ad ad = _mapper.Map<Ad>(adForCreation);
             ad.MemberId = memberId;
 
             _adRepository.Add(ad);
             await _unitOfWork.CompleteAsync();
 
-            return new SuccessResult(Messages.AdCreated);
+            return new SuccessResult(Messages.AdCreated,HttpStatusCode.Created);
 
         }
 

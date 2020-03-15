@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Aspects.Autofac.Logging;
@@ -32,7 +33,7 @@ namespace Papyrus.Business.Concrete
             List<Category> categories = categoriesFromDb.ToList();
 
             if (categories.Count < 1)
-                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound);
+                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound,HttpStatusCode.NotFound);
 
             var categoriesToReturn = _mapper.Map<List<CategoryForAdDto>>(categories);
 
@@ -47,7 +48,7 @@ namespace Papyrus.Business.Concrete
             List<Category> categories = categoriesFromDb.ToList();
 
             if (categories.Count < 1)
-                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound);
+                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound,HttpStatusCode.NotFound);
 
             var categoriesToReturn = _mapper.Map<List<CategoryForAdDto>>(categories);
 

@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Papyrus.Api.Middleware;
 using Papyrus.Business.Resolvers.Autofac;
 using Papyrus.DataAccess.Concrete.EntityFramework;
 
@@ -79,7 +80,7 @@ namespace Papyrus.Api
                 new CoreModule(),
             });
 
-            
+
 
         }
 
@@ -92,13 +93,14 @@ namespace Papyrus.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                 app.UseDeveloperExceptionPage();
             }
 
             //  app.UseHttpsRedirection();
-
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseCors("CorsPolicy");
             app.UseRouting();
             app.UseAuthentication();

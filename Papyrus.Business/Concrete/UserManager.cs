@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
@@ -28,17 +29,17 @@ namespace Papyrus.Business.Concrete
 
             _userRepository.Add(user);
             await _unitOfWork.CompleteAsync();
-            return new SuccessResult(Messages.UserAddedSuccessfully);
+            return new SuccessResult(Messages.UserAddedSuccessfully,HttpStatusCode.Created);
         }
 
         public async Task<IDataResult<User>> GetByMailAsync(string mail)
         {
             if (!Validator.ValidateMail(mail))
-                return new ErrorDataResult<User>(Messages.InvalidMail);
+                return new ErrorDataResult<User>(Messages.InvalidMail,HttpStatusCode.UnprocessableEntity);
 
             var user =await _userRepository.FindAsync(u => u.Email == mail);
             if (user == null)
-                return new ErrorDataResult<User>(Messages.UserNotFound);
+                return new ErrorDataResult<User>(Messages.UserNotFound,HttpStatusCode.NotFound);
 
             return new SuccessDataResult<User>(user);
 

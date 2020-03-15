@@ -27,7 +27,7 @@ namespace Papyrus.Api.Controllers
             if (result.Success)
                 return Ok(result.Data);
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("{id}/properties")]

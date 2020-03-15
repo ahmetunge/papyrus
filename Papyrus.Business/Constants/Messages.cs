@@ -47,5 +47,7 @@ namespace Papyrus.Business.Constants
         public static string AdCreated = "Ad is created";
 
         public static string PropertiesNotFound = "Properties not found";
+
+        public static string InternalServerError = "Internal server error";
     }
 }

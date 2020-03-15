@@ -40,13 +40,10 @@ namespace Papyrus.Api.Controllers
             IResult result = await _adService.CreateAd(adForCreation);
 
             if (result.Success){
-                var obj = new {
-                    Message=result.Message
-                };
-                return Ok(obj);
+                return Ok(result);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
 
         }
     }

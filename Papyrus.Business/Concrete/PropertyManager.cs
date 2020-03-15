@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Utilities.Results;
@@ -31,7 +32,7 @@ namespace Papyrus.Business.Concrete
 
 
             if (propertiesFromDb.Count() <= 0)
-                return new ErrorDataResult<List<KeyValueDto>>(Messages.PropertiesNotFound);
+                return new ErrorDataResult<List<KeyValueDto>>(Messages.PropertiesNotFound,HttpStatusCode.NotFound);
 
             var propertiesToReturn = _mapper.Map<List<KeyValueDto>>(propertiesFromDb.ToList());
 

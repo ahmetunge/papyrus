@@ -1,3 +1,4 @@
+using System.Net;
 using System.Threading.Tasks;
 using Core.Aspects.Autofac.Logging;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
@@ -36,15 +37,15 @@ namespace Papyrus.Business.Concrete
 
             if (userToCheck.Data == null)
             {
-                return new ErrorDataResult<User>(Messages.UserNotFound);
+                return new ErrorDataResult<User>(Messages.UserNotFound,HttpStatusCode.NotFound);
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
             {
-                return new ErrorDataResult<User>(Messages.UserNotFound);
+                return new ErrorDataResult<User>(Messages.UserNotFound,HttpStatusCode.NotFound);
             }
 
-            return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessLogin);
+            return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessLogin,HttpStatusCode.OK);
         }
 
         //[LogAspect(typeof(FileLogger))]
@@ -66,7 +67,7 @@ namespace Papyrus.Business.Concrete
 
            await _userService.AddAsync(user);
 
-            return new SuccessDataResult<User>(user, Messages.UserRegistered);
+            return new SuccessDataResult<User>(user, Messages.UserRegistered,HttpStatusCode.Created);
 
         }
 
@@ -75,7 +76,7 @@ namespace Papyrus.Business.Concrete
             var user = await _userService.GetByMailAsync(email);
             if (user.Data != null)
             {
-                return new ErrorResult(Messages.UserAlreadyExist);
+                return new ErrorResult(Messages.UserAlreadyExist,HttpStatusCode.Conflict);
             }
 
             return new SuccessResult();
