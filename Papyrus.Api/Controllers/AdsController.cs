@@ -37,7 +37,7 @@ namespace Papyrus.Api.Controllers
             if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            IResult result = await _adService.CreateAd(adForCreation);
+            IResult result = await _adService.CreateAsync(adForCreation);
 
             if (result.Success){
                 return Ok(result);

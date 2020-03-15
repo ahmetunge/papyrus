@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Core.Aspects.Autofac.Logging;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Entities.Concrete;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using Core.Utilities.Security;
 using Core.Utilities.Security.Hashing;
@@ -22,33 +23,31 @@ namespace Papyrus.Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
+        [LogAspect(typeof(FileLogger))]
         public async Task<IDataResult<AccessToken>> CreateAccessTokenAsync(User user)
         {
-            var claims =await _userService.GetRolesAsync(user.Id);
+            var claims = await _userService.GetRolesAsync(user.Id);
             var accessToken = _tokenHelper.CreateToken(user, claims.Data);
             //TODO All data results constructurs should include data
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
-       [LogAspect(typeof(DatabaseLogger))]
+        [LogAspect(typeof(FileLogger))]
         public async Task<IDataResult<User>> LoginAsync(UserForLoginDto userForLogin)
         {
-            var userToCheck =await _userService.GetByMailAsync(userForLogin.Email);
+            var userToCheck = await _userService.GetByMailAsync(userForLogin.Email);
 
-            if (userToCheck.Data == null)
+           IResult result=  BusinessRules.Run(userToCheck, VerifyPassword(userForLogin.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt));
+
+            if (result != null)
             {
-                return new ErrorDataResult<User>(Messages.UserNotFound,HttpStatusCode.NotFound);
+                return (IDataResult<User>)result;
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLogin.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
-            {
-                return new ErrorDataResult<User>(Messages.UserNotFound,HttpStatusCode.NotFound);
-            }
-
-            return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessLogin,HttpStatusCode.OK);
+            return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessLogin, HttpStatusCode.OK);
         }
 
-        //[LogAspect(typeof(FileLogger))]
+        [LogAspect(typeof(FileLogger))]
         public async Task<IDataResult<User>> RegisterAsync(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
@@ -65,9 +64,9 @@ namespace Papyrus.Business.Concrete
                 Status = 1
             };
 
-           await _userService.AddAsync(user);
+            await _userService.AddAsync(user);
 
-            return new SuccessDataResult<User>(user, Messages.UserRegistered,HttpStatusCode.Created);
+            return new SuccessDataResult<User>(user, Messages.UserRegistered, HttpStatusCode.Created);
 
         }
 
@@ -76,7 +75,17 @@ namespace Papyrus.Business.Concrete
             var user = await _userService.GetByMailAsync(email);
             if (user.Data != null)
             {
-                return new ErrorResult(Messages.UserAlreadyExist,HttpStatusCode.Conflict);
+                return new ErrorResult(Messages.UserAlreadyExist, HttpStatusCode.Conflict);
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult VerifyPassword(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            if (!HashingHelper.VerifyPasswordHash(password, passwordHash, passwordSalt))
+            {
+                return new ErrorDataResult<User>(Messages.UserNotFound, HttpStatusCode.NotFound);
             }
 
             return new SuccessResult();

@@ -37,12 +37,9 @@ namespace Papyrus.Business.Concrete
         }
 
         //[ValidationAspect(typeof(AdForCreationValidator), Priority = 1)]
-        public async Task<IResult> CreateAd(AdForCreationDto adForCreation)
+        public async Task<IResult> CreateAsync(AdForCreationDto adForCreation)
         {
             Guid memberId = UserIdentification.UserId;
-
-            if (adForCreation == null)
-                return new ErrorResult(Messages.AdRequired,HttpStatusCode.NotFound);
 
             Ad ad = _mapper.Map<Ad>(adForCreation);
             ad.MemberId = memberId;

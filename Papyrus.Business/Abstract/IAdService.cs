@@ -10,6 +10,6 @@ namespace Papyrus.Business.Abstract
     {
          Task<IDataResult<List<Ad>>> GetListAsync();
 
-         Task<IResult> CreateAd(AdForCreationDto adForCreation);
+         Task<IResult> CreateAsync(AdForCreationDto adForCreation);
     }
 }

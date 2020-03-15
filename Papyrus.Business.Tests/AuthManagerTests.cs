@@ -1,3 +1,4 @@
+using System.Net;
 using System.Threading.Tasks;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
@@ -25,9 +26,13 @@ namespace Papyrus.Business.Tests
         [Fact]
         public async Task Login_IfUserNotFound_ShouldReturnError()
         {
+            User user = new User
+            {
+                PasswordHash = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 },
+                PasswordSalt = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 }
+            };
 
-            User user = null;
-            IDataResult<User> dataResult = new SuccessDataResult<User>(user);
+            IDataResult<User> dataResult = new ErrorDataResult<User>(user, Messages.UserNotFound, HttpStatusCode.NotFound);
 
             _mockUserService.Setup(s => s.GetByMailAsync("ahmetunge@gmail.com"))
             .ReturnsAsync(dataResult);
@@ -97,7 +102,7 @@ namespace Papyrus.Business.Tests
 
             User user = null;
             IDataResult<User> dataResult = new SuccessDataResult<User>(user);
-            
+
             _mockUserService.Setup(s => s.GetByMailAsync("ahmetunge@gmail.com"))
            .ReturnsAsync(dataResult);
 
