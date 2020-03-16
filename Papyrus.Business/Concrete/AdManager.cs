@@ -36,7 +36,7 @@ namespace Papyrus.Business.Concrete
             _adRepository = adRepository;
         }
 
-        //[ValidationAspect(typeof(AdForCreationValidator), Priority = 1)]
+        [ValidationAspect(typeof(AdForCreationValidator), Priority = 1)]
         public async Task<IResult> CreateAsync(AdForCreationDto adForCreation)
         {
             Guid memberId = UserIdentification.UserId;

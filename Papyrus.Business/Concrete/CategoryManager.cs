@@ -41,20 +41,5 @@ namespace Papyrus.Business.Concrete
 
         }
 
-        public async Task<IDataResult<List<CategoryForAdDto>>> GetListAsync()
-        {
-            var categoriesFromDb = await _categoryRepository.GetAllAsync();
-
-            List<Category> categories = categoriesFromDb.ToList();
-
-            if (categories.Count < 1)
-                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound,HttpStatusCode.NotFound);
-
-            var categoriesToReturn = _mapper.Map<List<CategoryForAdDto>>(categories);
-
-            return new SuccessDataResult<List<CategoryForAdDto>>(categoriesToReturn);
-        }
-
-
     }
 }

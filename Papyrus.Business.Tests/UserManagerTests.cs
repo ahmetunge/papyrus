@@ -22,19 +22,19 @@ namespace Papyrus.Business.Tests
             _mockUnitOfWork = new Mock<IUnitOfWork>();
         }
         [Fact]
-        public async Task AddUser_ShouldReturnFalse_WhenUserIsNull()
+        public async Task CreateUser_ShouldReturnFalse_WhenUserIsNull()
         {
 
             UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object);
             User user = new User();
-            var result =await userManager.AddAsync(null);
+            var result =await userManager.CreateAsync(null);
 
             Assert.False(result.Success);
 
         }
 
         [Fact]
-        public async Task AddUser_ShouldReturnSuccessAndData_WhenUserAdded()
+        public async Task CreateUser_ShouldReturnSuccessAndData_WhenUserCreateed()
         {
             UserManager userManager = new UserManager(_mockRepository.Object, _mockUnitOfWork.Object); ;
             var user = new User
@@ -47,7 +47,7 @@ namespace Papyrus.Business.Tests
                 PasswordHash = null
             };
 
-            var result =await userManager.AddAsync(user);
+            var result =await userManager.CreateAsync(user);
             Assert.True(result.Success);
             Assert.Equal(result.Message, Messages.UserAddedSuccessfully);
         }

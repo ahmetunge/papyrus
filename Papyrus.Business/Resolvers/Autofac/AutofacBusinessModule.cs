@@ -41,7 +41,6 @@ namespace Papyrus.Business.Resolvers.Autofac
 
             builder.RegisterType<EfCorePropertyRepository>().As<IPropertyRepository>();
 
-            builder.RegisterType<PropertyManager>().As<IPropertyService>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

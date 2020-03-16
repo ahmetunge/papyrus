@@ -28,7 +28,7 @@ namespace Papyrus.Business.Concrete
         {
             var claims = await _userService.GetRolesAsync(user.Id);
             var accessToken = _tokenHelper.CreateToken(user, claims.Data);
-            //TODO All data results constructurs should include data
+            
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
@@ -64,7 +64,7 @@ namespace Papyrus.Business.Concrete
                 Status = 1
             };
 
-            await _userService.AddAsync(user);
+            await _userService.CreateAsync(user);
 
             return new SuccessDataResult<User>(user, Messages.UserRegistered, HttpStatusCode.Created);
 

@@ -11,10 +11,8 @@ namespace Papyrus.Api.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
-        private readonly IPropertyService _propertyService;
-        public CategoriesController(ICategoryService categoryService, IPropertyService propertyService)
+        public CategoriesController(ICategoryService categoryService)
         {
-            _propertyService = propertyService;
             _categoryService = categoryService;
         }
 
@@ -30,16 +28,5 @@ namespace Papyrus.Api.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("{id}/properties")]
-        public async Task<IActionResult> GetPropertiesByCategoryId(Guid id)
-        {
-            var result = await _propertyService.GetPropertiesByCategoryId(id);
-
-            if (!result.Success)
-                return BadRequest(result.Message);
-
-            return Ok(result.Data);
-
-        }
     }
 }

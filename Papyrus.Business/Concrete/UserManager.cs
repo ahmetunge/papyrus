@@ -23,7 +23,7 @@ namespace Papyrus.Business.Concrete
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IResult> AddAsync(User user)
+        public async Task<IResult> CreateAsync(User user)
         {
             if (user == null)
                 return new ErrorResult();
