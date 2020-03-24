@@ -28,7 +28,7 @@ namespace Papyrus.Business.Concrete
         {
             var claims = await _userService.GetRolesAsync(user.Id);
             var accessToken = _tokenHelper.CreateToken(user, claims.Data);
-            
+
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
@@ -37,7 +37,7 @@ namespace Papyrus.Business.Concrete
         {
             var userToCheck = await _userService.GetByMailAsync(userForLogin.Email);
 
-           IResult result=  BusinessRules.Run(userToCheck, VerifyPassword(userForLogin.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt));
+            IResult result = BusinessRules.Run(userToCheck, VerifyPassword(userForLogin.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt));
 
             if (result != null)
             {
@@ -90,5 +90,11 @@ namespace Papyrus.Business.Concrete
 
             return new SuccessResult();
         }
+
+        // private IResult CheckAccessToken(AccessToken accessToken)
+        // {
+            
+
+        // }
     }
 }

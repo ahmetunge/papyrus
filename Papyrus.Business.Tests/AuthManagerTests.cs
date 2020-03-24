@@ -49,7 +49,7 @@ namespace Papyrus.Business.Tests
 
             };
 
-            _mockUserService.Setup(s => s.GetRolesAsync(userId))
+            _mockUserService.Setup(s => s.GetRolesAsync(It.IsAny<Guid>()))
          .ReturnsAsync(claims);
 
             _mockTokenHelper.Setup(th => th.CreateToken(It.IsAny<User>(),It.IsAny<List<Role>>()))
