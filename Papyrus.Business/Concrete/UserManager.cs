@@ -37,16 +37,16 @@ namespace Papyrus.Business.Concrete
 
         public async Task<IDataResult<User>> GetByMailAsync(string mail)
         {
-            User user = null;
+            IDataResult<User> userResult = await CheckIfUserExistByMail(mail);
 
-            IResult result = BusinessRules.Run(CheckMail(mail), await CheckIfUserExistByMail(mail, user));
+            IResult result = BusinessRules.Run(CheckMail(mail),userResult);
 
             if (result != null)
             {
                 return (IDataResult<User>)result;
             }
 
-            return new SuccessDataResult<User>(user);
+            return new SuccessDataResult<User>(userResult.Data);
 
         }
 
@@ -69,14 +69,14 @@ namespace Papyrus.Business.Concrete
 
         }
 
-        private async Task<IResult> CheckIfUserExistByMail(string mail, User user)
+        private async Task<IDataResult<User>> CheckIfUserExistByMail(string mail)
         {
-            user = await _userRepository.FindAsync(u => u.Email == mail);
+            var user = await _userRepository.FindAsync(u => u.Email == mail);
             if (user == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound, HttpStatusCode.NotFound);
             }
-            return new SuccessResult();
+            return new SuccessDataResult<User>(user);
 
         }
     }

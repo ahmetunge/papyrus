@@ -13,6 +13,8 @@ namespace Papyrus.Business.Mapping.AutoMapper
             CreateMap<ProducPropertyValueForCreationAdDto, ProductPropertyValue>();
             CreateMap<ProductForCreationAdDto, Product>();
             CreateMap<AdForCreationDto, Ad>();
+
+            CreateMap<Ad,MemberAdForListDto>();
         }
     }
 }

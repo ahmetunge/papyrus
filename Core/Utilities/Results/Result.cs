@@ -4,10 +4,16 @@ namespace Core.Utilities.Results
 {
     public class Result : IResult
     {
-        public Result(bool success, string message,HttpStatusCode statusCode) : this(success)
+        public Result(bool success, string message, HttpStatusCode statusCode) : this(success)
         {
             Message = message;
-            StatusCode= statusCode;
+            StatusCode = statusCode;
+        }
+
+        public Result(bool succes, HttpStatusCode statusCode)
+        {
+            Success = succes;
+            StatusCode = statusCode;
         }
 
         public Result(bool succes)
@@ -20,6 +26,6 @@ namespace Core.Utilities.Results
 
         public string Message { get; }
 
-        public HttpStatusCode StatusCode {get;}
+        public HttpStatusCode StatusCode { get; }
     }
 }
