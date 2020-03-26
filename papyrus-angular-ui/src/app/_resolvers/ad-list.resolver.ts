@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AdModel } from '../_models/ad.model';
 import { AdService } from '../ad/ad.service';
+import { AuthService } from '../_services/auth.service';
 
 @Injectable()
 export class AdListResolver implements Resolve<AdModel> {
@@ -12,11 +13,12 @@ export class AdListResolver implements Resolve<AdModel> {
   constructor(
     private adService: AdService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private authService: AuthService
   ) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<AdModel> {
-    return this.adService.getAds().pipe(
+    return this.adService.getAds(this.authService.nameId).pipe(
       catchError(error => {
         this.toastr.error('Problem retrieving data');
         this.router.navigate(['/home']);

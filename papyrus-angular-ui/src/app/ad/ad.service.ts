@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AdModel } from '../_models/ad.model';
+import { ResponseModel } from '../_models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,11 @@ export class AdService {
 
   constructor(private http: HttpClient) { }
 
-  getAds(): Observable<AdModel[]> {
-    return this.http.get<AdModel[]>(this.baseUrl + 'ads');
+  getAds(memberId: string): Observable<ResponseModel> {
+    return this.http.get<ResponseModel>(this.baseUrl + 'members/' + memberId + '/ads');
   }
 
   addAd(memberId: string, ad: AdModel) {
-    debugger;
-    // api/members/{memberId}
     return this.http.post(this.baseUrl + 'members/' + memberId + '/ads', ad);
   }
 

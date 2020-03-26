@@ -14,7 +14,7 @@ const adRoutes: Routes = [
         {
           path: 'ads',
           component: AdListComponent,
-          resolve: { ads: AdListResolver }
+          resolve: {adListResolve : AdListResolver }
         },
         {
           path: 'ads/new',

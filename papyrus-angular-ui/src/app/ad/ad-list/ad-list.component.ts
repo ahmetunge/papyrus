@@ -19,8 +19,9 @@ export class AdListComponent implements OnInit {
   }
 
   getAds() {
-    this.route.data.subscribe(data => {
-      this.ads = data.ads;
+    this.route.data.subscribe(response => {
+      this.ads = response.adListResolve.data;
+      debugger;
     });
   }
 

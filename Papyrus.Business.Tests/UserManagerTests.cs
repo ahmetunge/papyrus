@@ -141,7 +141,7 @@ namespace Papyrus.Business.Tests
 
             var result = await userManager.GetRolesAsync(Guid.NewGuid());
 
-            Assert.Equal(result.Data.Count, 2);
+            Assert.True(result.Data.Count== 2);
             Assert.True(result.Success);
 
         }
