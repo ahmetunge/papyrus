@@ -30,7 +30,7 @@ namespace Papyrus.Api.Controllers
             if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            IDataResult<List<MemberAdForListDto>> result =await _adService.GetMemberAds(memberId);
+            IDataResult<List<MemberAdForListDto>> result =await _adService.GetMemberAdsAsync(memberId);
 
             if (result.Success)
             {

@@ -58,7 +58,7 @@ namespace Papyrus.Business.Concrete
             return new SuccessDataResult<List<Ad>>(ads.ToList());
         }
 
-        public async Task<IDataResult<List<MemberAdForListDto>>> GetMemberAds(Guid memberId)
+        public async Task<IDataResult<List<MemberAdForListDto>>> GetMemberAdsAsync(Guid memberId)
         {
             var ads = await _adRepository.FindListAsync(a => a.MemberId==memberId);
 
