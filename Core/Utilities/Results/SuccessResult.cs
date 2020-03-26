@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace Core.Utilities.Results
 {
     public class SuccessResult : Result
@@ -6,7 +8,7 @@ namespace Core.Utilities.Results
         {
         }
 
-        public SuccessResult(string message) : base(true, message)
+        public SuccessResult(string message,HttpStatusCode statusCode) : base(true, message,statusCode)
         {
         }
 

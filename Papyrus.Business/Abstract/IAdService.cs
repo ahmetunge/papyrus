@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Utilities.Results;
@@ -10,6 +11,7 @@ namespace Papyrus.Business.Abstract
     {
          Task<IDataResult<List<Ad>>> GetListAsync();
 
-         Task<IResult> CreateAd(AdForCreationDto adForCreation);
+         Task<IResult> CreateAsync(AdForCreationDto adForCreation);
+        Task<IDataResult<List<MemberAdForListDto>>> GetMemberAdsAsync(Guid memberId);
     }
 }

@@ -9,7 +9,7 @@ namespace Papyrus.Business.Abstract
     public interface IUserService
     {
         Task<IDataResult<List<Role>>> GetRolesAsync(Guid userId);
-        Task<IResult> AddAsync(User user);
+        Task<IResult> CreateAsync(User user);
 
         Task<IDataResult<User>> GetByMailAsync(string mail);
     }

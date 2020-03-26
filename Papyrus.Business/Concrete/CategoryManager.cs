@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using Papyrus.Business.Abstract;
 using Papyrus.Business.Constants;
@@ -22,6 +25,7 @@ namespace Papyrus.Business.Concrete
             _categoryRepository = categoryRepository;
         }
 
+       // [LogAspect(typeof(DatabaseLogger))]
         public async Task<IDataResult<List<CategoryForAdDto>>> GetCategoriesIncludePropertiesAsync()
         {
             var categoriesFromDb = await _categoryRepository.GetCategoriesIncludePropertiesAsync();
@@ -29,28 +33,13 @@ namespace Papyrus.Business.Concrete
             List<Category> categories = categoriesFromDb.ToList();
 
             if (categories.Count < 1)
-                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound);
+                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound,HttpStatusCode.NotFound);
 
             var categoriesToReturn = _mapper.Map<List<CategoryForAdDto>>(categories);
 
             return new SuccessDataResult<List<CategoryForAdDto>>(categoriesToReturn);
 
         }
-
-        public async Task<IDataResult<List<CategoryForAdDto>>> GetListAsync()
-        {
-            var categoriesFromDb = await _categoryRepository.GetAllAsync();
-
-            List<Category> categories = categoriesFromDb.ToList();
-
-            if (categories.Count < 1)
-                return new ErrorDataResult<List<CategoryForAdDto>>(null, Messages.CategoryNotFound);
-
-            var categoriesToReturn = _mapper.Map<List<CategoryForAdDto>>(categories);
-
-            return new SuccessDataResult<List<CategoryForAdDto>>(categoriesToReturn);
-        }
-
 
     }
 }

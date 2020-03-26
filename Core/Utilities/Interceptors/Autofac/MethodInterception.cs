@@ -1,4 +1,6 @@
 
+using System;
+using System.Threading.Tasks;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors.Autofac;
 
@@ -14,7 +16,7 @@ namespace Core.Utilities.Interceptors.Autofac
         {
 
         }
-        protected virtual void OnException(IInvocation invocation)
+        protected virtual void OnException(IInvocation invocation, System.Exception ex)
         {
 
         }
@@ -30,11 +32,23 @@ namespace Core.Utilities.Interceptors.Autofac
             try
             {
                 invocation.Proceed();
+                Type returnType = invocation.Method.ReturnType;
+
+                if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>)
+                || returnType.BaseType == typeof(Task))
+                {
+                    System.Threading.Tasks.Task task = (Task)invocation.ReturnValue;
+
+                    if (task.Status == TaskStatus.Faulted)
+                    {
+                        throw task.Exception;
+                    }
+                }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 isSuccess = false;
-                OnException(invocation);
+                OnException(invocation, ex);
                 throw;
             }
             finally

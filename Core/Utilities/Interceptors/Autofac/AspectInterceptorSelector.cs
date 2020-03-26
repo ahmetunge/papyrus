@@ -2,6 +2,8 @@ using System;
 using System.Reflection;
 using Castle.DynamicProxy;
 using System.Linq;
+using Core.Aspects.Autofac.Exception;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 
 namespace Core.Utilities.Interceptors.Autofac
 {
@@ -14,6 +16,8 @@ namespace Core.Utilities.Interceptors.Autofac
             var methodAttributes = type.GetMethod(method.Name)
                 .GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
             classAttributes.AddRange(methodAttributes);
+
+            classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
 
             return classAttributes.OrderBy(x => x.Priority).ToArray();
         }

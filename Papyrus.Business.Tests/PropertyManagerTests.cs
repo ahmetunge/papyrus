@@ -23,49 +23,50 @@ namespace Papyrus.Business.Tests
             _mockPropertyRepo = new Mock<IPropertyRepository>();
             _mockMapper = new Mock<IMapper>();
         }
-        [Fact]
-        public async Task GetPropertiesByCategoryId_ShouldReturnError_IfPropertiesNotFound()
-        {
-            //Given
 
-            IEnumerable<Property> properties = new List<Property>();
+        // [Fact]
+        // public async Task GetPropertiesByCategoryId_ShouldReturnError_IfPropertiesNotFound()
+        // {
+        //     //Given
 
-            _mockPropertyRepo.Setup(mp => mp.FindListAsync(It.IsAny<Expression<Func<Property, bool>>>()))
-                                      .ReturnsAsync(properties);
+        //     IEnumerable<Property> properties = new List<Property>();
 
-            PropertyManager propertyManager = new PropertyManager(_mockPropertyRepo.Object, _mockMapper.Object);
+        //     _mockPropertyRepo.Setup(mp => mp.FindListAsync(It.IsAny<Expression<Func<Property, bool>>>()))
+        //                               .ReturnsAsync(properties);
 
-            //When
-            var result = await propertyManager.GetPropertiesByCategoryId(Guid.NewGuid());
+        //     PropertyManager propertyManager = new PropertyManager(_mockPropertyRepo.Object, _mockMapper.Object);
 
-            //Then
-            Assert.False(result.Success);
-            Assert.Equal(result.Message, Messages.PropertiesNotFound);
+        //     //When
+        //     var result = await propertyManager.GetPropertiesByCategoryId(Guid.NewGuid());
 
-        }
+        //     //Then
+        //     Assert.False(result.Success);
+        //     Assert.Equal(result.Message, Messages.PropertiesNotFound);
 
-        [Fact]
-        public async Task GetPropertiesByCategoryId_ShouldReturnSuccesResult_IfPropertiesFound()
-        {
-            // Given
-            IEnumerable<Property> properties = new List<Property>{
-                new Property{Id= Guid.NewGuid(), Name="Test Property 1"},
-                new Property{Id= Guid.NewGuid(), Name="Test Property 2"}
-            };
+        // }
 
-            _mockPropertyRepo.Setup(mp => mp.FindListAsync(It.IsAny<Expression<Func<Property, bool>>>()))
-                                      .ReturnsAsync(properties);
+        // [Fact]
+        // public async Task GetPropertiesByCategoryId_ShouldReturnSuccesResult_IfPropertiesFound()
+        // {
+        //     // Given
+        //     IEnumerable<Property> properties = new List<Property>{
+        //         new Property{Id= Guid.NewGuid(), Name="Test Property 1"},
+        //         new Property{Id= Guid.NewGuid(), Name="Test Property 2"}
+        //     };
 
-            PropertyManager propertyManager = new PropertyManager(_mockPropertyRepo.Object, _mockMapper.Object);
+        //     _mockPropertyRepo.Setup(mp => mp.FindListAsync(It.IsAny<Expression<Func<Property, bool>>>()))
+        //                               .ReturnsAsync(properties);
 
-            //When
-            var result = await propertyManager.GetPropertiesByCategoryId(Guid.NewGuid());
+        //     PropertyManager propertyManager = new PropertyManager(_mockPropertyRepo.Object, _mockMapper.Object);
 
-            //Then
-            Assert.True(result.Success);
-            Assert.Equal(properties.Count(), 2);
+        //     //When
+        //     var result = await propertyManager.GetPropertiesByCategoryId(Guid.NewGuid());
 
-        }
+        //     //Then
+        //     Assert.True(result.Success);
+        //     Assert.Equal(properties.Count(), 2);
+
+        // }
 
 
     }

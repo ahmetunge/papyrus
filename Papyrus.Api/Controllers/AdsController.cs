@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.Utilities.Results;
@@ -19,16 +20,25 @@ namespace Papyrus.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAds()
+        public async Task<IActionResult> GetAds(Guid memberId)
         {
-            var result = await _adService.GetListAsync();
+            var user = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            var value = user.Value;
+
+
+            if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+            IDataResult<List<MemberAdForListDto>> result =await _adService.GetMemberAdsAsync(memberId);
 
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
-            return BadRequest();
+            return BadRequest(result);
+
         }
 
         [HttpPost]
@@ -37,17 +47,16 @@ namespace Papyrus.Api.Controllers
             if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            IResult result = await _adService.CreateAd(adForCreation);
+            IResult result = await _adService.CreateAsync(adForCreation);
 
-            if (result.Success){
-                var obj = new {
-                    Message=result.Message
-                };
-                return Ok(obj);
+            if (result.Success)
+            {
+                return Ok(result);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
 
         }
+
     }
 }

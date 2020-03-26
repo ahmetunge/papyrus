@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace Core.Utilities.Results
 {
     public class ErrorDataResult<T> : DataResult<T>
@@ -6,11 +8,11 @@ namespace Core.Utilities.Results
         {
         }
 
-        public ErrorDataResult(T data, string message) : base(data, false, message)
+        public ErrorDataResult(T data, string message,HttpStatusCode statusCode) : base(data, false, message,statusCode)
         {
         }
 
-        public ErrorDataResult(string message) : base(default, false, message)
+        public ErrorDataResult(string message,HttpStatusCode statusCode) : base(default, false, message,statusCode)
         {
 
         }
