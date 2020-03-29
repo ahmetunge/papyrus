@@ -20,7 +20,7 @@ export class AdListResolver implements Resolve<AdModel> {
   resolve(route: ActivatedRouteSnapshot): Observable<AdModel> {
     return this.adService.getAds(this.authService.nameId).pipe(
       catchError(error => {
-        this.toastr.error('Problem retrieving data');
+       // this.toastr.error('Problem retrieving data');
         this.router.navigate(['/home']);
         return of(null);
       })

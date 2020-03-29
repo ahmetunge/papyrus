@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
-using Core.Utilities.Errors;
+using Core.Utilities.Results;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Papyrus.Business.Constants;
 
@@ -31,13 +34,32 @@ namespace Papyrus.Api.Middleware
 
         private Task HandleExceptionAsync(HttpContext httpContext, Exception ex)
         {
-            httpContext.Response.ContentType="application/json";
+            httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            return httpContext.Response.WriteAsync(new RestException
+
+            string message = "Internal Server Error";
+            HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
+            if (ex.GetType() == typeof(ValidationException))
             {
-                Message = Messages.InternalServerError,
-                StatusCode = httpContext.Response.StatusCode
-            }.ToString());
+                message = "";
+                var exception = (ValidationException)ex;
+                if (exception != null && exception.Errors.Count() > 0)
+                {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    foreach (var error in exception.Errors)
+                    {
+                        stringBuilder.Append(error.ErrorMessage);
+                        stringBuilder.Append("<hr>");
+                    }
+                    message = stringBuilder.ToString();
+                }
+
+
+
+                httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                statusCode = HttpStatusCode.UnprocessableEntity;
+            }
+            return httpContext.Response.WriteAsync(new ErrorResult(message, statusCode).ToString());
         }
     }
 }

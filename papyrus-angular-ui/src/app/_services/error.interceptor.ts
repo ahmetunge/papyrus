@@ -3,46 +3,52 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { ResponseModel } from '../_models/response.model';
+import { HttpStatusCode } from '../_enums/httpStatusCode.enum';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-    constructor(private toastr: ToastrService) { }
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req).pipe(
-            catchError(error => {
-                if (error instanceof HttpErrorResponse) {
-                    if (error.status === 400) {
-                        this.toastr.error(error.error);
-                        return throwError(error.statusText);
-                    }
-                    if (error.status === 401) {
-                        this.toastr.error(error.error);
-                        return throwError(error.statusText);
-                    }
-                    const applicationError = error.headers.get('Application-Error');
-                    if (applicationError) {
-                        console.error(applicationError);
-                        return throwError(applicationError);
-                    }
-                    const serverError = error.error;
-                    let modalStateErrors = '';
-                    if (serverError && typeof serverError === 'object') {
-                        for (const key in serverError) {
-                            if (serverError[key]) {
-                                modalStateErrors += serverError[key] + '\n';
-                            }
-                        }
-                    }
-                    return throwError(modalStateErrors || serverError || 'Server Error');
-                }
-            })
-        );
-    }
+  constructor(private toastr: ToastrService) { }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      catchError(error => {
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 400) {
+            debugger;
+            const responeError: ResponseModel = error.error;
+              this.toastr.error(responeError.message);
+              return throwError(responeError.message);
+          }
+
+          if (error.status === 401) {
+            this.toastr.error(error.error);
+            return throwError(error.statusText);
+          }
+
+          const applicationError = error.headers.get('Application-Error');
+          if (applicationError) {
+            console.error(applicationError);
+            return throwError(applicationError);
+          }
+          const serverError = error.error;
+          let modalStateErrors = '';
+          if (serverError && typeof serverError === 'object') {
+            for (const key in serverError) {
+              if (serverError[key]) {
+                modalStateErrors += serverError[key] + '\n';
+              }
+            }
+          }
+          return throwError(modalStateErrors || serverError || 'Server Error');
+        }
+      })
+    );
+  }
 }
 
 export const ErrorInterceptorProvider = {
-    provide: HTTP_INTERCEPTORS,
-    useClass: ErrorInterceptor,
-    multi: true
+  provide: HTTP_INTERCEPTORS,
+  useClass: ErrorInterceptor,
+  multi: true
 };

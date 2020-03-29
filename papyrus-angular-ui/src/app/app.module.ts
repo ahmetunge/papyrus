@@ -21,45 +21,46 @@ import { AdModule } from './ad/ad.module';
 
 
 export function getToken() {
-   const token = localStorage.getItem('token');
-   return token;
+  const token = localStorage.getItem('token');
+  return token;
 }
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavbarComponent,
-      HomeComponent,
-      RegisterComponent
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule,
-      FormsModule,
-      HttpClientModule,
-      BrowserAnimationsModule,
-      FileUploadModule,
-      ToastrModule.forRoot({
-         timeOut: 2500,
-         positionClass: 'toast-top-right',
-         preventDuplicates: true,
-      }),
-      JwtModule.forRoot({
-         config: {
-            tokenGetter: getToken,
-            whitelistedDomains: ['localhost:5000'],
-            blacklistedRoutes: ['localhost:5000/api/auth']
-         }
-      }),
-      SharedModule,
-      AdModule
-   ],
-   providers: [
-      ErrorInterceptorProvider,
-      AuthGuard
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    HomeComponent,
+    RegisterComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FileUploadModule,
+    ToastrModule.forRoot({
+      timeOut: 2500,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      enableHtml: true
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken,
+        whitelistedDomains: ['localhost:5000'],
+        blacklistedRoutes: ['localhost:5000/api/auth']
+      }
+    }),
+    SharedModule,
+    AdModule
+  ],
+  providers: [
+    ErrorInterceptorProvider,
+    AuthGuard
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

@@ -28,7 +28,7 @@ namespace Papyrus.Api.Controllers
 
 
             if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+                return BadRequest(new UnauthorizedErrorResult());
 
             IDataResult<List<MemberAdForListDto>> result =await _adService.GetMemberAdsAsync(memberId);
 
@@ -45,7 +45,7 @@ namespace Papyrus.Api.Controllers
         public async Task<IActionResult> CreateAd(Guid memberId, [FromBody]AdForCreationDto adForCreation)
         {
             if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+                return BadRequest(new UnauthorizedErrorResult());
 
             IResult result = await _adService.CreateAsync(adForCreation);
 
