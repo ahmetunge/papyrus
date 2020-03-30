@@ -21,7 +21,12 @@
           </button>
         </li>
         <li class="list-inline-item">
-          <button class="btn btn-success" routerLinkActive="router-link-active">
+          <button
+            class="btn btn-success"
+            routerLinkActive="router-link-active"
+            [routerLink]="['/ads', ad.id]"
+            routerLinkActive="router-link-active"
+          >
             Detail
           </button>
           <button class="btn btn-primary">

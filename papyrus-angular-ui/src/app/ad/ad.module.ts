@@ -9,13 +9,15 @@ import { CategoryService } from '../category/category.service';
 import { FormsModule } from '@angular/forms';
 import { ProductPropertyValueComponent } from './ad-edit/product-property-value/product-property-value.component';
 import { AdEditResolver } from '../_resolvers/ad-edit-resolver';
+import { AdDetailComponent } from './ad-detail/ad-detail.component';
 
 @NgModule({
   declarations: [
     AdListComponent,
     AdItemComponent,
     AdEditComponent,
-    ProductPropertyValueComponent
+    ProductPropertyValueComponent,
+    AdDetailComponent
   ],
   imports: [
     AdRoutingModule,

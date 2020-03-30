@@ -5,6 +5,8 @@ import { AdListResolver } from '../_resolvers/ad-list.resolver';
 import { AdEditComponent } from './ad-edit/ad-edit.component';
 import { AdEditResolver } from '../_resolvers/ad-edit-resolver';
 import { AuthGuard } from '../_guards/auth.guard';
+import { AdDetailComponent } from './ad-detail/ad-detail.component';
+import { AdDetailResolver } from '../_resolvers/ad-detail-resolver';
 
 const adRoutes: Routes = [
   {
@@ -14,7 +16,7 @@ const adRoutes: Routes = [
         {
           path: 'ads',
           component: AdListComponent,
-          resolve: {adListResolve : AdListResolver }
+          resolve: { adListResolve: AdListResolver }
         },
         {
           path: 'ads/new',
@@ -22,6 +24,11 @@ const adRoutes: Routes = [
           canActivate: [AuthGuard],
           component: AdEditComponent,
           resolve: { categories: AdEditResolver }
+        },
+        {
+          path: 'ads/:id',
+          component: AdDetailComponent,
+          resolve: { adDetailResolve: AdDetailResolver }
         }
       ]
   }
