@@ -15,13 +15,13 @@ export class AdDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getAdDetail();
+   // this.getAdDetail();
   }
 
-  getAdDetail() {
-    this.route.data.subscribe((response) => {
-      this.ad = response.adDetailResolve.data;
-    });
-  }
+  // getAdDetail() {
+  //   this.route.data.subscribe((response) => {
+  //     this.ad = response.adDetailResolve.data;
+  //   });
+  // }
 
 }
