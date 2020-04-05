@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.Utilities.Results;
 using Microsoft.AspNetCore.Mvc;
+using Papyrus.Api.Extesnsions;
 using Papyrus.Business.Abstract;
 using Papyrus.Entities.Dtos;
 
@@ -30,7 +31,7 @@ namespace Papyrus.Api.Controllers
             if (memberId != Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return BadRequest(new UnauthorizedErrorResult());
 
-            IDataResult<List<MemberAdForListDto>> result =await _adService.GetMemberAdsAsync(memberId);
+            IDataResult<List<MemberAdForListDto>> result = await _adService.GetMemberAdsAsync(memberId);
 
             if (result.Success)
             {
@@ -58,5 +59,21 @@ namespace Papyrus.Api.Controllers
 
         }
 
+        [HttpGet("{adId}")]
+        public async Task<IActionResult> GetAdDetail(Guid memberId, Guid adId)
+        {
+
+            if (!User.CheckAuthorization(memberId))
+                return BadRequest(new UnauthorizedErrorResult());
+
+            var result = await _adService.GetAdDetails(adId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
 }

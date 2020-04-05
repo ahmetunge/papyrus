@@ -47,8 +47,22 @@ namespace Papyrus.Business.Concrete
             _adRepository.Add(ad);
             await _unitOfWork.CompleteAsync();
 
-            return new SuccessResult(Messages.AdCreated,HttpStatusCode.Created);
+            return new SuccessResult(Messages.AdCreated, HttpStatusCode.Created);
 
+        }
+
+        public async Task<IDataResult<AdForDetailDto>> GetAdDetails(Guid adId)
+        {
+            var adFromDb =await _adRepository.GetAdDetails(adId);
+
+            if (adFromDb == null)
+            {
+                return new ErrorDataResult<AdForDetailDto>(Messages.AdNotFound, HttpStatusCode.NotFound);
+            }
+
+            AdForDetailDto adForDetailDto = _mapper.Map<AdForDetailDto>(adFromDb);
+
+            return new SuccessDataResult<AdForDetailDto>(adForDetailDto, HttpStatusCode.OK);
         }
 
         public async Task<IDataResult<List<Ad>>> GetListAsync()
@@ -60,11 +74,11 @@ namespace Papyrus.Business.Concrete
 
         public async Task<IDataResult<List<MemberAdForListDto>>> GetMemberAdsAsync(Guid memberId)
         {
-            var ads = await _adRepository.FindListAsync(a => a.MemberId==memberId);
+            var ads = await _adRepository.FindListAsync(a => a.MemberId == memberId);
 
-          var adsToReturn =_mapper.Map<List<MemberAdForListDto>>(ads);
+            var adsToReturn = _mapper.Map<List<MemberAdForListDto>>(ads);
 
-            return new SuccessDataResult<List<MemberAdForListDto>>(adsToReturn,HttpStatusCode.OK);
+            return new SuccessDataResult<List<MemberAdForListDto>>(adsToReturn, HttpStatusCode.OK);
         }
     }
 }
