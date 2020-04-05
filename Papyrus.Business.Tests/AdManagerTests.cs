@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
 using Papyrus.Business.Concrete;
+using Papyrus.Business.Constants;
 using Papyrus.DataAccess.Abstract;
 using Papyrus.Entities.Concrete;
 using Papyrus.Entities.Dtos;
@@ -41,18 +42,57 @@ namespace Papyrus.Business.Tests
                 }
             };
 
-
-            // _mockAdRepository.Setup(x => x.FindListAsync(It.IsAny<Expression<Func<Ad, bool>>>()))
-            //     .ReturnsAsync(ads);
-
-             _mockMapper.Setup(mp => mp.Map<List<MemberAdForListDto>>(It.IsAny<IEnumerable<Ad>>()))
-              .Returns(ads);
+            _mockMapper.Setup(mp => mp.Map<List<MemberAdForListDto>>(It.IsAny<IEnumerable<Ad>>()))
+             .Returns(ads);
 
             AdManager adManager = new AdManager(_mockAdRepository.Object, _mockMapper.Object, _mockUnitOfWork.Object);
 
             var result = await adManager.GetMemberAdsAsync(Guid.NewGuid());
 
             Assert.True(result.Data.Count == 2);
+            Assert.True(result.Success);
+            Assert.True(result.StatusCode == HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task GetAdDetails_IfAdNotFound_ShouldReturnError()
+        {
+
+            Ad ad = null;
+
+            _mockAdRepository.Setup(mr => mr.GetAdDetails(It.IsAny<Guid>()))
+            .ReturnsAsync(ad);
+
+            AdManager adManager = new AdManager(_mockAdRepository.Object, _mockMapper.Object, _mockUnitOfWork.Object);
+
+            var result = await adManager.GetAdDetails(new Guid());
+
+            Assert.True(result.Success == false);
+            Assert.True(result.StatusCode == HttpStatusCode.NotFound);
+            Assert.True(result.Message == Messages.AdNotFound);
+        }
+
+        [Fact]
+        public async Task GetAdDetails_IfAdNotFound_ShouldReturnSuccess()
+        {
+            Ad ad = new Ad
+            {
+                Id = new Guid(),
+                Title = "Ad title",
+                Category = new Category
+                {
+                    Id = new Guid(),
+                    Name = "Category Name"
+                }
+            };
+
+            _mockAdRepository.Setup(ar => ar.GetAdDetails(It.IsAny<Guid>()))
+            .ReturnsAsync(ad);
+
+            AdManager adManager = new AdManager(_mockAdRepository.Object, _mockMapper.Object, _mockUnitOfWork.Object);
+
+            var result = await adManager.GetAdDetails(new Guid());
+
             Assert.True(result.Success);
             Assert.True(result.StatusCode == HttpStatusCode.OK);
         }
