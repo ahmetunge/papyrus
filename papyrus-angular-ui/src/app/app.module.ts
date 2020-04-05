@@ -18,6 +18,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SharedModule } from './_shared/shared.module';
 import { AdModule } from './ad/ad.module';
+import { AddStatusPipe } from './_pipes/ad-status.pipe';
 
 
 
