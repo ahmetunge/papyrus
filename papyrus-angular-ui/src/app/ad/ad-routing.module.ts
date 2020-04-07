@@ -28,7 +28,7 @@ const adRoutes: Routes = [
         {
           path: 'ads/:id',
           component: AdDetailComponent,
-       //   resolve: { adDetailResolve: AdDetailResolver }
+          resolve: { adDetailResolve: AdDetailResolver }
         }
       ]
   }

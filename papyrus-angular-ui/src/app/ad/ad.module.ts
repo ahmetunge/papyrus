@@ -13,6 +13,7 @@ import { ProductPropertyValueComponent } from './ad-edit/product-property-value/
 import { AdEditResolver } from '../_resolvers/ad-edit-resolver';
 import { AdDetailComponent } from './ad-detail/ad-detail.component';
 import { AddStatusPipe } from '../_pipes/ad-status.pipe';
+import { AdDetailResolver } from '../_resolvers/ad-detail-resolver';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AddStatusPipe } from '../_pipes/ad-status.pipe';
   providers: [
     AdService,
     CategoryService,
-    AdEditResolver
+    AdEditResolver,
+    AdDetailResolver
   ]
 })
 

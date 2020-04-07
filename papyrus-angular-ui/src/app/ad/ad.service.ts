@@ -24,7 +24,7 @@ export class AdService {
   }
 
   getAdDetail(memberId: string, adId: string): Observable<ResponseModel> {
-    return this.http.get<ResponseModel>(this.baseUrl + 'members/' + memberId + '/ads' + adId);
+    return this.http.get<ResponseModel>(this.baseUrl + 'members/' + memberId + '/ads/' + adId);
   }
 
 }

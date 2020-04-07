@@ -1,15 +1,15 @@
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { AdModel } from '../_models/ad.model';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { AdService } from '../ad/ad.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../_services/auth.service';
 import { catchError } from 'rxjs/operators';
+import { AdDetailModel } from '../_models/ad-detail.model';
 
 @Injectable()
 
-export class AdDetailResolver implements Resolve<AdModel> {
+export class AdDetailResolver implements Resolve<AdDetailModel> {
 
   constructor(
     private adService: AdService,
@@ -18,7 +18,7 @@ export class AdDetailResolver implements Resolve<AdModel> {
     private router: Router
   ) { }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<AdModel> {
+  resolve(route: ActivatedRouteSnapshot): Observable<AdDetailModel> {
     return this.adService.getAdDetail(this.authService.nameId, route.params.id).pipe(
       catchError(err => {
         this.router.navigate(['/home']);
