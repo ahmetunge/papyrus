@@ -47,7 +47,7 @@ namespace Papyrus.Business.Tests
 
             AdManager adManager = new AdManager(_mockAdRepository.Object, _mockMapper.Object, _mockUnitOfWork.Object);
 
-            var result = await adManager.GetMemberAdsAsync(Guid.NewGuid());
+            var result = await adManager.GetAdsAsync();
 
             Assert.True(result.Data.Count == 2);
             Assert.True(result.Success);

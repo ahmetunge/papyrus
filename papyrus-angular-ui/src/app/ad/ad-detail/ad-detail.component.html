@@ -1,8 +1,5 @@
 <div class="container">
-  <div class="row">
-    <h1>{{ ad.title }}</h1>
-  </div>
-  <div class="row">
+  <div class="row mt-3">
     <div class="col-sm-4">
       <div class="card">
         <img
@@ -13,12 +10,15 @@
 
         <div class="card-body">
           <div>
+            <h5>{{ ad.title }}</h5>
+          </div>
+          <div>
             <strong>Location : </strong>
             <p>Location will come here</p>
           </div>
           <div>
             <strong>Category : </strong>
-            <p>{{ ad.category.name }}</p>
+            <p>{{ ad.categoryName }}</p>
           </div>
           <div>
             <strong>Added Date : </strong>
@@ -42,11 +42,13 @@
         <tabset class="ad-tabset">
           <tab heading="Description">
             <h4>Description</h4>
-            <p>Description</p>
+            <p>{{ ad.description }}</p>
           </tab>
           <tab heading="Properties">
             <h4>Properties</h4>
-            <p>Properties</p>
+            <p *ngFor="let property of ad.productPropertyValues">
+              {{ property.name }} : {{ property.value }}
+            </p>
           </tab>
           <tab heading="Photos">
             <h4>Photos</h4>

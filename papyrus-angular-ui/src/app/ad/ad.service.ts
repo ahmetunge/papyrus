@@ -16,15 +16,11 @@ export class AdService {
   constructor(private http: HttpClient) { }
 
   getAds(memberId: string): Observable<ResponseModel> {
-    return this.http.get<ResponseModel>(this.baseUrl + 'members/' + memberId + '/ads');
-  }
-
-  addAd(memberId: string, ad: AdModel) {
-    return this.http.post(this.baseUrl + 'members/' + memberId + '/ads', ad);
+    return this.http.get<ResponseModel>(this.baseUrl + 'ads');
   }
 
   getAdDetail(memberId: string, adId: string): Observable<ResponseModel> {
-    return this.http.get<ResponseModel>(this.baseUrl + 'members/' + memberId + '/ads' + adId);
+    return this.http.get<ResponseModel>(this.baseUrl + 'ads/' + adId);
   }
 
 }

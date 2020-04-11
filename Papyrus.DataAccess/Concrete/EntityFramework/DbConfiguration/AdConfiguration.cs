@@ -16,7 +16,7 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework.DbConfiguration
             .IsRequired(true);
 
             builder.Property(a => a.Description)
-            .HasMaxLength(500)
+            .HasMaxLength(1000)
             .IsRequired(false);
 
             builder.Property(a => a.Status)
