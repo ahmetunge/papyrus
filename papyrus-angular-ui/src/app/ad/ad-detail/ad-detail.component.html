@@ -46,7 +46,9 @@
           </tab>
           <tab heading="Properties">
             <h4>Properties</h4>
-            <p>Properties</p>
+            <p *ngFor="let property of ad.productPropertyValues">
+              {{ property.name }} : {{ property.value }}
+            </p>
           </tab>
           <tab heading="Photos">
             <h4>Photos</h4>

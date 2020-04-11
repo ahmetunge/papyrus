@@ -53,7 +53,7 @@ namespace Papyrus.Business.Concrete
 
         public async Task<IDataResult<AdForDetailDto>> GetAdDetails(Guid adId)
         {
-            var adFromDb =await _adRepository.GetAdDetails(adId);
+            var adFromDb = await _adRepository.GetAdDetails(adId);
 
             if (adFromDb == null)
             {
@@ -72,9 +72,9 @@ namespace Papyrus.Business.Concrete
             return new SuccessDataResult<List<Ad>>(ads.ToList());
         }
 
-        public async Task<IDataResult<List<MemberAdForListDto>>> GetMemberAdsAsync(Guid memberId)
+        public async Task<IDataResult<List<MemberAdForListDto>>> GetAdsAsync()
         {
-            var ads = await _adRepository.FindListAsync(a => a.MemberId == memberId);
+            var ads = await _adRepository.GetAllAsync();
 
             var adsToReturn = _mapper.Map<List<MemberAdForListDto>>(ads);
 

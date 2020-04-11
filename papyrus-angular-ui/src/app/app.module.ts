@@ -9,7 +9,6 @@ import { TabsModule } from 'ngx-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ToastrModule } from 'ngx-toastr';
@@ -18,7 +17,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SharedModule } from './_shared/shared.module';
 import { AdModule } from './ad/ad.module';
-import { AddStatusPipe } from './_pipes/ad-status.pipe';
+import { MemberModule } from './member/member.module';
 
 
 
@@ -56,7 +55,8 @@ export function getToken() {
       }
     }),
     SharedModule,
-    AdModule
+    AdModule,
+    MemberModule
   ],
   providers: [
     ErrorInterceptorProvider,

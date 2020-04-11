@@ -4,21 +4,20 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoryModel } from 'src/app/_models/category.model';
 import { AdModel } from 'src/app/_models/ad.model';
 import { NgForm } from '@angular/forms';
-import { AdService } from '../ad.service';
 import { ProductPropertyValueModel } from 'src/app/_models/productPropertyValue.model';
 import { PropertyModel } from 'src/app/_models/property.model';
 import { ActivatedRoute } from '@angular/router';
 import { AdStatus } from 'src/app/_enums/adStatus.enum';
-import { ProductPropertyValueComponent } from './product-property-value/product-property-value.component';
 import { AuthService } from 'src/app/_services/auth.service';
-
+import { ProductPropertyValueComponent } from './product-property-value/product-property-value.component';
+import { MemberService } from '../../member.service';
 
 @Component({
-  selector: 'app-ad-edit',
-  templateUrl: './ad-edit.component.html',
-  styleUrls: ['./ad-edit.component.css']
+  selector: 'app-member-ad-edit',
+  templateUrl: './member-ad-edit.component.html',
+  styleUrls: ['./member-ad-edit.component.css']
 })
-export class AdEditComponent implements OnInit {
+export class MemberAdEditComponent implements OnInit {
 
   @ViewChild('mainForm', { static: false }) mainForm: NgForm;
   @ViewChild(ProductPropertyValueComponent, { static: false }) productPropertyValueComponent;
@@ -48,15 +47,12 @@ export class AdEditComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private toaster: ToastrService,
-    private adService: AdService,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private memberService: MemberService
   ) { }
 
-  // ngAfterViewInit() {
-  //   // tslint:disable-next-line:no-unused-expression
-  //   this.productPropertyValueComponent.productPropertyValues;
-  // }
+
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -69,7 +65,7 @@ export class AdEditComponent implements OnInit {
     this.ad.product.productPropertyValues.map(ppv => ppv.product = null);
     console.log(this.ad);
     if (this.mainForm.valid) {
-      this.adService.addAd(this.authService.nameId, this.ad).subscribe(res => {
+      this.memberService.addAd(this.authService.nameId, this.ad).subscribe(res => {
         this.toaster.success('Your ad is created successfully');
       }, error => {
         console.log(error);
@@ -110,3 +106,4 @@ export class AdEditComponent implements OnInit {
   }
 
 }
+

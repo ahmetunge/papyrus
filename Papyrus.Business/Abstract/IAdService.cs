@@ -9,10 +9,10 @@ namespace Papyrus.Business.Abstract
 {
     public interface IAdService
     {
-         Task<IDataResult<List<Ad>>> GetListAsync();
+        Task<IDataResult<List<Ad>>> GetListAsync();
 
-         Task<IResult> CreateAsync(AdForCreationDto adForCreation);
-        Task<IDataResult<List<MemberAdForListDto>>> GetMemberAdsAsync(Guid memberId);
+        Task<IResult> CreateAsync(AdForCreationDto adForCreation);
+        Task<IDataResult<List<MemberAdForListDto>>> GetAdsAsync();
 
         Task<IDataResult<AdForDetailDto>> GetAdDetails(Guid adId);
     }
