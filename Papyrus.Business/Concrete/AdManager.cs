@@ -43,6 +43,8 @@ namespace Papyrus.Business.Concrete
 
             Ad ad = _mapper.Map<Ad>(adForCreation);
             ad.MemberId = memberId;
+            
+            ad.UserAndDateForCreation();
 
             _adRepository.Add(ad);
             await _unitOfWork.CompleteAsync();

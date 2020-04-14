@@ -8,8 +8,16 @@ namespace Core.Extensions
     {
         public static Guid GetUserId(this IHttpContextAccessor httpContextAccessor)
         {
-            var strUserId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            var user = httpContextAccessor.HttpContext.User;
+
+
+
+            if (user.FindFirst(ClaimTypes.NameIdentifier) == null)
+                throw new UnauthorizedAccessException();
+
+
+            var strUserId = user.FindFirst(ClaimTypes.NameIdentifier).Value;
             Guid userId;
             if (Guid.TryParse(strUserId, out userId))
                 return userId;
