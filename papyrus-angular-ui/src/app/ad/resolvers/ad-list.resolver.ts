@@ -3,9 +3,9 @@ import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AdModel } from '../_models/ad.model';
-import { AdService } from '../ad/ad.service';
-import { AuthService } from '../_services/auth.service';
+import { AdModel } from '../../_models/ad.model';
+import { AdService } from '../ad.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Injectable()
 export class AdListResolver implements Resolve<AdModel> {

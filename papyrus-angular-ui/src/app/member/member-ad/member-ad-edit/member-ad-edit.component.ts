@@ -8,7 +8,7 @@ import { ProductPropertyValueModel } from 'src/app/_models/productPropertyValue.
 import { PropertyModel } from 'src/app/_models/property.model';
 import { ActivatedRoute } from '@angular/router';
 import { AdStatus } from 'src/app/_enums/adStatus.enum';
-import { AuthService } from 'src/app/_services/auth.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ProductPropertyValueComponent } from './product-property-value/product-property-value.component';
 import { MemberService } from '../../member.service';
 

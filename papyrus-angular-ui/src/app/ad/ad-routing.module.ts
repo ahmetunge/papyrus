@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdListComponent } from './ad-list/ad-list.component';
-import { AdListResolver } from '../_resolvers/ad-list.resolver';
+import { AdListResolver } from './resolvers/ad-list.resolver';
 import { AdDetailComponent } from './ad-detail/ad-detail.component';
-import { AdDetailResolver } from '../_resolvers/ad-detail-resolver';
+import { AdDetailResolver } from './resolvers/ad-detail-resolver';
 
 
 const adRoutes: Routes = [
