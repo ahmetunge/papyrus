@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
@@ -11,6 +9,8 @@ import { AuthService } from './services/auth.service';
 import { ErrorInterceptorProvider } from './interceptors/error.interceptor';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard } from './guards/auth.guard';
+import { LoginModule } from '../login/login.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -21,9 +21,7 @@ export function getToken() {
 
 @NgModule({
   imports: [
-    CommonModule,
     BrowserAnimationsModule,
-    FormsModule,
     RouterModule,
     HttpClientModule,
     ToastrModule.forRoot({
@@ -39,6 +37,9 @@ export function getToken() {
         blacklistedRoutes: ['localhost:5000/api/auth']
       }
     }),
+
+    LoginModule,
+    SharedModule
   ],
   declarations: [NavbarComponent],
   exports: [NavbarComponent],

@@ -1,0 +1,29 @@
+<form
+  #loginForm="ngForm"
+  class="form-inline my-2 my-lg-0"
+  (ngSubmit)="login()"
+>
+  <input
+    class="form-control mr-sm-2"
+    type="text"
+    placeholder="Username"
+    required
+    name="email"
+    [(ngModel)]="model.email"
+  />
+  <input
+    class="form-control mr-sm-2"
+    type="password"
+    placeholder="Password"
+    required
+    name="password"
+    [(ngModel)]="model.password"
+  />
+  <button
+    [disabled]="!loginForm.valid"
+    class="btn btn-success my-2 my-sm-0"
+    type="submit"
+  >
+    Login
+  </button>
+</form>

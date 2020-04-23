@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AdModel } from 'src/app/_models/ad.model';
 
 @Component({
   selector: 'app-ad-item',
   templateUrl: './ad-item.component.html',
-  styleUrls: ['./ad-item.component.css']
+  styleUrls: ['./ad-item.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdItemComponent implements OnInit {
 
