@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdModel } from 'src/app/_models/ad.model';
 import { ActivatedRoute } from '@angular/router';
-import { AdStatus } from 'src/app/_enums/adStatus.enum';
 import { AdDetailModel } from 'src/app/_models/ad-detail.model';
 
 

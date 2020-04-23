@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './_services/auth.service';
+import { AuthService } from './core/services/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     if (token) {
       const decodedToken = this.jwtHelper.decodeToken(token);
       this.authService.decodedToken = decodedToken;
-      this.authService.nameId = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']
+      this.authService.nameId = decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
     }
   }
 

@@ -1,23 +1,24 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { PropertyModel } from 'src/app/_models/property.model';
 import { CategoryService } from 'src/app/category/category.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { MemberService } from 'src/app/member/member.service';
+import { ProductPropertyValueModel } from 'src/app/_models/productPropertyValue.model';
+import { NgForm } from '@angular/forms';
+import { ProductPropertyValueComponent } from '../product-property-value/product-property-value.component';
 import { CategoryModel } from 'src/app/_models/category.model';
 import { AdModel } from 'src/app/_models/ad.model';
-import { NgForm } from '@angular/forms';
-import { ProductPropertyValueModel } from 'src/app/_models/productPropertyValue.model';
-import { PropertyModel } from 'src/app/_models/property.model';
-import { ActivatedRoute } from '@angular/router';
 import { AdStatus } from 'src/app/_enums/adStatus.enum';
-import { AuthService } from 'src/app/_services/auth.service';
-import { ProductPropertyValueComponent } from './product-property-value/product-property-value.component';
-import { MemberService } from '../../member.service';
 
 @Component({
-  selector: 'app-member-ad-edit',
-  templateUrl: './member-ad-edit.component.html',
-  styleUrls: ['./member-ad-edit.component.css']
+  selector: 'app-ad-edit',
+  templateUrl: './ad-edit.component.html',
+  styleUrls: ['./ad-edit.component.css']
 })
-export class MemberAdEditComponent implements OnInit {
+export class AdEditComponent implements OnInit {
+
 
   @ViewChild('mainForm', { static: false }) mainForm: NgForm;
   @ViewChild(ProductPropertyValueComponent, { static: false }) productPropertyValueComponent;
@@ -45,7 +46,6 @@ export class MemberAdEditComponent implements OnInit {
 
 
   constructor(
-    private categoryService: CategoryService,
     private toaster: ToastrService,
     private route: ActivatedRoute,
     private authService: AuthService,

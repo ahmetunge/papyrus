@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from '../_services/auth.service';
-import { AdModel } from '../_models/ad.model';
+import { AuthService } from '../../core/services/auth.service';
+import { AdModel } from '../../_models/ad.model';
 import { ToastrService } from 'ngx-toastr';
-import { CategoryService } from '../category/category.service';
+import { CategoryService } from '../../category/category.service';
 
 
 @Injectable()

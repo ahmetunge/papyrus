@@ -1,26 +1,33 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdListComponent } from './ad-list/ad-list.component';
-import { AdListResolver } from '../_resolvers/ad-list.resolver';
+import { AdListResolver } from './resolvers/ad-list.resolver';
 import { AdDetailComponent } from './ad-detail/ad-detail.component';
-import { AdDetailResolver } from '../_resolvers/ad-detail-resolver';
+import { AdDetailResolver } from './resolvers/ad-detail-resolver';
+import { AdEditComponent } from './ad-edit/ad-edit.component';
 
 
 const adRoutes: Routes = [
   {
-    path: '',
+    path: 'ads',
     children:
       [
         {
-          path: 'ads',
+          path: 'new',
+          component: AdEditComponent,
+
+        },
+        {
+          path: '',
           component: AdListComponent,
           resolve: { adListResolve: AdListResolver }
         },
         {
-          path: 'ads/:id',
+          path: ':id',
           component: AdDetailComponent,
           resolve: { adDetailResolve: AdDetailResolver }
-        }
+        },
+
       ]
   }
 ];
