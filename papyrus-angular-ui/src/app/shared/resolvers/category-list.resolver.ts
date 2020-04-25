@@ -2,16 +2,15 @@ import { Injectable } from '@angular/core';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthService } from '../../core/services/auth.service';
-import { AdModel } from '../../_models/ad.model';
-import { ToastrService } from 'ngx-toastr';
-import { CategoryService } from '../../category/category.service';
 
+
+import { AuthService } from '../../core/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from 'src/app/category/category.service';
+import { ResponseModel } from 'src/app/_models/response.model';
 
 @Injectable()
-
-export class AdEditResolver implements Resolve<AdModel> {
-
+export class CategoryListResolver implements Resolve<ResponseModel> {
   constructor(
     private router: Router,
     private toastr: ToastrService,
@@ -19,7 +18,7 @@ export class AdEditResolver implements Resolve<AdModel> {
     private categoryService: CategoryService
   ) { }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<AdModel> {
+  resolve(route: ActivatedRouteSnapshot): Observable<ResponseModel> {
     return this.categoryService.getCategoriesForAd().pipe(
       catchError(error => {
         this.toastr.error('Problem retrieving your data');
@@ -30,7 +29,4 @@ export class AdEditResolver implements Resolve<AdModel> {
   }
 
 }
-
-
-
 

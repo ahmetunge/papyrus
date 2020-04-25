@@ -23,7 +23,7 @@ namespace Papyrus.Api.Controllers
             var result = await _categoryService.GetCategoriesIncludePropertiesAsync();
 
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result);
         }

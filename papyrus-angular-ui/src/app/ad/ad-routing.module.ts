@@ -1,26 +1,30 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { AdListComponent } from './ad-list/ad-list.component';
 import { AdListResolver } from './resolvers/ad-list.resolver';
 import { AdDetailComponent } from './ad-detail/ad-detail.component';
 import { AdDetailResolver } from './resolvers/ad-detail-resolver';
 import { AdEditComponent } from './ad-edit/ad-edit.component';
+import { AdComponent } from './ad.component';
+import { CategoryListResolver } from '../shared/resolvers/category-list.resolver';
 
 
 const adRoutes: Routes = [
   {
-    path: 'ads',
+    path: '',
+    component: AdComponent,
     children:
       [
-        {
-          path: 'new',
-          component: AdEditComponent,
-
-        },
         {
           path: '',
           component: AdListComponent,
           resolve: { adListResolve: AdListResolver }
+        },
+        {
+          path: 'new',
+          component: AdEditComponent,
+          resolve: { categoryListResolve: CategoryListResolver }
         },
         {
           path: ':id',
@@ -39,9 +43,7 @@ const adRoutes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [
-    AdListResolver
-  ]
+  providers: []
 })
 
 export class AdRoutingModule { }

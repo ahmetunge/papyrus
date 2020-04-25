@@ -4,11 +4,11 @@ import { Observable, of } from 'rxjs';
 import { AdService } from '../ad.service';
 import { AuthService } from '../../core/services/auth.service';
 import { catchError } from 'rxjs/operators';
-import { AdDetailModel } from '../../_models/ad-detail.model';
+import { ResponseModel } from 'src/app/_models/response.model';
 
 @Injectable()
 
-export class AdDetailResolver implements Resolve<AdDetailModel> {
+export class AdDetailResolver implements Resolve<ResponseModel> {
 
   constructor(
     private adService: AdService,
@@ -16,7 +16,7 @@ export class AdDetailResolver implements Resolve<AdDetailModel> {
     private router: Router
   ) { }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<AdDetailModel> {
+  resolve(route: ActivatedRouteSnapshot): Observable<ResponseModel> {
     return this.adService.getAdDetail(this.authService.nameId, route.params.id).pipe(
       catchError(err => {
         this.router.navigate(['/home']);
