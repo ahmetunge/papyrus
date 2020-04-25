@@ -11,6 +11,7 @@ import { ProductPropertyValueComponent } from '../product-property-value/product
 import { CategoryModel } from 'src/app/_models/category.model';
 import { AdModel } from 'src/app/_models/ad.model';
 import { AdStatus } from 'src/app/_enums/adStatus.enum';
+import { ResponseModel } from 'src/app/_models/response.model';
 
 @Component({
   selector: 'app-ad-edit',
@@ -55,8 +56,8 @@ export class AdEditComponent implements OnInit {
 
 
   ngOnInit() {
-    this.route.data.subscribe(data => {
-      this.categories = data.categories;
+    this.route.data.subscribe((response) => {
+      this.categories = response.categoryListResolve.data;
     });
   }
 
