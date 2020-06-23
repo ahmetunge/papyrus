@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/category/category.service';
-import { ResponseModel } from 'src/app/_models/response.model';
+import { ResponseModel } from 'src/app/shared/models/response.model';
 
 @Injectable()
 export class CategoryListResolver implements Resolve<ResponseModel> {

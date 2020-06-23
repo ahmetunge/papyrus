@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { AdService } from '../ad.service';
 import { AuthService } from '../../core/services/auth.service';
 import { catchError } from 'rxjs/operators';
-import { ResponseModel } from 'src/app/_models/response.model';
+import { ResponseModel } from 'src/app/shared/models/response.model';
 
 @Injectable()
 

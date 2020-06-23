@@ -3,8 +3,8 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { ResponseModel } from '../../_models/response.model';
-import { HttpStatusCode } from '../../_enums/httpStatusCode.enum';
+import { ResponseModel } from '../../shared/models/response.model';
+import { HttpStatusCode } from '../../shared/enums/httpStatusCode.enum';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PropertyModel } from 'src/app/_models/property.model';
+import { PropertyModel } from 'src/app/shared/models/property.model';
 import { CategoryService } from 'src/app/category/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { MemberService } from 'src/app/member/member.service';
-import { ProductPropertyValueModel } from 'src/app/_models/productPropertyValue.model';
+import { ProductPropertyValueModel } from 'src/app/shared/models/productPropertyValue.model';
 import { NgForm } from '@angular/forms';
 import { ProductPropertyValueComponent } from '../product-property-value/product-property-value.component';
-import { CategoryModel } from 'src/app/_models/category.model';
-import { AdModel } from 'src/app/_models/ad.model';
-import { AdStatus } from 'src/app/_enums/adStatus.enum';
-import { ResponseModel } from 'src/app/_models/response.model';
+import { CategoryModel } from 'src/app/shared/models/category.model';
+import { AdModel } from 'src/app/shared/models/ad.model';
+import { AdStatus } from 'src/app/shared/enums/adStatus.enum';
+import { ResponseModel } from 'src/app/shared/models/response.model';
 
 @Component({
   selector: 'app-ad-edit',

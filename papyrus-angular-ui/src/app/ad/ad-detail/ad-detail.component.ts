@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AdDetailModel } from 'src/app/_models/ad-detail.model';
+import { AdDetailModel } from 'src/app/shared/models/ad-detail.model';
 
 
 @Component({

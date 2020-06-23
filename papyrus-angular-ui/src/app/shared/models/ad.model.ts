@@ -1,4 +1,4 @@
-import { AdStatus } from '../_enums/adStatus.enum';
+import { AdStatus } from '../enums/adStatus.enum';
 import { CategoryModel } from './category.model';
 import { ProductModel } from './product.model';
 import { MemberModel } from './member.model';

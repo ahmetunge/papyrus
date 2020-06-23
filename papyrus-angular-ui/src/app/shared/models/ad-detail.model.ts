@@ -1,4 +1,4 @@
-import { AdStatus } from '../_enums/adStatus.enum';
+import { AdStatus } from '../enums/adStatus.enum';
 import { ProductModel } from './product.model';
 import { PhotoModel } from './photo.model';
 import { KeyValueModel } from './keyValue.model';

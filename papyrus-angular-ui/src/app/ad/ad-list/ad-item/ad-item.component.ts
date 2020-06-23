@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { AdModel } from 'src/app/_models/ad.model';
+import { AdModel } from 'src/app/shared/models/ad.model';
 
 @Component({
   selector: 'app-ad-item',
