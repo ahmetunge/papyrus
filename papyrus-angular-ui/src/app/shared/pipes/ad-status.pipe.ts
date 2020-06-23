@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AdStatus } from '../../_enums/adStatus.enum';
+import { AdStatus } from '../enums/adStatus.enum';
 
 
 @Pipe({

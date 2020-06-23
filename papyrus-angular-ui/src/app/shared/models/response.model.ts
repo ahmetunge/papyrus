@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '../_enums/httpStatusCode.enum';
+import { HttpStatusCode } from '../enums/httpStatusCode.enum';
 
 export interface ResponseModel {
   data: any;

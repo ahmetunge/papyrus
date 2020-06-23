@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
-import { PhotoModel } from '../_models/photo.model';
+import { PhotoModel } from '../shared/models/photo.model';
 import { environment } from 'src/environments/environment';
 
 @Component({

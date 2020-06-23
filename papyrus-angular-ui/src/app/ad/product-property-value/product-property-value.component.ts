@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PropertyModel } from 'src/app/_models/property.model';
-import { PropertyType } from 'src/app/_enums/propertyType.enum';
-import { ProductPropertyValueModel } from 'src/app/_models/productPropertyValue.model';
+import { PropertyModel } from 'src/app/shared/models/property.model';
+import { PropertyType } from 'src/app/shared/enums/PropertyType.enum';
+import { ProductPropertyValueModel } from 'src/app/shared/models/productPropertyValue.model';
 
 
 @Component({
