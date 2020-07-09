@@ -43,7 +43,7 @@ namespace Papyrus.Business.Concrete
 
             Ad ad = _mapper.Map<Ad>(adForCreation);
             ad.MemberId = memberId;
-            
+
             ad.UserAndDateForCreation();
 
             _adRepository.Add(ad);
@@ -53,9 +53,9 @@ namespace Papyrus.Business.Concrete
 
         }
 
-        public async Task<IDataResult<AdForDetailDto>> GetAdDetails(Guid adId)
+        public async Task<IDataResult<AdForDetailDto>> GetAdDetailsAsync(Guid adId)
         {
-            var adFromDb = await _adRepository.GetAdDetails(adId);
+            var adFromDb = await _adRepository.GetAdDetailsAsync(adId);
 
             if (adFromDb == null)
             {
@@ -81,6 +81,36 @@ namespace Papyrus.Business.Concrete
             var adsToReturn = _mapper.Map<List<MemberAdForListDto>>(ads);
 
             return new SuccessDataResult<List<MemberAdForListDto>>(adsToReturn, HttpStatusCode.OK);
+        }
+
+        public async Task<IDataResult<AdDetailForEditDto>> GetAdDetailsForEditAsync(Guid adId)
+        {
+            var adFromDb = await _adRepository.GetAdDetailsAsync(adId);
+
+            if (adFromDb == null)
+            {
+                return new ErrorDataResult<AdDetailForEditDto>(Messages.AdNotFound, HttpStatusCode.NotFound);
+            }
+
+            AdDetailForEditDto adDetailForEdit = _mapper.Map<AdDetailForEditDto>(adFromDb);
+
+            return new SuccessDataResult<AdDetailForEditDto>(adDetailForEdit, HttpStatusCode.OK);
+        }
+
+        public async Task<IResult> EditAsync(AdForCreationDto adForCreation, Guid adId)
+        {
+            var adFromDb = await _adRepository.GetAdDetailsAsync(adId);
+
+            if (adFromDb == null)
+            {
+                return new ErrorDataResult<AdForDetailDto>(Messages.AdNotFound, HttpStatusCode.NotFound);
+            }
+
+            var adToUpdate = _mapper.Map<AdForCreationDto, Ad>(adForCreation, adFromDb);
+
+            await _unitOfWork.CompleteAsync();
+
+            return new SuccessResult(Messages.AdUpdated, HttpStatusCode.NoContent);
         }
     }
 }

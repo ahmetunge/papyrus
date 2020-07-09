@@ -31,6 +31,11 @@ const adRoutes: Routes = [
           component: AdDetailComponent,
           resolve: { adDetailResolve: AdDetailResolver }
         },
+        {
+          path: ':id/edit',
+          component: AdEditComponent,
+          resolve: { categoryListResolve: CategoryListResolver }
+        }
 
       ]
   }

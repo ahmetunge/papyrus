@@ -27,6 +27,10 @@ namespace Papyrus.Business.Mapping.AutoMapper
             .ForMember(a => a.ProductPropertyValues,
             opt => opt.MapFrom(dest => dest.Product.ProductPropertyValues)
             );
+
+            CreateMap<ProductPropertyValue, ProductPropertyValueDetailForEditDto>();
+            CreateMap<Product, ProductDetailForEditDto>();
+            CreateMap<Ad, AdDetailForEditDto>();
         }
     }
 }

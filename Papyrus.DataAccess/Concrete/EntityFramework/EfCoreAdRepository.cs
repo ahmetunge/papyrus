@@ -15,7 +15,7 @@ namespace Papyrus.DataAccess.Concrete.EntityFramework
             _context = context;
         }
 
-        public async Task<Ad> GetAdDetails(Guid adId)
+        public async Task<Ad> GetAdDetailsAsync(Guid adId)
         {
             return await _context.Ads
             .Include(a => a.Category)

@@ -37,7 +37,7 @@ namespace Papyrus.Api.Controllers
         [HttpGet("{adId}")]
         public async Task<IActionResult> GetAdDetail(Guid memberId, Guid adId)
         {
-            var result = await _adService.GetAdDetails(adId);
+            var result = await _adService.GetAdDetailsAsync(adId);
 
             if (result.Success)
             {

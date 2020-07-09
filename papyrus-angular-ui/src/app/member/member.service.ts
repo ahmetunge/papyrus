@@ -11,8 +11,6 @@ export class MemberService {
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  addAd(memberId: string, ad: AdModel) {
-    return this.http.post(this.baseUrl + 'members/' + memberId + '/ads', ad);
-  }
+
 
 }

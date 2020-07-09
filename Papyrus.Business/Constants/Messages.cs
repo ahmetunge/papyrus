@@ -51,5 +51,7 @@ namespace Papyrus.Business.Constants
         public static string InternalServerError = "Internal server error";
 
         public static string AdNotFound = "Ad not found";
+
+        public static string AdUpdated = "Ad is updated";
     }
 }

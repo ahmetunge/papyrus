@@ -60,12 +60,12 @@ namespace Papyrus.Business.Tests
 
             Ad ad = null;
 
-            _mockAdRepository.Setup(mr => mr.GetAdDetails(It.IsAny<Guid>()))
+            _mockAdRepository.Setup(mr => mr.GetAdDetailsAsync(It.IsAny<Guid>()))
             .ReturnsAsync(ad);
 
             AdManager adManager = new AdManager(_mockAdRepository.Object, _mockMapper.Object, _mockUnitOfWork.Object);
 
-            var result = await adManager.GetAdDetails(new Guid());
+            var result = await adManager.GetAdDetailsAsync(new Guid());
 
             Assert.True(result.Success == false);
             Assert.True(result.StatusCode == HttpStatusCode.NotFound);
@@ -86,12 +86,12 @@ namespace Papyrus.Business.Tests
                 }
             };
 
-            _mockAdRepository.Setup(ar => ar.GetAdDetails(It.IsAny<Guid>()))
+            _mockAdRepository.Setup(ar => ar.GetAdDetailsAsync(It.IsAny<Guid>()))
             .ReturnsAsync(ad);
 
             AdManager adManager = new AdManager(_mockAdRepository.Object, _mockMapper.Object, _mockUnitOfWork.Object);
 
-            var result = await adManager.GetAdDetails(new Guid());
+            var result = await adManager.GetAdDetailsAsync(new Guid());
 
             Assert.True(result.Success);
             Assert.True(result.StatusCode == HttpStatusCode.OK);
